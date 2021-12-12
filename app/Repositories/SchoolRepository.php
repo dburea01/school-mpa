@@ -10,10 +10,10 @@ class SchoolRepository
 {
     public function all($request)
     {
-        $query = School::query();
+        $query = School::orderBy('name');
 
-        if (\array_key_exists('name', $request)) {
-            $query->where('name', 'ilike', '%'.$request['name'].'%');
+        if (\array_key_exists('school_name', $request)) {
+            $query->where('name', 'ilike', '%'.$request['school_name'].'%');
         }
 
         if (\array_key_exists('city', $request)) {

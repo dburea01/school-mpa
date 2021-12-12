@@ -26,7 +26,9 @@ class SchoolController extends Controller
     {
         $schools = $this->schoolRepository->all($request->all());
         return view('schools.schools', [
-            'schools' => $schools
+            'schools' => $schools,
+            'school_name' => $request->query('school_name', ''),
+            'city' => $request->query('city', '')
         ]);
     }
 
