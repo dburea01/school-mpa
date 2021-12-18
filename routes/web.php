@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SchoolController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-Route::resource('schools', SchoolController::class);
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/home_connected', function () {
+        return view('home_connected');
+    })->name('home_connected');
+    Route::resource('schools', SchoolController::class)->whereUuid('school');
+});

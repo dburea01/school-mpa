@@ -31,9 +31,14 @@
                 <div class="hamburger">
                     <a href="#" aria-label="hamburger button"><i class="bi bi-list"></i></a>
                 </div>
-                <span class="text-truncate navbartitle">Ecole Sainte Marie</span>
-                <form style="display: inline" action="http://example.com/" method="get">
 
+                @php
+                $school = App\Models\School::find(Auth::user()->school_id);
+                @endphp
+                <span class="text-truncate navbartitle">{{ $school ? $school->name : '' }}</span>
+
+
+                <form style="display: inline" action="http://example.com/" method="get">
 
                     <div class="dropdown">
                         <button class="btn dropdown-toggle btn-sm dropdown-flag" type="button" id="dropdownMenuButton1"
@@ -45,7 +50,6 @@
                             <li><a class="dropdown-item" href="#"><img src="img/flag_fr.png" alt="en"> Français</a></li>
                         </ul>
                     </div>
-
 
                 </form>
             </div>
@@ -65,20 +69,26 @@
                     alt="profile_picture">
                 -->
                 <i class="bi bi-person-circle profile-icon"></i>
-                <h1 class="text-truncate">Dom Dom Dom</h1>
-                <p>Enseignant</p>
+                <h1 class="text-truncate">{{ Auth::user()->full_name }}</h1>
+                <p>{{ Auth::user()->role_id }}</p>
             </div>
             <ul>
                 <li>
-                    <a href="#" class="active">
+                    <a href="/logout">
+                        <span class="icon"><i class="bi bi-box-arrow-left"></i></span>
+                        <span class="item">Logout</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="home_connected" @if (url()->current() === route('home_connected')) class="active" @endif>
                         <span class="icon"><i class="bi bi-house"></i></span>
                         <span class="item">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <span class="icon"><i class="bi bi-speedometer2"></i></span>
-                        <span class="item">My Dashboard</span>
+                    <a href="/schools" @if (url()->current() === route('schools.index')) class="active" @endif>
+                        <span class="icon"><i class="bi bi-building"></i></span>
+                        <span class="item">Schools</span>
                     </a>
                 </li>
                 <li>

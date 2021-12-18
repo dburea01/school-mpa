@@ -25,6 +25,7 @@ class SchoolController extends Controller
     public function index(Request $request)
     {
         $schools = $this->schoolRepository->all($request->all());
+       
         return view('schools.schools', [
             'schools' => $schools,
             'school_name' => $request->query('school_name', ''),
