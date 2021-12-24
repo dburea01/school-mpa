@@ -24,9 +24,11 @@ class SchoolFactory extends Factory
     {
         return [
             'name' => 'Ecole ' . $this->faker->word,
+            'address1' => $this->faker->streetAddress(),
             'zip_code' => $this->faker->postcode,
             'city' => $this->faker->city,
             'country_id' => 'FR',
+            'comment' => $this->faker->sentence(),
             //'school_type_id' => 'LYCEE',
             //'school_status' => 'ACTIVE',
             'max_users' => random_int(10, 100),

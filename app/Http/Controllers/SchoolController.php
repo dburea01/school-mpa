@@ -40,9 +40,12 @@ class SchoolController extends Controller
      */
     public function create()
     {
-        //
-    }
+        $school = new School();
 
+        return view('schools.school_form', [
+            'school' => $school,
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -73,7 +76,9 @@ class SchoolController extends Controller
      */
     public function edit(School $school)
     {
-        //
+        return view('schools.school_form', [
+            'school' => $school,
+        ]);
     }
 
     /**

@@ -2,8 +2,9 @@
 
 @section('content')
 
-<h1 class="text-center">Schools list <button class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"></i>
-        Add</button></h1>
+<h1 class="text-center">Schools list <a href="/schools/create" class="btn btn-primary btn-sm"><i
+            class="bi bi-plus-circle"></i>
+        Add</a></h1>
 
 <div class="row mt-3 mb-3">
     <form class="row" action="/schools">
@@ -30,15 +31,15 @@
             <tr>
                 <th>Name</th>
                 <th>City</th>
-                <th>max users</th>
+                <th>users / max users</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($schools as $school)
             <tr>
-                <td>{{ $school->name }}</td>
+                <td><a href="/schools/{{ $school->id }}/edit">{{ $school->name }}</a></td>
                 <td>{{ $school->zip_code }} - {{ $school->city }}</td>
-                <td>{{ $school->max_users }}
+                <td>{{ $school->users_count }} / {{ $school->max_users }}
             </tr>
             @endforeach
         </tbody>
