@@ -54,7 +54,12 @@ class SchoolController extends Controller
      */
     public function store(StoreSchoolRequest $request)
     {
-        //
+        try {
+            $school = $this->schoolRepository->insert($request->all());
+            return redirect()->route('schools.index')->with('success', 'School '.$school->name.' created.');
+        } catch (\Throwable $th) {
+            return redirect()->route('schools.index')->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -88,9 +93,14 @@ class SchoolController extends Controller
      * @param  \App\Models\School  $school
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSchoolRequest $request, School $school)
+    public function update(StoreSchoolRequest $request, School $school)
     {
-        //
+        try {
+            $school = $this->schoolRepository->update($school->id, $request->all());
+            return redirect()->route('schools.index')->with('success', 'School '.$school->name.' updated.');
+        } catch (\Throwable $th) {
+            return redirect()->route('schools.index')->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -101,6 +111,11 @@ class SchoolController extends Controller
      */
     public function destroy(School $school)
     {
-        //
+        try {
+            $this->schoolRepository->destroy($school->id);
+            return redirect()->route('schools.index')->with('success', 'School '.$school->name.' deleted.');
+        } catch (\Throwable $th) {
+            return redirect()->route('schools.index')->with('error', $th->getMessage());
+        }
     }
 }

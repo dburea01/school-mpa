@@ -11,6 +11,13 @@ var hamburger = document.querySelector(".hamburger");
 hamburger.addEventListener("click", function () {
   document.querySelector("body").classList.toggle("active");
 });
+var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+var toastList = toastElList.map(function (toastEl) {
+  return new bootstrap.Toast(toastEl); // No need for options; use the default options
+});
+toastList.forEach(function (toast) {
+  return toast.show();
+}); // This show them
 
 /***/ }),
 

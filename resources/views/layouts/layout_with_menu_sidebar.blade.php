@@ -88,7 +88,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/schools" @if (url()->current() === route('schools.index')) class="active" @endif>
+                    <a href="/schools" @if (in_array(request()->route()->getName(), [
+                        'schools.index','schools.create','schools.edit'
+                        ]))
+                        class="active" @endif>
                         <span class="icon"><i class="bi bi-building"></i></span>
                         <span class="item">Schools</span>
                     </a>

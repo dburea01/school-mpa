@@ -1,9 +1,14 @@
 @extends('layouts.layout_with_menu_sidebar')
 
 @section('content')
+<div class="row">
+    <div class="col mx-auto">
+        @include('errors.session-values')
+    </div>
+</div>
 
-<h1 class="text-center">Schools list <a href="/schools/create" class="btn btn-primary btn-sm"><i
-            class="bi bi-plus-circle"></i>
+<h1 class="text-center">Schools list ({{$schools->total()}})&nbsp;<a href="/schools/create"
+        class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"></i>
         Add</a></h1>
 
 <div class="row mt-3 mb-3">

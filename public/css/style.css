@@ -157,3 +157,7 @@ body.active .wrapper .section{
   font-size: 60px;
   color: #f4fbff;
 }
+
+.toast {
+  position: absolute; top:30px; right:30px;
+}

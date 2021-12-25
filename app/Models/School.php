@@ -13,6 +13,18 @@ class School extends Model
 
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'name',
+        'address1',
+        'address2',
+        'address3',
+        'zip_code',
+        'city',
+        'country_id',
+        'max_users',
+        'comment'
+    ];
+
     public function users()
     {
         return $this->hasMany(User::class);

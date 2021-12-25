@@ -1,31 +1,48 @@
 @if(Session::has('success'))
-<div class="alert alert-success alert-dismissible">
-    {{ Session::get('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&nbsp;</button>
-    @php
-    Session::forget('success');
-    @endphp
+
+<div class="toast align-items-center bg-success text-white" role=" alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            {{ Session::get('success') }}
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
 </div>
+
+@php
+Session::forget('success');
+@endphp
 @endif
 
 @if(Session::has('error'))
-<div class="alert alert-danger alert-dismissible">
-    {{ Session::get('error') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&nbsp;</button>
-    @php
-    Session::forget('error');
-    @endphp
+
+<div class="toast align-items-center bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            {{ Session::get('error') }}
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
 </div>
+
+@php
+Session::forget('error');
+@endphp
 @endif
 
 @if(Session::has('warning'))
-<div class="alert alert-warning alert-dismissible">
-    {{ Session::get('warning') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&nbsp;</button>
-    @php
-    Session::forget('warning');
-    @endphp
+<div class="toast align-items-center bg-warning text-white" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            {{ Session::get('warning') }}
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
 </div>
+
+@php
+Session::forget('warning');
+@endphp
 @endif
 
 @if ($errors->any())
