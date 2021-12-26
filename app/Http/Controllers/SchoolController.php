@@ -14,6 +14,7 @@ class SchoolController extends Controller
 
     public function __construct(SchoolRepository $schoolRepository)
     {
+        $this->authorizeResource(School::class);
         $this->schoolRepository = $schoolRepository;
     }
     
@@ -70,7 +71,7 @@ class SchoolController extends Controller
      */
     public function show(School $school)
     {
-        //
+        dd('toto');
     }
 
     /**
@@ -97,7 +98,8 @@ class SchoolController extends Controller
     {
         try {
             $school = $this->schoolRepository->update($school->id, $request->all());
-            return redirect()->route('schools.index')->with('success', 'School '.$school->name.' updated.');
+            // return redirect()->route('schools.index')->with('success', 'School '.$school->name.' updated.');
+            return redirect()->back()->with('success', 'School '.$school->name.' updated.');
         } catch (\Throwable $th) {
             return redirect()->route('schools.index')->with('error', $th->getMessage());
         }

@@ -103,7 +103,7 @@
             </div>
         </div>
 
-
+        @if(Auth::user()->isSuperAdmin())
         <div class="row mb-3">
             <label for="max_users" class="col-sm-2 col-form-label text-truncate">Max users : *</label>
 
@@ -116,7 +116,6 @@
             </div>
         </div>
 
-
         <div class="row mb-3">
             <label for="comment" class="col-sm-2 col-form-label text-truncate">Comment :</label>
 
@@ -128,6 +127,7 @@
                 @endif
             </div>
         </div>
+        @endif
 
         <div class="row mb-3">
             <div class="col-sm-10 offset-sm-2  d-grid gap-2 d-block">

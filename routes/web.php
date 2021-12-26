@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -15,13 +16,13 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/change-locale/{lang}', [HomeController::class, 'changeLocale']);
 
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+
 
 Route::post('/login', [AuthController::class, 'login']);
 

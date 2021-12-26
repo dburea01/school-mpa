@@ -1,7 +1,5 @@
-<!--Design by foolishdeveloper.com-->
-
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="{{ session()->get('locale') }}">
 
 <head>
 
@@ -43,12 +41,24 @@
                     <div class="dropdown">
                         <button class="btn dropdown-toggle btn-sm dropdown-flag" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('img/flag_en.png') }}" alt="en">
+                            @switch(session()->get('locale'))
+                            @case('en')
+                            <img src="{{ asset('img/flag_en.png') }}" alt="en" />
+                            @break
+                            @case('fr')
+                            <img src="{{ asset('img/flag_fr.png') }}" alt="fr" />
+                            @break
+                            @default
+                            <img src="{{ asset('img/flag_en.png') }}" alt="en" />
+                            @endswitch
+
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#"><img src="{{ asset('img/flag_en.png') }}" alt="en">
+                            <li><a class="dropdown-item" href="/change-locale/en"><img
+                                        src="{{ asset('img/flag_en.png') }}" alt="en">
                                     English</a></li>
-                            <li><a class="dropdown-item" href="#"><img src="{{ asset('img/flag_fr.png') }}" alt="fr">
+                            <li><a class="dropdown-item" href="/change-locale/fr"><img
+                                        src="{{ asset('img/flag_fr.png') }}" alt="fr">
                                     Français</a></li>
                         </ul>
                     </div>

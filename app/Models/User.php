@@ -32,6 +32,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function isSuperAdmin()
+    {
+        return $this->role_id === 'SUPERADMIN';
+    }
+    
+    public function isDirector()
+    {
+        return $this->role_id === 'DIRECTOR';
+    }
+    
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StoreSchoolRequest extends FormRequest
 {
@@ -21,7 +23,7 @@ class StoreSchoolRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
             'name' => 'required|max:60',
@@ -31,7 +33,12 @@ class StoreSchoolRequest extends FormRequest
             'city' => 'required|max:60',
             'country_id' => 'required|size:2',
             'zip_code' => 'required|max:10',
-            'max_users' => 'required|int|gt:0'
+            'max_users' => [
+                Rule::requiredIf($request->user()->isSuperAdmin()),
+                'int',
+                'gt:0'
+            ],
+            // 'max_users' => 'required|int|gt:0'
         ];
     }
 }

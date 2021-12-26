@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<h1 class="text-center">Schools list ({{$schools->total()}})&nbsp;<a href="/schools/create"
+<h1 class="text-center">@lang('schools.title') ({{$schools->total()}})&nbsp;<a href="/schools/create"
         class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"></i>
         Add</a></h1>
 
@@ -15,12 +15,12 @@
     <form class="row" action="/schools">
         <div class="col-md-3 col-sm-12">
             <input type="text" class="form-control form-control-sm mr-sm-2" name="school_name" id="school_name"
-                placeholder="Filter by school name" value="{{ $school_name }}">
+                placeholder="@lang('schools.filter_by_school_name')" value="{{ $school_name }}">
         </div>
 
         <div class="col-md-3 col-sm-12">
             <input type="text" class="form-control form-control-sm mr-sm-2" name="city" id="city"
-                placeholder="Filter by city" value="{{ $city }}">
+                placeholder="@lang('schools.filter_by_city')" value="{{ $city }}">
         </div>
 
         <div class="col-md-3 col-sm-12 d-grid gap-2 d-md-block">
@@ -34,9 +34,9 @@
     <table class="table table-sm table-striped table-bordered table-hover">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>City</th>
-                <th>users / max users</th>
+                <th>@lang('schools.name')</th>
+                <th>@lang('schools.city')</th>
+                <th>@lang('schools.users')</th>
             </tr>
         </thead>
         <tbody>
