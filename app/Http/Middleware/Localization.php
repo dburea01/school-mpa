@@ -21,6 +21,11 @@ class Localization
         if (session()->has('locale')) {
             App::setLocale(session()->get('locale'));
         }
+
+        if ($request->hasCookie('locale')) {
+            session()->put('locale', $request->cookie('locale'));
+        }
+        
         return $next($request);
     }
 }

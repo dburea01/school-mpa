@@ -76,75 +76,16 @@
         </div>
         <div class="sidebar">
             <div class="profile">
-                <!--
+                {{--
                 <img src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg"
                     alt="profile_picture">
-                -->
+                --}}
                 <i class="bi bi-person-circle profile-icon"></i>
                 <h1 class="text-truncate">{{ Auth::user()->full_name }}</h1>
-                <p>{{ Auth::user()->role_id }}</p>
+                <p>{{ Auth::user()->role->name }}</p>
             </div>
-            <ul>
-                <li>
-                    <a href="/logout">
-                        <span class="icon"><i class="bi bi-box-arrow-left"></i></span>
-                        <span class="item">Logout</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/home_connected" @if (url()->current() === route('home_connected')) class="active" @endif>
-                        <span class="icon"><i class="bi bi-house"></i></span>
-                        <span class="item">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/schools" @if (in_array(request()->route()->getName(), [
-                        'schools.index','schools.create','schools.edit'
-                        ]))
-                        class="active" @endif>
-                        <span class="icon"><i class="bi bi-building"></i></span>
-                        <span class="item">Schools</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="bi bi-people-fill"></i></span>
-                        <span class="item">People</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="bi bi-book"></i></span>
-                        <span class="item">Performance</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="bi bi-boxes"></i></span>
-                        <span class="item">Development</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="bi bi-flag"></i></span>
-                        <span class="item">Reports</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="bi bi-ticket"></i></span>
-                        <span class="item">Ticket</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="bi bi-sliders"></i></span>
-                        <span class="item">Settings</span>
-                    </a>
-                </li>
+            @include('layouts.menu')
 
-
-            </ul>
         </div>
 
 

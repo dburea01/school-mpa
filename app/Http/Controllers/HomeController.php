@@ -25,7 +25,7 @@ class HomeController extends Controller
         App::setLocale($locale);
         session()->put('locale', $locale);
 
-        return redirect()->back();
+        return redirect()->back()->cookie('locale', $locale);
         // return redirect('/');
     }
 }

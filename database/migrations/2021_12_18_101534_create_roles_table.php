@@ -16,17 +16,46 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('name');
+            $table->json('name');
             $table->tinyInteger('position');
             $table->boolean('displayable')->default(false);
             $table->timestamps();
         });
 
-        Role::insert(['id' => 'TEACHER', 'name' => 'Teacher', 'position' => 10, 'displayable' => true]);
-        Role::insert(['id' => 'STUDENT', 'name' => 'Student', 'position' => 20, 'displayable' => true]);
-        Role::insert(['id' => 'PARENT', 'name' => 'Parent', 'position' => 30, 'displayable' => true]);
-        Role::insert(['id' => 'DIRECTOR', 'name' => 'Director', 'position' => 40, 'displayable' => true]);
-        Role::insert(['id' => 'SUPERADMIN', 'name' => 'Super Administrator', 'position' => 50, 'displayable' => false]);
+        $role = new Role();
+        $role->id = 'TEACHER';
+        $role->position = 10;
+        $role->displayable = true;
+        $role->name = ['en' => 'Teacher', 'fr' => 'Enseignant'];
+        $role->save();
+
+        $role = new Role();
+        $role->id = 'STUDENT';
+        $role->position = 20;
+        $role->displayable = true;
+        $role->name = ['en' => 'Student', 'fr' => 'Etudiant'];
+        $role->save();
+
+        $role = new Role();
+        $role->id = 'PARENT';
+        $role->position = 30;
+        $role->displayable = true;
+        $role->name = ['en' => 'Parent', 'fr' => 'Parent'];
+        $role->save();
+
+        $role = new Role();
+        $role->id = 'DIRECTOR';
+        $role->position = 40;
+        $role->displayable = true;
+        $role->name = ['en' => 'Director', 'fr' => 'Directeur'];
+        $role->save();
+
+        $role = new Role();
+        $role->id = 'SUPERADMIN';
+        $role->position = 50;
+        $role->displayable = false;
+        $role->name = ['en' => 'Super Administrator', 'fr' => 'Super Administrateur'];
+        $role->save();
     }
 
     /**
