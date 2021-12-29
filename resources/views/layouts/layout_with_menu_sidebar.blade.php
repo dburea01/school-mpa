@@ -92,7 +92,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="home_connected" @if (url()->current() === route('home_connected')) class="active" @endif>
+                    <a href="/home_connected" @if (url()->current() === route('home_connected')) class="active" @endif>
                         <span class="icon"><i class="bi bi-house"></i></span>
                         <span class="item">Home</span>
                     </a>
