@@ -2,7 +2,7 @@
 
 @section('content')
 
-<p>WELCOME</p>
+<p>@lang('home_connected.welcome')</p>
 
 
 @endsection
