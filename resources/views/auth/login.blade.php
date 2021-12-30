@@ -7,7 +7,16 @@
 <div class="col-md-4 offset-md-4 mt-5">
 
 
-    @include('errors.session-values')
+    @if(Session::has('error'))
+
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        {{ Session::get('error') }}
+    </div>
+
+    @php
+    Session::forget('error');
+    @endphp
+    @endif
 
     <form action="/login" method="POST">
         @csrf

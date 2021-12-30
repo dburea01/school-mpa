@@ -22,7 +22,7 @@ class AuthController extends Controller
         if (Auth::attempt([
             'email' => $request->email,
             'password' => $request->password,
-            'status' => 'VALIDATED',
+            'status' => 'ACTIVE',
         ], $request->has('remember_me'))) {
             $request->session()->regenerate();
             

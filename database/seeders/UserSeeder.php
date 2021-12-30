@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
             User::factory()->create([
                 'school_id' => $school->id,
                 'role_id' => 'DIRECTOR',
+                'status' => 'ACTIVE'
             ]);
 
             User::factory()->count(random_int(1, 50))->create([

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -32,4 +33,5 @@ Route::middleware(['auth'])->group(function () {
         return view('home_connected');
     })->name('home_connected');
     Route::resource('schools', SchoolController::class)->whereUuid('school');
+    Route::resource('schools.users', UserController::class)->scoped()->whereUuid(['school', 'user']);
 });

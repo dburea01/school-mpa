@@ -42,6 +42,7 @@ class SchoolController extends Controller
     public function create()
     {
         $school = new School();
+        $school->status="INACTIVE";
 
         return view('schools.school_form', [
             'school' => $school,
@@ -71,7 +72,7 @@ class SchoolController extends Controller
      */
     public function show(School $school)
     {
-        dd('toto');
+        dd('show');
     }
 
     /**

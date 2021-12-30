@@ -22,11 +22,17 @@ class School extends Model
         'city',
         'country_id',
         'max_users',
-        'comment'
+        'comment',
+        'status'
     ];
 
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function setCountryIdAttribute($value)
+    {
+        $this->attributes['country_id'] = strtoupper($value);
     }
 }

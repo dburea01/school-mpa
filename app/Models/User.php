@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,9 +18,13 @@ class User extends Authenticatable
     protected $keyType = 'string';
     
     protected $fillable = [
-        'name',
+        'last_name',
+        'first_name',
+        'birth_date',
+        'comment',
         'email',
         'password',
+        'status'
     ];
 
     /**
@@ -44,11 +49,31 @@ class User extends Authenticatable
     
     public function getFullNameAttribute()
     {
-        return "{$this->first_name} {$this->last_name}";
+        return "{$this->last_name} {$this->first_name}";
+    }
+
+    public function getBirthDateAttribute($value)
+    {
+        return $value ? Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y') : null;
+    }
+    
+    public function setLastNameAttribute($value)
+    {
+        $this->attributes['last_name'] = strtoupper($value);
+    }
+
+    public function setFirstNameAttribute($value)
+    {
+        $this->attributes['first_name'] = ucwords($value);
     }
 
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class);
     }
 }

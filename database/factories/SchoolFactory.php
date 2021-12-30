@@ -32,6 +32,7 @@ class SchoolFactory extends Factory
             //'school_type_id' => 'LYCEE',
             //'school_status' => 'ACTIVE',
             'max_users' => random_int(10, 100),
+            'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
             'created_by' => 'factory',
         ];
     }

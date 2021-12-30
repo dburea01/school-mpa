@@ -24,11 +24,15 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'status' => 'VALIDATED',
+            'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail,
-            'password' => Hash::make('azerty')
+            'password' => Hash::make('azerty'),
+            'birth_date' => $this->faker->date(),
+            'genre_id' => $this->faker->randomElement(['1', '2']),
+            'comment' => $this->faker->paragraphs(3, true),
+            'created_by' => 'factory'
             // 'email_verified_at' => $this->faker->dateTimeThisYear()
         ];
     }

@@ -69,8 +69,8 @@
             <label for="country_id" class="col-sm-2 col-form-label text-truncate">Country : *</label>
 
             <div class="col-sm-2">
-                <input type="text" class="form-control @error('country_id') is-invalid @enderror" required
-                    name="country_id" id="country_id" maxlength="2"
+                <input type="text" class="form-control @error('country_id') is-invalid @enderror text-uppercase"
+                    required name="country_id" id="country_id" maxlength="2"
                     value="{{ old('country_id', $school->country_id) }}" />
                 @if ($errors->has('country_id'))
                 <span class="text-danger">{{ $errors->first('country_id') }}</span>
@@ -112,6 +112,17 @@
                     name="max_users" min="0" id="max_users" value="{{ old('max_users', $school->max_users) }}" />
                 @if ($errors->has('max_users'))
                 <span class="text-danger">{{ $errors->first('max_users') }}</span>
+                @endif
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="status" class="col-sm-2 col-form-label">Status : *</label>
+
+            <div class="col-sm-2">
+                <x-select-school-status name="status" id="status" required="true" :status="$school->status" />
+                @if ($errors->has('status'))
+                <span class="text-danger">{{ $errors->first('status') }}</span>
                 @endif
             </div>
         </div>

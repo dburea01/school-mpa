@@ -35,6 +35,7 @@
         <thead>
             <tr>
                 <th>@lang('schools.name')</th>
+                <th>@lang('schools.status')</th>
                 <th>@lang('schools.city')</th>
                 <th>@lang('schools.users')</th>
             </tr>
@@ -43,6 +44,7 @@
             @foreach ($schools as $school)
             <tr>
                 <td><a href="/schools/{{ $school->id }}/edit">{{ $school->name }}</a></td>
+                <td @if($school->status === 'INACTIVE') class="table-danger" @endif>{{ $school->status }}</td>
                 <td>{{ $school->zip_code }} - {{ $school->city }}</td>
                 <td>{{ $school->users_count }} / {{ $school->max_users }}
             </tr>

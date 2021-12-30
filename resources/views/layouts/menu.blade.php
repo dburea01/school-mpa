@@ -35,7 +35,7 @@
     </li>
 
     <li>
-        <a href="#">
+        <a href="/schools/{{ Auth::user()->school_id }}/users">
             <span class="icon"><i class="bi bi-people-fill"></i></span>
             <span class="item">@lang('menu.users')</span>
         </a>
