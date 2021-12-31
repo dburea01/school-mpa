@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\School;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class UserController extends Controller
 {
@@ -44,7 +45,7 @@ class UserController extends Controller
     public function create(School $school)
     {
         $user = new User();
-        $user->status="INACTIVE";
+        $user->status="ACTIVE";
         $user->role_id = "STUDENT";
 
         return view('users.user_form', [
@@ -59,13 +60,13 @@ class UserController extends Controller
      * @param  \App\Http\Requests\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request, School $school, User $user)
+    public function store(StoreUserRequest $request, School $school)
     {
         try {
-            $this->userRepository->insert($request->all());
+            $user = $this->userRepository->insert($school->id, $request->all());
             return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' created.');
         } catch (\Throwable $th) {
-            return redirect('/schools/'.$school->id.'/users')->with('error', $th->getMessage());
+            return back()->with('error', $th->getMessage());
         }
     }
 
@@ -107,7 +108,7 @@ class UserController extends Controller
             $this->userRepository->update($user, $request->all());
             return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' updated.');
         } catch (\Throwable $th) {
-            return redirect('/schools/'.$school->id.'/users')->with('error', $th->getMessage());
+            return back()->with('error', $th->getMessage());
         }
     }
 
@@ -117,8 +118,13 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(School $school, User $user)
     {
-        //
+        try {
+            $this->userRepository->destroy($user);
+            return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' deleted.');
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
     }
 }

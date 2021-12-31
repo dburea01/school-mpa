@@ -46,7 +46,19 @@
                 <td><a href="/schools/{{ $school->id }}/edit">{{ $school->name }}</a></td>
                 <td @if($school->status === 'INACTIVE') class="table-danger" @endif>{{ $school->status }}</td>
                 <td>{{ $school->zip_code }} - {{ $school->city }}</td>
-                <td>{{ $school->users_count }} / {{ $school->max_users }}
+                <td>
+                    <a href="/schools/{{ $school->id }}/users">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: {{ 100 * $school->users_count/$school->max_users }}%;"
+                                aria-valuenow="{{ 100 * $school->users_count / $school->max_users }}" aria-valuemin="0"
+                                aria-valuemax="100">{{ $school->users_count }}/{{ $school->max_users }} ({{
+                                floor(100 *
+                                $school->users_count / $school->max_users) }}%)
+                            </div>
+                        </div>
+                    </a>
+                </td>
             </tr>
             @endforeach
         </tbody>

@@ -9,18 +9,18 @@ class SelectUserGenre extends Component
     public $name;
     public $id;
     public $required;
-    public $genre_id;
+    public $value;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $id, $required, $genre_id)
+    public function __construct($name, $id, $required, $value)
     {
         $this->name = $name;
         $this->id = $id;
         $this->required = $required;
-        $this->genre_id = $genre_id;
+        $this->value = $value;
     }
 
     /**

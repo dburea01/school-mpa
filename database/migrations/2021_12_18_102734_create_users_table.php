@@ -22,11 +22,11 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('first_name');
             $table->string('genre_id', 1)->nullable();
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->date('birth_date')->nullable();
             $table->text('comment')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->string('created_by');
             $table->string('updated_by')->nullable();

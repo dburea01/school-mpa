@@ -24,11 +24,13 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
+            'role_id' => 'required|exists:roles,id',
             'first_name' => 'required',
             'last_name' => 'required',
             'birth_date' => 'required|date_format:d/m/Y',
             'email' => 'email',
-            'status' => 'required|in:ACTIVE,INACTIVE'
+            'status' => 'required|in:ACTIVE,INACTIVE',
+            'genre_id' => 'in:1,2'
         ];
     }
 }

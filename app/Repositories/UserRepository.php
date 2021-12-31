@@ -57,14 +57,15 @@ class UserRepository
         return $user;
     }
 
-    public function destroy($schoolId): void
+    public function destroy(User $user): void
     {
-        School::destroy($schoolId);
+        $user->delete();
     }
 
-    public function insert($userData)
+    public function insert($school_id, $userData)
     {
         $user = new User();
+        $user->school_id = $school_id;
         $user->fill($userData);
         $user->save();
 

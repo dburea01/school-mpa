@@ -35,7 +35,10 @@
     </li>
 
     <li>
-        <a href="/schools/{{ Auth::user()->school_id }}/users">
+        <a href="/schools/{{ Auth::user()->school_id }}/users" @if (in_array(request()->route()->getName(), [
+            'schools.users.index','schools.users.create','schools.users.edit'
+            ]))
+            class="active" @endif>
             <span class="icon"><i class="bi bi-people-fill"></i></span>
             <span class="item">@lang('menu.users')</span>
         </a>
