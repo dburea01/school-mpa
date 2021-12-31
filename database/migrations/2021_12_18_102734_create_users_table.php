@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('role_id');
             $table->string('last_name');
             $table->string('first_name');
-            $table->string('genre_id', 1)->nullable();
+            $table->string('gender_id', 1)->nullable();
             $table->string('email')->nullable();
             $table->date('birth_date')->nullable();
             $table->text('comment')->nullable();

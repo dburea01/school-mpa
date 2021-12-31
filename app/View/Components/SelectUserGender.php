@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class SelectUserGenre extends Component
+class SelectUserGender extends Component
 {
     public $name;
     public $id;
@@ -30,6 +30,6 @@ class SelectUserGenre extends Component
      */
     public function render()
     {
-        return view('components.select-user-genre');
+        return view('components.select-user-gender');
     }
 }

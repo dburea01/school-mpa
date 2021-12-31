@@ -30,7 +30,7 @@ class StoreUserRequest extends FormRequest
             'birth_date' => 'required|date_format:d/m/Y',
             'email' => 'email',
             'status' => 'required|in:ACTIVE,INACTIVE',
-            'genre_id' => 'in:1,2'
+            'gender_id' => 'in:1,2'
         ];
     }
 }

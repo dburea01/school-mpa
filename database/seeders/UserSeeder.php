@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'school_id' => null,
             'role_id' => 'SUPERADMIN',
+            'status' => 'ACTIVE'
         ]);
 
         $schools = School::all();

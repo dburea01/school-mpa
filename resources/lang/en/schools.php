@@ -5,7 +5,7 @@ return [
 
     'title' => 'Schools list',
     'name' => 'Name',
-    'status' => 'Status',
+    'school_inactive' => 'inactive school',
     'city' => 'City',
     'users' => 'users / max users',
     'add' => 'Add',

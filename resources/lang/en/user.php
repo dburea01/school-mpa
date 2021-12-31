@@ -7,7 +7,7 @@ return [
     'first_name' => 'First name',
     'birth_date' => 'Birth date',
     'email' => 'Email address',
-    'genre_id' => 'Genre',
+    'gender_id' => 'Genre',
     'status' => 'Status',
     'comment' => 'Comment',
     'save' => 'Save user',

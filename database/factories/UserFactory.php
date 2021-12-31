@@ -29,8 +29,8 @@ class UserFactory extends Factory
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail,
             'password' => Hash::make('azerty'),
-            'birth_date' => $this->faker->date(),
-            'genre_id' => $this->faker->randomElement(['1', '2']),
+            'birth_date' => $this->faker->date('d/m/Y'),
+            'gender_id' => $this->faker->randomElement(['1', '2']),
             'comment' => $this->faker->paragraphs(3, true),
             'created_by' => 'factory'
             // 'email_verified_at' => $this->faker->dateTimeThisYear()

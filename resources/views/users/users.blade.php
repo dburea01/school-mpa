@@ -36,15 +36,19 @@
             <tr>
                 <th>@lang('users.name')</th>
                 <th>@lang('users.role')</th>
-                <th>@lang('users.status')</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($users as $user)
             <tr>
-                <td><a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{ $user->full_name }}</a></td>
+                <td>
+                    <a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{
+                        $user->full_name }}</a>
+                    @if ($user->status === 'INACTIVE')
+                    <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('users.user_inactive')"></i>
+                    @endif
+                </td>
                 <td>{{ $user->role->name }}</td>
-                <td @if($user->status === 'INACTIVE') class="table-danger" @endif>{{ $user->status }}</td>
             </tr>
             @endforeach
         </tbody>

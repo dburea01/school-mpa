@@ -93,12 +93,12 @@
 
 
         <div class="row mb-3">
-            <label for="genre_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.genre_id') : *</label>
+            <label for="gender_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.gender_id') : *</label>
 
             <div class="col-sm-2">
-                <x-select-user-genre name="genre_id" id="genre_id" required="true" :value="$user->genre_id" />
-                @if ($errors->has('genre_id'))
-                <span class="text-danger">{{ $errors->first('genre_id') }}</span>
+                <x-select-user-gender name="gender_id" id="gender_id" required="true" :value="$user->gender_id" />
+                @if ($errors->has('gender_id'))
+                <span class="text-danger">{{ $errors->first('gender_id') }}</span>
                 @endif
             </div>
         </div>
