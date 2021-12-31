@@ -58,6 +58,11 @@ class User extends Authenticatable
     {
         return $value ? Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y') : null;
     }
+
+    public function setBirthDateAttribute($value)
+    {
+        $this->attributes['birth_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }
     
     public function setLastNameAttribute($value)
     {

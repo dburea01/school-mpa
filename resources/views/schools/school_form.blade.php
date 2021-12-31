@@ -145,10 +145,10 @@
 
         <div class="row mb-3">
             <div class="col-sm-10 offset-sm-2  d-grid gap-2 d-block">
-                <button type="submit" class="btn btn-success">OK</button>
+                <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2"></i> OK</button>
                 @if ($school->id)
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                    data-bs-target="#modalDeleteSchool">Delete</button>
+                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#modalDeleteSchool"><i class="bi bi-trash"></i> Delete</button>
                 @endif
             </div>
         </div>
@@ -169,8 +169,10 @@
                     <form class="form-inline" method="POST" action="/schools/{{$school->id}}">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-danger ml-3">Delete</button>
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-chevron-left"></i> Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-danger ml-3"><i class="bi bi-trash"></i>
+                            Delete</button>
                     </form>
                 </div>
             </div>
