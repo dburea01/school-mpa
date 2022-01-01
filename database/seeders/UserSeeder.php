@@ -36,23 +36,25 @@ class UserSeeder extends Seeder
                 'school_id' => $school->id,
                 'role_id' => 'TEACHER',
             ]);
-        }
 
-        // for each groups, create 2 parents + some students
-        $groups = Group::all();
+            // for each groups, create 2 parents + some students
+            $groups = Group::where('school_id', $school->id)->get();
 
-        foreach ($groups as $group) {
-            User::factory()->count(2)->create([
-                'school_id' => $school->id,
-                'role_id' => 'PARENT',
-                'group_id' => $group->id
-            ]);
+            foreach ($groups as $group) {
+                User::factory()->count(2)->create([
+                    'school_id' => $school->id,
+                    'role_id' => 'PARENT',
+                    'group_id' => $group->id,
+                    'last_name' => $group->name
+                ]);
 
-            User::factory()->count(random_int(1, 3))->create([
-                'school_id' => $school->id,
-                'role_id' => 'STUDENT',
-                'group_id' => $group->id
-            ]);
+                User::factory()->count(random_int(1, 3))->create([
+                    'school_id' => $school->id,
+                    'role_id' => 'STUDENT',
+                    'group_id' => $group->id,
+                    'last_name' => $group->name
+                ]);
+            }
         }
     }
 }

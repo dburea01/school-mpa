@@ -26,13 +26,20 @@ class School extends Model
         'status'
     ];
 
+    
+
+    public function setCountryIdAttribute($value)
+    {
+        $this->attributes['country_id'] = strtoupper($value);
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);
     }
 
-    public function setCountryIdAttribute($value)
+    public function groups()
     {
-        $this->attributes['country_id'] = strtoupper($value);
+        return $this->hasMany(Group::class);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
@@ -34,4 +35,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('home_connected');
     Route::resource('schools', SchoolController::class)->whereUuid('school');
     Route::resource('schools.users', UserController::class)->scoped()->whereUuid(['school', 'user']);
+
+    // routes for the groups
+    Route::get('schools/{school}/groups', [GroupController::class, 'index'])->whereUuid(['school']);
 });

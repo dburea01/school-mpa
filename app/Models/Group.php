@@ -31,6 +31,11 @@ class Group extends Model
         return $this->hasMany(User::class);
     }
 
+    public function school()
+    {
+        return $this->belongsTo(School::class);
+    }
+
     public function setCountryIdAttribute($value)
     {
         $this->attributes['country_id'] = strtoupper($value);
