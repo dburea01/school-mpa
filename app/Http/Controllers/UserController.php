@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Models\Group;
 use App\Models\School;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\TryCatch;
 
 class UserController extends Controller
 {
@@ -126,5 +125,16 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
+    }
+
+    public function usersOfAGroup(School $school, Group $group)
+    {
+        $users = $this->userRepository->usersOfAGroup($school->id, $group->id);
+
+        return view('users.users_of_a_group', [
+            'school' => $school,
+            'group' => $group,
+            'users' => $users
+        ]);
     }
 }

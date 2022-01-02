@@ -10,10 +10,14 @@ class GroupRepository
 {
     public function all($school_id, $request)
     {
-        $groupsQuery = Group::where('school_id', $school_id)->orderBy('name');
+        $groupsQuery = Group::where('school_id', $school_id)->withCount('users')->orderBy('name');
 
-        if (array_key_exists('name', $request) && $request['name'] !== null && strlen($request['name']) > 1) {
-            $groupsQuery->where('name', $request['name']);
+        if (array_key_exists('group_name', $request) && $request['group_name'] !== null && strlen($request['group_name']) > 1) {
+            $groupsQuery->where('name', 'ilike', '%'.$request['group_name'].'%');
+        }
+
+        if (array_key_exists('group_city', $request) && $request['group_city'] !== null && strlen($request['group_city']) > 1) {
+            $groupsQuery->where('city', 'ilike', '%'.$request['group_city'].'%');
         }
 
         return $groupsQuery->paginate(10);
@@ -36,13 +40,13 @@ class GroupRepository
         $group->delete();
     }
 
-    public function insert($school_id, $userData)
+    public function insert($school_id, $groupData)
     {
-        $user = new User();
-        $user->school_id = $school_id;
-        $user->fill($userData);
-        $user->save();
+        $group = new Group();
+        $group->school_id = $school_id;
+        $group->fill($groupData);
+        $group->save();
 
-        return $user;
+        return $group;
     }
 }

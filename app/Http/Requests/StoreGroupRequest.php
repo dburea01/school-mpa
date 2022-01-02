@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StoreGroupRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreGroupRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +23,20 @@ class StoreGroupRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
-            //
+            'name' => 'required|max:60',
+            'address1' => 'required|max:60',
+            'address2' => 'max:60',
+            'address3' => 'max:60',
+            'city' => 'required|max:60',
+            'country_id' => 'required|size:2',
+            'zip_code' => 'required|max:10',
+            'status' => [
+                Rule::requiredIf($request->user()->isSuperAdmin()),
+                'in:ACTIVE,INACTIVE'
+            ]
         ];
     }
 }

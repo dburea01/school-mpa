@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Http\Requests\StoreGroupRequest;
-use App\Http\Requests\UpdateGroupRequest;
 use App\Models\School;
 use App\Repositories\GroupRepository;
-use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
@@ -15,6 +14,7 @@ class GroupController extends Controller
 
     public function __construct(GroupRepository $groupRepository)
     {
+        $this->authorizeResource(Group::class);
         $this->groupRepository = $groupRepository;
     }
 
@@ -28,7 +28,10 @@ class GroupController extends Controller
         $groups = $this->groupRepository->all($school->id, $request->all());
 
         return view('groups.groups', [
-            'groups' => $groups
+            'school' => $school,
+            'groups' => $groups,
+            'group_name' => $request->query('group_name', ''),
+            'group_city' => $request->query('group_city')
         ]);
     }
 
@@ -37,9 +40,15 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(School $school)
     {
-        //
+        $group = new Group();
+        $group->status="INACTIVE";
+
+        return view('groups.group_form', [
+            'school' => $school,
+            'group' => $group,
+        ]);
     }
 
     /**
@@ -48,9 +57,14 @@ class GroupController extends Controller
      * @param  \App\Http\Requests\StoreGroupRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreGroupRequest $request)
+    public function store(StoreGroupRequest $request, School $school)
     {
-        //
+        try {
+            $group = $this->groupRepository->insert($school->id, $request->all());
+            return redirect('schools/'.$school->id.'/groups')->with('success', 'Family '.$group->name.' created.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -70,9 +84,12 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function edit(Group $group)
+    public function edit(School $school, Group $group)
     {
-        //
+        return view('groups.group_form', [
+            'school' => $school,
+            'group' => $group
+        ]);
     }
 
     /**
@@ -82,9 +99,14 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateGroupRequest $request, Group $group)
+    public function update(StoreGroupRequest $request, School $school, Group $group)
     {
-        //
+        try {
+            $group = $this->groupRepository->update($group, $request->all());
+            return redirect('schools/'.$school->id.'/groups')->with('success', 'Family '.$group->name.' updated.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -93,8 +115,13 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Group $group)
+    public function destroy(School $school, Group $group)
     {
-        //
+        try {
+            $this->groupRepository->destroy($group);
+            return redirect('schools/'.$school->id.'/groups')->with('success', 'Family '.$group->name.' deleted.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 }

@@ -71,4 +71,11 @@ class UserRepository
 
         return $user;
     }
+
+    public function usersOfAGroup(string $schoolId, string $groupId)
+    {
+        $users = User::where('school_id', $schoolId)->where('group_id', $groupId)->get();
+
+        return $users;
+    }
 }

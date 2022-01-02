@@ -40,4 +40,9 @@ class Group extends Model
     {
         $this->attributes['country_id'] = strtoupper($value);
     }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtoupper($value);
+    }
 }

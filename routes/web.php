@@ -37,5 +37,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('schools.users', UserController::class)->scoped()->whereUuid(['school', 'user']);
 
     // routes for the groups
-    Route::get('schools/{school}/groups', [GroupController::class, 'index'])->whereUuid(['school']);
+    Route::resource('schools.groups', GroupController::class)->scoped()->whereUuid(['school', 'group']);
+
+    // routes for the users of a group
+    Route::get('schools/{school}/groups/{group}/users', [UserController::class, 'usersOfAGroup'])->whereUuid(['school', 'group']);
 });
