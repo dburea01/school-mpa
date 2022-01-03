@@ -62,10 +62,11 @@ class UserRepository
         $user->delete();
     }
 
-    public function insert($school_id, $userData)
+    public function insert($school_id, string $group_id = null, $userData)
     {
         $user = new User();
         $user->school_id = $school_id;
+        $user->group_id = $group_id;
         $user->fill($userData);
         $user->save();
 

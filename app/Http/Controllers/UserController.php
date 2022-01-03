@@ -130,11 +130,60 @@ class UserController extends Controller
     public function usersOfAGroup(School $school, Group $group)
     {
         $users = $this->userRepository->usersOfAGroup($school->id, $group->id);
+        $user = new User();
+        $user->last_name = $group->name;
+        $user->status = 'ACTIVE';
 
         return view('users.users_of_a_group', [
             'school' => $school,
             'group' => $group,
-            'users' => $users
+            'users' => $users,
+            'user' => $user
         ]);
+    }
+
+    public function addUserOfAGroup(School $school, Group $group, StoreUserRequest $request)
+    {
+        // dd($request->all());
+        try {
+            $user = $this->userRepository->insert($school->id, $group->id, $request->all());
+            return redirect('/schools/'.$school->id.'/groups/'.$group->id.'/users')->with('success', 'User '.$user->full_name.' created for the family.');
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function editUserOfAGroup(School $school, Group $group, User $user)
+    {
+        $users = $this->userRepository->usersOfAGroup($school->id, $group->id);
+
+        return view('users.users_of_a_group', [
+            'school' => $school,
+            'group' => $group,
+            'users' => $users,
+            'user' => $user
+        ]);
+    }
+
+    public function updateUserOfAGroup(School $school, Group $group, User $user, StoreUserRequest $request)
+    {
+        // dd($request->all());
+        try {
+            $user = $this->userRepository->update($user, $request->all());
+            return redirect('/schools/'.$school->id.'/groups/'.$group->id.'/users')->with('success', 'User '.$user->full_name.' updated for the family.');
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function deleteUserOfAGroup(School $school, Group $group, User $user)
+    {
+        // dd($request->all());
+        try {
+            $this->userRepository->destroy($user);
+            return redirect('/schools/'.$school->id.'/groups/'.$group->id.'/users')->with('success', 'User '.$user->full_name.' deleted for the family.');
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
     }
 }
