@@ -22,7 +22,8 @@
             <label for="role_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.role_id') : *</label>
 
             <div class="col-sm-4">
-                <x-select-role name="role_id" id="role_id" required="false" :value="$user->role_id" />
+                <x-select-role name="role_id" id="role_id" required="false" :value="$user->role_id"
+                    family_role="false" />
                 @if ($errors->has('role_id'))
                 <span class="text-danger">{{ $errors->first('role_id') }}</span>
                 @endif

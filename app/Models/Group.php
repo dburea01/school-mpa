@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model
+class Group extends Model
 {
     use HasFactory, HasUuid;
 
@@ -21,25 +21,28 @@ class School extends Model
         'zip_code',
         'city',
         'country_id',
-        'max_users',
+        'group_id',
         'comment',
         'status'
     ];
-
-    
-
-    public function setCountryIdAttribute($value)
-    {
-        $this->attributes['country_id'] = strtoupper($value);
-    }
 
     public function users()
     {
         return $this->hasMany(User::class);
     }
 
-    public function groups()
+    public function school()
     {
-        return $this->hasMany(Group::class);
+        return $this->belongsTo(School::class);
+    }
+
+    public function setCountryIdAttribute($value)
+    {
+        $this->attributes['country_id'] = strtoupper($value);
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtoupper($value);
     }
 }

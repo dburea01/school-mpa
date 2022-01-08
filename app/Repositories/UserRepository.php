@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Models\School;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository
 {
     public function all($school_id, $request)
     {
-        $usersQuery = User::where('school_id', $school_id)->orderBy('last_name');
+        $usersQuery = User::where('school_id', $school_id)
+        ->whereNotIn('role_id', ['PARENT', 'STUDENT'])
+        ->with('role')
+        ->orderBy('last_name');
 
         if (array_key_exists('user_name', $request) && $request['user_name'] !== null && strlen($request['user_name']) > 1) {
             $usersQuery->where(function ($query) use ($request) {
@@ -23,26 +28,16 @@ class UserRepository
             $usersQuery->where('role_id', $request['role_id']);
         }
 
-        if (\array_key_exists('sort', $request)) {
-            $query->orderBy($request['sort']);
-        }
-
-        if (\array_key_exists('desc', $request)) {
-            $query->orderBy($request['desc'], 'desc');
-        }
-
-        if (\array_key_exists('fields', $request)) {
-            $fields = explode(',', $request['fields']);
-            foreach ($fields as $field) {
-                if ('users_count' === $field) {
-                    $query->withCount('users');
-                } else {
-                    $query->addSelect(trim($field));
-                }
-            }
-        }
-
         return $usersQuery->paginate(10);
+    }
+
+    public function summaryUsersByRole(School $school)
+    {
+        return DB::table('users')
+        ->select(DB::raw('count(*) as user_count, role_id'))
+        ->where('school_id', $school->id)
+        ->groupBy('role_id')
+        ->get();
     }
 
     public function get($schoolId, array $request): void
@@ -62,13 +57,21 @@ class UserRepository
         $user->delete();
     }
 
-    public function insert($school_id, $userData)
+    public function insert($school_id, string $group_id = null, $userData)
     {
         $user = new User();
         $user->school_id = $school_id;
+        $user->group_id = $group_id;
         $user->fill($userData);
         $user->save();
 
         return $user;
+    }
+
+    public function usersOfAGroup(string $schoolId, string $groupId)
+    {
+        $users = User::where('school_id', $schoolId)->where('group_id', $groupId)->get();
+
+        return $users;
     }
 }

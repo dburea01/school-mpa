@@ -2,6 +2,7 @@
 
 return [
     'modify_user' => 'Modify an user',
+    'create_user' => 'Create an user',
     'role_id' => 'Role',
     'last_name' => 'Last name',
     'first_name' => 'First name',

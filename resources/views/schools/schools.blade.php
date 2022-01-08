@@ -38,6 +38,7 @@
 
                 <th>@lang('schools.city')</th>
                 <th>@lang('schools.users')</th>
+                <th>@lang('schools.groups')</th>
             </tr>
         </thead>
         <tbody>
@@ -63,6 +64,9 @@
                             </div>
                         </div>
                     </a>
+                </td>
+                <td>
+                    <a href="/schools/{{ $school->id }}/groups">{{ $school->groups_count }}</a>
                 </td>
             </tr>
             @endforeach

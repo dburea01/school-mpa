@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-md-3 col-sm-12">
-            <x-select-role name="role_id" id="role_id" required="false" :value="$role_id" />
+            <x-select-role name="role_id" id="role_id" required="false" :value="$role_id" family-role="false" />
         </div>
 
         <div class="col-md-3 col-sm-12 d-grid gap-2 d-md-block">
@@ -31,35 +31,59 @@
 </div>
 
 <div class="row">
-    <table class="table table-sm table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>@lang('users.name')</th>
-                <th>@lang('users.role')</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($users as $user)
-            <tr>
-                <td>
-                    <a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{
-                        $user->full_name }}</a>
-                    @if ($user->status === 'INACTIVE')
-                    <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('users.user_inactive')"></i>
-                    @endif
-                </td>
-                <td>{{ $user->role->name }}</td>
-            </tr>
-            @endforeach
-        </tbody>
+    <div class="col-md-8">
+        <table class="table table-sm table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>@lang('users.name')</th>
+                    <th>@lang('users.role')</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($users as $user)
+                <tr>
+                    <td>
+                        <a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{
+                            $user->full_name }}</a>
+                        @if ($user->status === 'INACTIVE')
+                        <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('users.user_inactive')"></i>
+                        @endif
+                    </td>
+                    <td>{{ $user->role->name }}</td>
+                </tr>
+                @endforeach
+            </tbody>
 
-    </table>
+        </table>
+
+        @if($users->hasPages())
+        <div class="d-flex justify-content-center">
+            {{ $users->withQueryString()->links() }}
+        </div>
+        @endif
+    </div>
+
+    <div class="col-md-4">
+        <table class="table table-sm table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th colspan="2" class="text-center">@lang('users.summary')</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>@lang('users.qty_teachers')</th>
+                    <td>{{ $summary_users_by_role->firstWhere('role_id', 'TEACHER')->user_count }}</td>
+                </tr>
+                <tr>
+                    <th>@lang('users.qty_directors')</th>
+                    <td>{{ $summary_users_by_role->firstWhere('role_id', 'DIRECTOR')->user_count }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-@if($users->hasPages())
-<div class="d-flex justify-content-center">
-    {{ $users->withQueryString()->links() }}
-</div>
-@endif
+
 
 @endsection
