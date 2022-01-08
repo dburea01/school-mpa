@@ -19,7 +19,6 @@ class CreateRolesTable extends Migration
             $table->json('name');
             $table->tinyInteger('position');
             $table->boolean('displayable')->default(false);
-            $table->boolean('family_role');
             $table->timestamps();
         });
 
@@ -27,7 +26,6 @@ class CreateRolesTable extends Migration
         $role->id = 'TEACHER';
         $role->position = 10;
         $role->displayable = true;
-        $role->family_role = false;
         $role->name = ['en' => 'Teacher', 'fr' => 'Enseignant'];
         $role->save();
 
@@ -35,7 +33,6 @@ class CreateRolesTable extends Migration
         $role->id = 'STUDENT';
         $role->position = 20;
         $role->displayable = true;
-        $role->family_role = true;
         $role->name = ['en' => 'Student', 'fr' => 'Etudiant'];
         $role->save();
 
@@ -43,7 +40,6 @@ class CreateRolesTable extends Migration
         $role->id = 'PARENT';
         $role->position = 30;
         $role->displayable = true;
-        $role->family_role = true;
         $role->name = ['en' => 'Parent', 'fr' => 'Parent'];
         $role->save();
 
@@ -51,7 +47,6 @@ class CreateRolesTable extends Migration
         $role->id = 'DIRECTOR';
         $role->position = 40;
         $role->displayable = true;
-        $role->family_role = false;
         $role->name = ['en' => 'Director', 'fr' => 'Directeur'];
         $role->save();
 
@@ -59,7 +54,6 @@ class CreateRolesTable extends Migration
         $role->id = 'SUPERADMIN';
         $role->position = 50;
         $role->displayable = false;
-        $role->family_role = false;
         $role->name = ['en' => 'Super Administrator', 'fr' => 'Super Administrateur'];
         $role->save();
     }

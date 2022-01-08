@@ -19,7 +19,11 @@
         </div>
 
         <div class="col-md-3 col-sm-12">
-            <x-select-role name="role_id" id="role_id" required="false" :value="$role_id" family-role="false" />
+            <x-select-role name="role_id" id="role_id" required="false" :value="$role_id" />
+        </div>
+
+        <div class="col-md-3 col-sm-12">
+            <x-select-user-status name="status" id="status" required="{{ false }}" :status="$status" />
         </div>
 
         <div class="col-md-3 col-sm-12 d-grid gap-2 d-md-block">
@@ -31,7 +35,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
         <table class="table table-sm table-striped table-bordered table-hover">
             <thead>
                 <tr>
@@ -63,7 +67,7 @@
         @endif
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-2">
         <table class="table table-sm table-striped table-bordered table-hover">
             <thead>
                 <tr>
@@ -71,13 +75,15 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($summary_users_by_role as $role)
                 <tr>
-                    <th>@lang('users.qty_teachers')</th>
-                    <td>{{ $summary_users_by_role->firstWhere('role_id', 'TEACHER')->user_count }}</td>
+                    <th>{{ App\Models\Role::find($role->role_id)->name }}</th>
+                    <td>{{ $role->user_count }}</td>
                 </tr>
-                <tr>
-                    <th>@lang('users.qty_directors')</th>
-                    <td>{{ $summary_users_by_role->firstWhere('role_id', 'DIRECTOR')->user_count }}</td>
+                @endforeach
+                <tr class="table-info">
+                    <th>@lang('users.total')</th>
+                    <td><strong>{{ $summary_users_by_role->sum('user_count') }}</strong></td>
                 </tr>
             </tbody>
         </table>

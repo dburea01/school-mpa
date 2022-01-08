@@ -12,10 +12,7 @@ class UserRepository
 {
     public function all($school_id, $request)
     {
-        $usersQuery = User::where('school_id', $school_id)
-        ->whereNotIn('role_id', ['PARENT', 'STUDENT'])
-        ->with('role')
-        ->orderBy('last_name');
+        $usersQuery = User::where('school_id', $school_id)->with('role')->orderBy('last_name');
 
         if (array_key_exists('user_name', $request) && $request['user_name'] !== null && strlen($request['user_name']) > 1) {
             $usersQuery->where(function ($query) use ($request) {
@@ -26,6 +23,10 @@ class UserRepository
 
         if (array_key_exists('role_id', $request) && $request['role_id'] !== null) {
             $usersQuery->where('role_id', $request['role_id']);
+        }
+
+        if (array_key_exists('status', $request) && $request['status'] !== null) {
+            $usersQuery->where('status', $request['status']);
         }
 
         return $usersQuery->paginate(10);

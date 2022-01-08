@@ -11,6 +11,5 @@ return [
 
 
     'summary' => 'Summary',
-    'qty_teachers' => 'Quantity Teachers',
-    'qty_directors' => 'Quantity Directors'
+    'total' => 'TOTAL'
 ];

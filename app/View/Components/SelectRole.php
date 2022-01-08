@@ -12,20 +12,18 @@ class SelectRole extends Component
     public $id;
     public $required = false;
     public $value;
-    public $familyRole;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name, $id, $required, $value, $familyRole)
+    public function __construct($name, $id, $required, $value)
     {
-        $this->roles = Role::where('displayable', true)->where('family_role', $familyRole)->orderBy('position')->get();
+        $this->roles = Role::where('displayable', true)->orderBy('position')->get();
         $this->name = $name;
         $this->id = $id;
         $this->required = $required;
         $this->value = $value;
-        $this->familyRole = $familyRole;
     }
 
     /**

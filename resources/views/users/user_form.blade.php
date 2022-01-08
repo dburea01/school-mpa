@@ -22,8 +22,7 @@
             <label for="role_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.role_id') : *</label>
 
             <div class="col-sm-4">
-                <x-select-role name="role_id" id="role_id" required="false" :value="$user->role_id"
-                    family_role="false" />
+                <x-select-role name="role_id" id="role_id" required="false" :value="$user->role_id" />
                 @if ($errors->has('role_id'))
                 <span class="text-danger">{{ $errors->first('role_id') }}</span>
                 @endif
@@ -66,8 +65,7 @@
 
             <div class="col-sm-4">
                 <input type="text" class="form-control form-control-sm @error('birth_date') is-invalid @enderror"
-                    required name="birth_date" id="birth_date" value="{{ old('birth_date', $user->birth_date) }}"
-                    placeholder="@lang('user.placeholder_birth_date')" />
+                    required name="birth_date" id="birth_date" value="{{ old('birth_date', $user->birth_date) }}" />
                 <div class="col-sm-2 form-text">dd/mm/yyyy</div>
 
             </div>

@@ -28,12 +28,12 @@ class UserController extends Controller
     {
         $users = $this->userRepository->all($school->id, $request->all());
         
-        
         return view('users.users', [
             'school' => $school,
             'users' => $users,
             'user_name' => $request->query('user_name', ''),
             'role_id' => $request->query('role_id', ''),
+            'status' => $request->query('status', 'ACTIVE'),
             'summary_users_by_role' => $this->userRepository->summaryUsersByRole($school)
         ]);
     }

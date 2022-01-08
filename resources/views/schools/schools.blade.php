@@ -55,7 +55,7 @@
                 <td>
                     <a href="/schools/{{ $school->id }}/users">
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar"
+                            <div class="progress-bar" role="progressbar" aria-label="progress_{{$school->id}}"
                                 style="width: {{ 100 * $school->users_count/$school->max_users }}%;"
                                 aria-valuenow="{{ 100 * $school->users_count / $school->max_users }}" aria-valuemin="0"
                                 aria-valuemax="100">{{ $school->users_count }}/{{ $school->max_users }} ({{
