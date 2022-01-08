@@ -9,7 +9,8 @@
 
 <h2 class="text-center mb-3">@if ($group->id) @lang('group.modify_group') @else @lang('group.create_group') @endif</h2>
 
-<x-group-tabs activeTab="address" schoolId="{{ $school->id }}" groupId="{{ $group->id }}" />
+<x-group-tabs activeTab="address" schoolId="{{ $school->id }}" groupId="{{ $group->id }}"
+    newGroup="{{ $group->id ? false : true }}" />
 
 
 @if ($group->id)

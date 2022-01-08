@@ -8,6 +8,10 @@ return [
     'filter' => 'Filter',
     'name' => 'Family',
     'city' => 'City',
-    'users' => 'Qty members',
-    'group_inactive' => 'Inactive family'
+    'users' => 'Members',
+    'group_inactive' => 'Inactive family',
+
+    'summary' => 'Summary',
+    'qty_students' => 'Quantity of students',
+    'qty_parents' => 'Quantity of parents'
 ];

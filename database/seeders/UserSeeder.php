@@ -26,13 +26,13 @@ class UserSeeder extends Seeder
         $schools = School::all();
 
         foreach ($schools as $school) {
-            User::factory()->create([
+            User::factory()->count(10)->create([
                 'school_id' => $school->id,
                 'role_id' => 'DIRECTOR',
                 'status' => 'ACTIVE'
             ]);
 
-            User::factory()->count(10)->create([
+            User::factory()->count(30)->create([
                 'school_id' => $school->id,
                 'role_id' => 'TEACHER',
             ]);

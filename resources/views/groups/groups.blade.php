@@ -31,36 +31,62 @@
 </div>
 
 <div class="row">
-    <table class="table table-sm table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>@lang('groups.name')</th>
-                <th>@lang('groups.city')</th>
-                <th>@lang('groups.users')</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($groups as $group)
-            <tr>
-                <td>
-                    <a href="/schools/{{ $school->id }}/groups/{{ $group->id }}/edit">{{ $group->name }}</a>
-                    @if ($group->status === 'INACTIVE')
-                    <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('groups.group_inactive')"></i>
-                    @endif
-                </td>
-                <td>{{ $group->city }}</td>
-                <td>{{ $group->users_count }}</td>
-            </tr>
-            @endforeach
-        </tbody>
+    <div class="col-md-8">
+        <table class="table table-sm table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>@lang('groups.name')</th>
+                    <th>@lang('groups.city')</th>
+                    <th>@lang('groups.users')</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($groups as $group)
+                <tr>
+                    <td>
+                        <a href="/schools/{{ $school->id }}/groups/{{ $group->id }}/edit">{{ $group->name }}</a>
+                        @if ($group->status === 'INACTIVE')
+                        <i class="bi bi-exclamation-triangle-fill text-danger"
+                            title="@lang('groups.group_inactive')"></i>
+                        @endif
+                    </td>
+                    <td>{{ $group->city }}</td>
+                    <td><a href="/schools/{{ $school->id }}/groups/{{ $group->id }}/users">{{ $group->users_count }}</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-    </table>
+        @if($groups->hasPages())
+        <div class="d-flex justify-content-center">
+            {{ $groups->withQueryString()->links() }}
+        </div>
+        @endif
+    </div>
+
+    <div class="col-md-4">
+        <table class="table table-sm table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th colspan="2" class="text-center">@lang('groups.summary')</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>@lang('groups.qty_students')</th>
+                    <td>{{ $summary_users_by_role->firstWhere('role_id', 'STUDENT')->user_count }}</td>
+                </tr>
+                <tr>
+                    <th>@lang('groups.qty_parents')</th>
+                    <td>{{ $summary_users_by_role->firstWhere('role_id', 'PARENT')->user_count }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>
 
-@if($groups->hasPages())
-<div class="d-flex justify-content-center">
-    {{ $groups->withQueryString()->links() }}
-</div>
-@endif
+
 
 @endsection

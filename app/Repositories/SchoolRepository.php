@@ -10,7 +10,7 @@ class SchoolRepository
 {
     public function all($request)
     {
-        $query = School::orderBy('name')->withCount('users');
+        $query = School::orderBy('name')->withCount(['users', 'groups']);
 
         if (\array_key_exists('school_name', $request)) {
             $query->where('name', 'ilike', '%'.$request['school_name'].'%');

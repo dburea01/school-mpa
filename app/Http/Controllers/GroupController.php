@@ -5,17 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Http\Requests\StoreGroupRequest;
 use App\Models\School;
+use App\Models\User;
 use App\Repositories\GroupRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
     public $groupRepository;
 
-    public function __construct(GroupRepository $groupRepository)
+    public function __construct(GroupRepository $groupRepository, UserRepository $userRepository)
     {
         $this->authorizeResource(Group::class);
         $this->groupRepository = $groupRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -26,12 +29,14 @@ class GroupController extends Controller
     public function index(Request $request, School $school)
     {
         $groups = $this->groupRepository->all($school->id, $request->all());
-
+        $summaryUsersByRole = $this->userRepository->summaryUsersByRole($school);
+        
         return view('groups.groups', [
             'school' => $school,
             'groups' => $groups,
             'group_name' => $request->query('group_name', ''),
-            'group_city' => $request->query('group_city')
+            'group_city' => $request->query('group_city'),
+            'summary_users_by_role' => $summaryUsersByRole
         ]);
     }
 
@@ -61,7 +66,7 @@ class GroupController extends Controller
     {
         try {
             $group = $this->groupRepository->insert($school->id, $request->all());
-            return redirect('schools/'.$school->id.'/groups')->with('success', 'Family '.$group->name.' created.');
+            return redirect('schools/'.$school->id.'/groups/'.$group->id.'/users')->with('success', 'Family '.$group->name.' created.');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }

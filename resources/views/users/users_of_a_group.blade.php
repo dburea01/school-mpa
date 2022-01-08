@@ -5,7 +5,7 @@
 
 <h2 class="text-center mb-3">@if ($group->id) @lang('group.modify_group') @else @lang('group.create_group') @endif</h2>
 
-<x-group-tabs activeTab="parents" schoolId="{{ $school->id }}" groupId="{{ $group->id }}" />
+<x-group-tabs activeTab="users" schoolId="{{ $school->id }}" groupId="{{ $group->id }}" newGroup="{{ false }}" />
 
 <div class="row">
     <div class="col">
@@ -25,15 +25,23 @@
                     <tbody>
                         @foreach ($users as $item)
                         <tr>
-                            <td>{{ $item->full_name }}</td>
+                            <td>
+                                {{ $item->full_name }}
+                                @if ($item->status === 'INACTIVE')
+                                <i class="bi bi-exclamation-triangle-fill text-danger"
+                                    title="@lang('users.user_inactive')"></i>
+                                @endif
+                            </td>
                             <td>{{ $item->role->name }}</td>
                             <td><a class="btn btn-sm btn-primary"
                                     href="/schools/{{ $school->id }}/groups/{{$group->id}}/users/{{$item->id}}/edit"><i
                                         class="bi bi-pencil"></i></a>
                                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#modalDeleteUser"><i class="bi bi-trash"></i></button>
-                                @endforeach
+                                    data-bs-target="#modalDeleteUser_{{ $item->id }}"><i
+                                        class="bi bi-trash"></i></button>
+                            </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -44,7 +52,8 @@
     <div class="col">
 
         <div class="card">
-            <div class="card-header text-center">@lang('group.add_user_of_a_group')</div>
+            <div class="card-header text-center">@if($user->id) @lang('group.modify_user_of_a_group') @else
+                @lang('group.add_user_of_a_group') @endif</div>
             <div class="card-body">
 
                 <div class="row">
@@ -64,7 +73,8 @@
                         <div class="mb-3">
                             <label for="role_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.role_id')
                                 : *</label>
-                            <x-select-role name="role_id" id="role_id" required="true" :value="$user->role_id" />
+                            <x-select-role name="role_id" id="role_id" required="true"
+                                value="{{ old('role_id', $user->role_id) }}" :family-role="true" />
                         </div>
                         <div class="mb-3">
                             <label for="last_name" class="form-label">@lang('user.last_name') : *</label>
@@ -112,7 +122,9 @@
                             <span class="text-danger">{{ $errors->first('status') }}</span>
                             @endif
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">@if($user->id)
+                            @lang('group.modify_user_of_a_group') @else
+                            @lang('group.add_user_of_a_group') @endif</button>
                     </form>
 
             </div>
@@ -121,11 +133,13 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($users as $user)
+<div class="modal fade" id="modalDeleteUser_{{ $user->id }}" tabindex="-1" aria-labelledby="modalLabel_{{ $user->id }}"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">@lang('user.title_modal_delete', ['full_name' =>
+                <h5 class="modal-title" id="modalLabel_{{ $user->id }}">@lang('user.title_modal_delete', ['full_name' =>
                     $user->full_name])</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -146,5 +160,6 @@
         </div>
     </div>
 </div>
+@endforeach
 
 @endsection

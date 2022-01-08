@@ -9,16 +9,18 @@ class GroupTabs extends Component
     public $activeTab;
     public $schoolId;
     public $groupId;
+    public $newGroup;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($activeTab, $schoolId, $groupId)
+    public function __construct($activeTab, $schoolId, $groupId, $newGroup)
     {
         $this->activeTab = $activeTab;
         $this->schoolId = $schoolId;
         $this->groupId = $groupId;
+        $this->newGroup = $newGroup;
     }
 
     /**

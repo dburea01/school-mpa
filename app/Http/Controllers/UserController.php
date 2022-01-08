@@ -28,11 +28,13 @@ class UserController extends Controller
     {
         $users = $this->userRepository->all($school->id, $request->all());
         
+        
         return view('users.users', [
             'school' => $school,
             'users' => $users,
             'user_name' => $request->query('user_name', ''),
-            'role_id' => $request->query('role_id', '')
+            'role_id' => $request->query('role_id', ''),
+            'summary_users_by_role' => $this->userRepository->summaryUsersByRole($school)
         ]);
     }
 
@@ -62,7 +64,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request, School $school)
     {
         try {
-            $user = $this->userRepository->insert($school->id, $request->all());
+            $user = $this->userRepository->insert($school->id, null, $request->all());
             return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' created.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
