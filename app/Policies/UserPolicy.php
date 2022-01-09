@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\School;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -30,6 +31,7 @@ class UserPolicy
     public function viewAny(User $user)
     {
         return ($user->isDirector() && $user->school_id === $this->school->id);
+        // return ($user->isDirector() && $user->school_id === $school->id);
     }
 
     /**
@@ -41,7 +43,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return ($user->isDirector() && $user->school_id === $this->school->id);
+        return ($user->isDirector() && $user->school_id === $model->school_id);
     }
 
     /**
@@ -64,7 +66,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return ($user->isDirector() && $user->school_id === $this->school->id);
+        return ($user->isDirector() && $user->school_id === $model->school_id);
     }
 
     /**
@@ -76,7 +78,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return ($user->isDirector() && $user->school_id === $this->school->id);
+        return ($user->isDirector() && $user->school_id === $model->school_id);
     }
 
     /**

@@ -33,7 +33,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home_connected', function () {
         return view('home_connected');
     })->name('home_connected');
+
+    // routes for the schools
     Route::resource('schools', SchoolController::class)->whereUuid('school');
+    
+    // routes for the users
     Route::resource('schools.users', UserController::class)->scoped()->whereUuid(['school', 'user']);
 
     // routes for the groups

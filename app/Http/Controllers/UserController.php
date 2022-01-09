@@ -13,9 +13,10 @@ class UserController extends Controller
 {
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, School $school)
     {
         $this->authorizeResource(User::class);
+        // $this->authorize('viewAny', [User::class, $school]);
         $this->userRepository = $userRepository;
     }
 
@@ -26,6 +27,7 @@ class UserController extends Controller
      */
     public function index(School $school, Request $request)
     {
+        // $this->authorize('viewAny', [User::class, $school]);
         $users = $this->userRepository->all($school->id, $request->all());
         
         return view('users.users', [
@@ -45,6 +47,7 @@ class UserController extends Controller
      */
     public function create(School $school)
     {
+        // $this->authorize('create', [User::class, $school]);
         $user = new User();
         $user->status="ACTIVE";
         $user->role_id = "STUDENT";
@@ -63,6 +66,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request, School $school)
     {
+        // $this->authorize('create', [User::class, $school]);
         try {
             $user = $this->userRepository->insert($school->id, null, $request->all());
             return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' created.');
@@ -105,6 +109,7 @@ class UserController extends Controller
      */
     public function update(StoreUserRequest $request, School $school, User $user)
     {
+        // $this->authorize('update', [User::class, $user, $school]);
         try {
             $this->userRepository->update($user, $request->all());
             return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' updated.');
@@ -121,6 +126,7 @@ class UserController extends Controller
      */
     public function destroy(School $school, User $user)
     {
+        // $this->authorize('delete', [User::class, $user]);
         try {
             $this->userRepository->destroy($user);
             return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' deleted.');

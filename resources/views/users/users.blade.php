@@ -12,26 +12,28 @@
         @lang('users.add')</a></h1>
 
 <div class="row mt-3 mb-3">
-    <form class="row" action="/schools/{{ $school->id }}/users">
-        <div class="col-md-3 col-sm-12">
-            <input type="text" class="form-control form-control-sm mr-sm-2" name="user_name" id="user_name"
-                placeholder="@lang('users.filter_by_user_name')" value="{{ $user_name }}">
-        </div>
+    <div class="col-md-10">
+        <form class="row" action="/schools/{{ $school->id }}/users">
+            <div class="col-md-3 col-sm-12">
+                <input type="text" class="form-control form-control-sm mr-sm-2" name="user_name" id="user_name"
+                    placeholder="@lang('users.filter_by_user_name')" value="{{ $user_name }}">
+            </div>
 
-        <div class="col-md-3 col-sm-12">
-            <x-select-role name="role_id" id="role_id" required="false" :value="$role_id" />
-        </div>
+            <div class="col-md-3 col-sm-12">
+                <x-select-role name="role_id" id="role_id" required="false" :value="$role_id" />
+            </div>
 
-        <div class="col-md-3 col-sm-12">
-            <x-select-user-status name="status" id="status" required="{{ false }}" :status="$status" />
-        </div>
+            <div class="col-md-3 col-sm-12">
+                <x-select-user-status name="status" id="status" required="{{ false }}" :status="$status" />
+            </div>
 
-        <div class="col-md-3 col-sm-12 d-grid gap-2 d-md-block">
-            <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel"></i>
-                @lang('users.filter')</button>
-        </div>
+            <div class="col-md-3 col-sm-12 d-grid gap-2 d-md-block">
+                <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel"></i>
+                    @lang('users.filter')</button>
+            </div>
 
-    </form>
+        </form>
+    </div>
 </div>
 
 <div class="row">
