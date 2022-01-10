@@ -35,7 +35,7 @@ class UserController extends Controller
             'users' => $users,
             'user_name' => $request->query('user_name', ''),
             'role_id' => $request->query('role_id', ''),
-            'status' => $request->query('status', 'ACTIVE'),
+            'status' => $request->query('status', ''),
             'summary_users_by_role' => $this->userRepository->summaryUsersByRole($school)
         ]);
     }
