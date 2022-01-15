@@ -135,61 +135,37 @@ class UserController extends Controller
         }
     }
 
-    public function usersOfAGroup(School $school, Group $group)
+    public function usersOfAGroup(Request $request, School $school, Group $group)
     {
-        $users = $this->userRepository->usersOfAGroup($school->id, $group->id);
-        $user = new User();
-        $user->last_name = $group->name;
-        $user->status = 'ACTIVE';
+        $usersOfAGroup = $this->userRepository->usersOfAGroup($school->id, $group->id);
+        $usersWithoutGroup = $this->userRepository->usersWithoutGroup($school->id, $request->all());
 
         return view('users.users_of_a_group', [
             'school' => $school,
             'group' => $group,
-            'users' => $users,
-            'user' => $user
+            'usersOfAGroup' => $usersOfAGroup,
+            'usersWithoutGroup' => $usersWithoutGroup,
+            'user_name' => $request->query('user_name', '')
         ]);
     }
 
-    public function addUserOfAGroup(School $school, Group $group, StoreUserRequest $request)
+    public function addUserForAGroup(Request $request, School $school, Group $group)
     {
-        // dd($request->all());
+        // @todo : authorization + validation
         try {
-            $user = $this->userRepository->insert($school->id, $group->id, $request->all());
-            return redirect('/schools/'.$school->id.'/groups/'.$group->id.'/users')->with('success', 'User '.$user->full_name.' created for the family.');
+            $user = $this->userRepository->addUserForAGroup($group->id, $request->user_id);
+            return redirect('/schools/'.$school->id.'/groups/'.$group->id.'/users?user_name='.$request->user_name)->with('success', 'User '.$user->full_name.' added for the family.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
     }
 
-    public function editUserOfAGroup(School $school, Group $group, User $user)
+    public function removeUserFromAGroup(School $school, Group $group, User $user)
     {
-        $users = $this->userRepository->usersOfAGroup($school->id, $group->id);
-
-        return view('users.users_of_a_group', [
-            'school' => $school,
-            'group' => $group,
-            'users' => $users,
-            'user' => $user
-        ]);
-    }
-
-    public function updateUserOfAGroup(School $school, Group $group, User $user, StoreUserRequest $request)
-    {
-        // dd($request->all());
+        // @todo : security
         try {
-            $user = $this->userRepository->update($user, $request->all());
-            return redirect('/schools/'.$school->id.'/groups/'.$group->id.'/users')->with('success', 'User '.$user->full_name.' updated for the family.');
-        } catch (\Throwable $th) {
-            return back()->with('error', $th->getMessage());
-        }
-    }
-
-    public function deleteUserOfAGroup(School $school, Group $group, User $user)
-    {
-        // dd($request->all());
-        try {
-            $this->userRepository->destroy($user);
-            return redirect('/schools/'.$school->id.'/groups/'.$group->id.'/users')->with('success', 'User '.$user->full_name.' deleted for the family.');
+            $this->userRepository->removeUserFromAGroup($school->id, $group->id, $user->id);
+            return redirect('/schools/'.$school->id.'/groups/'.$group->id.'/users')->with('success', 'User '.$user->full_name.' removed for the family.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

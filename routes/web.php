@@ -45,8 +45,6 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the users of a group
     Route::get('schools/{school}/groups/{group}/users', [UserController::class, 'usersOfAGroup'])->whereUuid(['school', 'group']);
-    Route::post('schools/{school}/groups/{group}/users', [UserController::class, 'AddUserOfAGroup'])->whereUuid(['school', 'group']);
-    Route::get('schools/{school}/groups/{group}/users/{user}/edit', [UserController::class, 'editUserOfAGroup'])->whereUuid(['school', 'group', 'user']);
-    Route::put('schools/{school}/groups/{group}/users/{user}', [UserController::class, 'updateUserOfAGroup'])->whereUuid(['school', 'group', 'user']);
-    Route::delete('schools/{school}/groups/{group}/users/{user}', [UserController::class, 'deleteUserOfAGroup'])->whereUuid(['school', 'group', 'user']);
+    Route::post('schools/{school}/groups/{group}/users', [UserController::class, 'AddUserForAGroup'])->whereUuid(['school', 'group']);
+    Route::delete('schools/{school}/groups/{group}/users/{user}', [UserController::class, 'removeUserFromAGroup'])->whereUuid(['school', 'group', 'user']);
 });

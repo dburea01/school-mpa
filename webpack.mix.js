@@ -13,6 +13,7 @@ const mix = require('laravel-mix');
 
 
 mix.js('resources/js/main_js.js', 'public/js')
+    .vue()
     .postCss('resources/css/style.css', 'public/css')
     .browserSync({
         proxy: '127.0.0.1:8000',

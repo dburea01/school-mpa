@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class UserRepository
 {
-    public function all($school_id, $request)
+    public function all($schoolId, $request)
     {
-        $usersQuery = User::where('school_id', $school_id)->with('role')->orderBy('last_name');
+        $usersQuery = User::where('school_id', $schoolId)->with('role')->orderBy('last_name');
 
         if (array_key_exists('user_name', $request) && $request['user_name'] !== null && strlen($request['user_name']) > 1) {
             $usersQuery->where(function ($query) use ($request) {
@@ -30,6 +30,22 @@ class UserRepository
         }
 
         return $usersQuery->paginate(10);
+    }
+
+    public function usersWithoutGroup(string $schoolId, $request)
+    {
+        $usersQuery =  User::where('school_id', $schoolId)->with('role')
+        ->whereNull('group_id')
+        ->whereIn('role_id', ['STUDENT', 'PARENT'])->orderBy('last_name');
+
+        if (array_key_exists('user_name', $request) && $request['user_name'] !== null && strlen($request['user_name']) > 1) {
+            $usersQuery->where(function ($query) use ($request) {
+                $query->where('first_name', 'ilike', '%' . $request['user_name'] . '%')
+                      ->orWhere('last_name', 'ilike', '%' . $request['user_name'] . '%');
+            });
+        }
+
+        return $usersQuery->get();
     }
 
     public function summaryUsersByRole(School $school)
@@ -71,8 +87,23 @@ class UserRepository
 
     public function usersOfAGroup(string $schoolId, string $groupId)
     {
-        $users = User::where('school_id', $schoolId)->where('group_id', $groupId)->get();
+        $users = User::where('school_id', $schoolId)->where('group_id', $groupId)->orderBy('last_name')->get();
 
         return $users;
+    }
+
+    public function addUserForAGroup(string $groupId, string $userId)
+    {
+        $user = User::find($userId);
+        $user->group_id = $groupId;
+        $user->save();
+        return $user;
+    }
+
+    public function removeUserFromAGroup(string $schoolId, string $groupId, string $userId)
+    {
+        User::where('school_id', $schoolId)->where('id', $userId)->update([
+            'group_id' => null
+        ]);
     }
 }

@@ -20,6 +20,10 @@ return [
     'users_of_a_group' => 'Members of the family',
     'user_name_of_a_group' => 'Name',
     'user_role_of_a_group' => 'Role',
-    'add_user_of_a_group' => 'Add a member',
-    'modify_user_of_a_group' => 'Modify a member'
+    'add_user_for_a_group' => 'Add member to the family',
+    'modify_user_of_a_group' => 'Modify a member',
+    'remove_user_of_a_group' => 'Remove <strong>:full_name</strong> from this family',
+    'warning_remove_user_no_possible_rollback' => 'Warning, you are going to remove <strong>:full_name</strong> from this family. Please confirm. Note that the user won\'t be deleted, but only removed from this family.',
+    'confirm_remove_user' => 'Confirm the remove',
+    'cancel_remove_user' => 'Cancel'
 ];

@@ -38,7 +38,7 @@
 
         <div class="d-grid gap-2 mt-3">
             <button class="btn btn-success" type="submit" id="submit"><i
-                    class="fa fa-sign-in-alt">&nbsp;</i>Connexion</button>
+                    class="fa fa-sign-in-alt">&nbsp;</i>Login</button>
         </div>
 
     </form>

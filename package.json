@@ -15,6 +15,11 @@
         "browser-sync-webpack-plugin": "^2.3.0",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.1.14",
+        "vue-loader": "^16.8.3",
+        "webpack": "^5.66.0"
+    },
+    "dependencies": {
+        "vue": "^3.2.26"
     }
 }

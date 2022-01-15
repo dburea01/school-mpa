@@ -17,7 +17,6 @@
         @endif
 
         @csrf
-
         <div class="row mb-3">
             <label for="role_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.role_id') : *</label>
 
@@ -59,21 +58,33 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3" v-if="role_id === 'STUDENT'">
             <label for="birth_date"
                 class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.birth_date') : *</label>
 
             <div class="col-sm-4">
                 <input type="text" class="form-control form-control-sm @error('birth_date') is-invalid @enderror"
-                    required name="birth_date" id="birth_date" value="{{ old('birth_date', $user->birth_date) }}" />
+                    name="birth_date" id="birth_date" value="{{ old('birth_date', $user->birth_date) }}" />
                 <div class="col-sm-2 form-text">dd/mm/yyyy</div>
 
             </div>
             @if ($errors->has('birth_date'))
-            <div class="col-sm-8">
+            <div class="col-sm-10 offset-sm-2">
                 <span class="text-danger">{{ $errors->first('birth_date') }}</span>
             </div>
             @endif
+        </div>
+
+        <div class="row mb-3" v-if="role_id === 'STUDENT'">
+            <label for="gender_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.gender_id') : *</label>
+
+            <div class="col-sm-2">
+                <x-select-user-gender name="gender_id" id="gender_id" required="false"
+                    :value="old('gender_id', $user->gender_id)" />
+                @if ($errors->has('gender_id'))
+                <span class="text-danger">{{ $errors->first('gender_id') }}</span>
+                @endif
+            </div>
         </div>
 
 
@@ -91,16 +102,7 @@
         </div>
 
 
-        <div class="row mb-3">
-            <label for="gender_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.gender_id') : *</label>
 
-            <div class="col-sm-2">
-                <x-select-user-gender name="gender_id" id="gender_id" required="true" :value="$user->gender_id" />
-                @if ($errors->has('gender_id'))
-                <span class="text-danger">{{ $errors->first('gender_id') }}</span>
-                @endif
-            </div>
-        </div>
 
         <div class="row mb-3">
             <label for="status" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.status') : *</label>
@@ -164,4 +166,27 @@
         </div>
     </div>
 
+
+    @endsection
+
+    @section('extra_js')
+    <script>
+        const App = {
+            data() {
+                return {
+                    role_id: ''
+                }
+            },
+            mounted(){
+                this.role_id = '{{ $user->role_id }}'
+            },
+            methods: {
+                onChangeRole(event) {
+                    this.role_id = event.target.value
+                }
+            }
+        }
+    
+    Vue.createApp(App).mount('#container')
+    </script>
     @endsection
