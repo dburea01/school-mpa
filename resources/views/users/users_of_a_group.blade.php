@@ -76,9 +76,6 @@
                     </div>
                 </div>
 
-
-
-
                 @if (count($usersWithoutGroup) === 0)
                 no users found
                 @else

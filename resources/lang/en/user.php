@@ -4,6 +4,8 @@ return [
     'modify_user' => 'Modify an user',
     'create_user' => 'Create an user',
     'role_id' => 'Role',
+    'role_name' => 'Role',
+    'full_name' => 'Name',
     'last_name' => 'Last name',
     'first_name' => 'First name',
     'birth_date' => 'Birth date',

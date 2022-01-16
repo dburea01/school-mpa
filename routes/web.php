@@ -40,6 +40,10 @@ Route::middleware(['auth'])->group(function () {
     // routes for the users
     Route::resource('schools.users', UserController::class)->scoped()->whereUuid(['school', 'user']);
 
+    // routes for the potential duplicated users
+    Route::get('schools/{school}/users/potential-duplicated-user', [UserController::class, 'potentialDuplicatedUser'])->whereUuid('school');
+    Route::post('schools/{school}/users/potential-duplicated-user', [UserController::class, 'savePotentialDuplicatedUser'])->whereUuid('school');
+
     // routes for the groups
     Route::resource('schools.groups', GroupController::class)->scoped()->whereUuid(['school', 'group']);
 

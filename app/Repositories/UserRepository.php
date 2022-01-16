@@ -48,6 +48,19 @@ class UserRepository
         return $usersQuery->get();
     }
 
+    public function getExistingUsers(string $schoolId, String $lastName, string $firstName, string $birthDate)
+    {
+        // dd($lastName.$firstName.$birthDate);
+        $existingUsers = User::where('school_id', $schoolId)
+        ->where('last_name', 'ilike', $lastName)
+        ->where('first_name', 'ilike', $firstName)
+        ->get();
+
+        // dd($potentialDuplicatedUsers);
+
+        return $existingUsers;
+    }
+
     public function summaryUsersByRole(School $school)
     {
         return DB::table('users')

@@ -16,7 +16,6 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository, School $school)
     {
         $this->authorizeResource(User::class);
-        // $this->authorize('viewAny', [User::class, $school]);
         $this->userRepository = $userRepository;
     }
 
@@ -27,7 +26,6 @@ class UserController extends Controller
      */
     public function index(School $school, Request $request)
     {
-        // $this->authorize('viewAny', [User::class, $school]);
         $users = $this->userRepository->all($school->id, $request->all());
         
         return view('users.users', [
@@ -47,7 +45,6 @@ class UserController extends Controller
      */
     public function create(School $school)
     {
-        // $this->authorize('create', [User::class, $school]);
         $user = new User();
         $user->status="ACTIVE";
         $user->role_id = "STUDENT";
@@ -66,7 +63,20 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request, School $school)
     {
-        // $this->authorize('create', [User::class, $school]);
+        // check if the user to create is a potential duplicated user.
+        $existingUsers = $this->userRepository->getExistingUsers($school->id, $request->last_name, $request->first_name, $request->birth_date);
+        
+        if ($existingUsers->count() !== 0) {
+            $userToCreate = new User();
+            $userToCreate->school_id = $school->id;
+            $userToCreate->fill($request->all());
+
+            return redirect('/schools/'.$school->id.'/users/potential-duplicated-user')->with([
+                'existingUsers' => $existingUsers,
+                'userToCreate' => $userToCreate
+            ]);
+        }
+
         try {
             $user = $this->userRepository->insert($school->id, null, $request->all());
             return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' created.');
@@ -130,6 +140,27 @@ class UserController extends Controller
         try {
             $this->userRepository->destroy($user);
             return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' deleted.');
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function potentialDuplicatedUser(School $school)
+    {
+        // dd(session('existingUsers'));
+        return view('users.potential_duplicated_user', [
+            'school' => $school,
+            'userToCreate' => session('userToCreate'),
+            'existingUsers' => session('existingUsers')
+        ]);
+    }
+
+    public function savePotentialDuplicatedUser(School $school, Request $request)
+    {
+        // @todo : security et validation
+        try {
+            $user = $this->userRepository->insert($school->id, null, $request->all());
+            return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' created.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
