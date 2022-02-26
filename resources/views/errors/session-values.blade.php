@@ -15,7 +15,6 @@ Session::forget('success');
 @endif
 
 @if(Session::has('error'))
-
 <div class="toast align-items-center bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
@@ -46,12 +45,15 @@ Session::forget('warning');
 @endif
 
 @if ($errors->any())
-<div class="alert alert-danger alert-dismissible">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">&nbsp;</button>
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
+<div class="toast align-items-center bg-danger text-white">
+    <div class="d-flex">
+        <div class="toast-body">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
 </div>
 @endif

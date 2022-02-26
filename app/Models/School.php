@@ -26,7 +26,7 @@ class School extends Model
         'status'
     ];
 
-    
+
 
     public function setCountryIdAttribute($value)
     {

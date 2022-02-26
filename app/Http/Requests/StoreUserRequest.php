@@ -2,12 +2,21 @@
 
 namespace App\Http\Requests;
 
+use App\Models\School;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
+    protected $school;
+
+    public function __construct(Request $request)
+    {
+        $this->school = $request->school;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,7 +38,7 @@ class StoreUserRequest extends FormRequest
             'role_id' => 'required|exists:roles,id',
             'first_name' => 'required',
             'last_name' => 'required',
-            
+
             'email' => [
                 'bail',
                 'email',

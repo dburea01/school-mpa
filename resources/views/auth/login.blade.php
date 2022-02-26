@@ -20,30 +20,28 @@
 
     <form action="/login" method="POST">
         @csrf
-        <h1 class="h3 mb-3 text-center">Connectez-vous</h1>
+        <h1 class="h3 mb-3 text-center">@lang('auth.title')</h1>
 
-        <input type="email" id="email" name="email" class="form-control" placeholder="email" value="{{ old('email') }}"
-            required>
+        <input type="email" id="email" name="email" class="form-control" placeholder="@lang('auth.email')" value="{{ old('email') }}" required>
         @if ($errors->has('email'))
         <span class="text-danger">{{ $errors->first('email') }}</span>
         @endif
 
 
-        <input type="password" id="password" name="password" class="form-control" placeholder="Mot passe" required>
+        <input type="password" id="password" name="password" class="form-control" placeholder="@lang('auth.password')" required>
 
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="remember_me" name="remember_me">
-            <label class="form-check-label" for="remember_me">Rester connecté sur cet ordinateur</label>
+            <label class="form-check-label" for="remember_me">@lang('auth.stay_connected')</label>
         </div>
 
         <div class="d-grid gap-2 mt-3">
-            <button class="btn btn-success" type="submit" id="submit"><i
-                    class="fa fa-sign-in-alt">&nbsp;</i>Login</button>
+            <button class="btn btn-success" type="submit" id="submit"><i class="fa fa-sign-in-alt">&nbsp;</i>@lang('auth.login')</button>
         </div>
 
     </form>
 
-    <a href="password-lost">Mot de passe perdu ?</a><br><br>
+    <a href="password-lost">@lang('auth.password_lost')</a><br><br>
 
     <p>
         SuperAdmin : {{ App\Models\User::where('role_id', 'SUPERADMIN')->first()->email }}<br>
