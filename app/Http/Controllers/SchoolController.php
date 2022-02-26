@@ -17,16 +17,11 @@ class SchoolController extends Controller
         $this->authorizeResource(School::class);
         $this->schoolRepository = $schoolRepository;
     }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $schools = $this->schoolRepository->all($request->all());
-       
+
         return view('schools.schools', [
             'schools' => $schools,
             'school_name' => $request->query('school_name', ''),
@@ -42,7 +37,7 @@ class SchoolController extends Controller
     public function create()
     {
         $school = new School();
-        $school->status="INACTIVE";
+        $school->status = "INACTIVE";
 
         return view('schools.school_form', [
             'school' => $school,
@@ -58,7 +53,7 @@ class SchoolController extends Controller
     {
         try {
             $school = $this->schoolRepository->insert($request->all());
-            return redirect()->route('schools.index')->with('success', 'School '.$school->name.' created.');
+            return redirect()->route('schools.index')->with('success', 'School ' . $school->name . ' created.');
         } catch (\Throwable $th) {
             return redirect()->route('schools.index')->with('error', $th->getMessage());
         }
@@ -100,7 +95,7 @@ class SchoolController extends Controller
         try {
             $school = $this->schoolRepository->update($school->id, $request->all());
             // return redirect()->route('schools.index')->with('success', 'School '.$school->name.' updated.');
-            return redirect()->back()->with('success', 'School '.$school->name.' updated.');
+            return redirect()->back()->with('success', 'School ' . $school->name . ' updated.');
         } catch (\Throwable $th) {
             return redirect()->route('schools.index')->with('error', $th->getMessage());
         }
@@ -116,7 +111,7 @@ class SchoolController extends Controller
     {
         try {
             $this->schoolRepository->destroy($school->id);
-            return redirect()->route('schools.index')->with('success', 'School '.$school->name.' deleted.');
+            return redirect()->route('schools.index')->with('success', 'School ' . $school->name . ' deleted.');
         } catch (\Throwable $th) {
             return redirect()->route('schools.index')->with('error', $th->getMessage());
         }

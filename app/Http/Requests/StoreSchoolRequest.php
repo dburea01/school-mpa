@@ -42,7 +42,6 @@ class StoreSchoolRequest extends FormRequest
                 Rule::requiredIf($request->user()->isSuperAdmin()),
                 'in:ACTIVE,INACTIVE'
             ],
-            // 'max_users' => 'required|int|gt:0'
         ];
     }
 }
