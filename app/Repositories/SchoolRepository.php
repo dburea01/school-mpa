@@ -10,14 +10,14 @@ class SchoolRepository
 {
     public function all($request)
     {
-        $query = School::orderBy('name')->withCount(['users', 'groups']);
+        $query = School::orderBy('name')->withCount(['users', 'groups', 'subjects']);
 
         if (\array_key_exists('school_name', $request)) {
-            $query->where('name', 'ilike', '%'.$request['school_name'].'%');
+            $query->where('name', 'ilike', '%' . $request['school_name'] . '%');
         }
 
         if (\array_key_exists('city', $request)) {
-            $query->where('city', 'ilike', '%'.$request['city'].'%');
+            $query->where('city', 'ilike', '%' . $request['city'] . '%');
         }
 
         if (\array_key_exists('country_id', $request)) {

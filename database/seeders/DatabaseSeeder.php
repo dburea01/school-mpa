@@ -14,11 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        School::factory(11)->create();
+        School::factory(5)->create();
 
         $this->call([
             GroupSeeder::class,
             UserSeeder::class,
+            SubjectSeeder::class
         ]);
     }
 }

@@ -33,8 +33,11 @@
             <tr>
                 <th>@lang('schools.name')</th>
                 <th>@lang('schools.city')</th>
+                <th>@lang('schools.max_users')</th>
                 <th>@lang('schools.users')</th>
                 <th>@lang('schools.groups')</th>
+                <th>@lang('schools.periods')</th>
+                <th>@lang('schools.subjects')</th>
             </tr>
         </thead>
         <tbody>
@@ -48,18 +51,24 @@
                 </td>
 
                 <td>{{ $school->zip_code }} - {{ $school->city }}</td>
+
                 <td>
-                    <a href="/schools/{{ $school->id }}/users">
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-label="progress_{{$school->id}}" style="width: {{ 100 * $school->users_count/$school->max_users }}%;" aria-valuenow="{{ 100 * $school->users_count / $school->max_users }}" aria-valuemin="0" aria-valuemax="100">{{ $school->users_count }}/{{ $school->max_users }} ({{
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-label="progress_{{$school->id}}" style="width: {{ 100 * $school->users_count/$school->max_users }}%;" aria-valuenow="{{ 100 * $school->users_count / $school->max_users }}" aria-valuemin="0" aria-valuemax="100">{{ $school->users_count }} / {{ $school->max_users }} ({{
                                 floor(100 *
                                 $school->users_count / $school->max_users) }}%)
-                            </div>
                         </div>
-                    </a>
+                    </div>
+                </td>
+                <td>
+                    <a href="/schools/{{ $school->id }}/users">{{ $school->users_count }}</a>
                 </td>
                 <td>
                     <a href="/schools/{{ $school->id }}/groups">{{ $school->groups_count }}</a>
+                </td>
+                <td></td>
+                <td>
+                    <a href="/schools/{{ $school->id }}/subjects">{{ $school->subjects_count }}</a>
                 </td>
             </tr>
             @endforeach

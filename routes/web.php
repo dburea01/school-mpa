@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the schools
     Route::resource('schools', SchoolController::class)->whereUuid('school');
-    
+
     // routes for the users
     Route::resource('schools.users', UserController::class)->scoped()->whereUuid(['school', 'user']);
 
@@ -51,4 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('schools/{school}/groups/{group}/users', [UserController::class, 'usersOfAGroup'])->whereUuid(['school', 'group']);
     Route::post('schools/{school}/groups/{group}/users', [UserController::class, 'AddUserForAGroup'])->whereUuid(['school', 'group']);
     Route::delete('schools/{school}/groups/{group}/users/{user}', [UserController::class, 'removeUserFromAGroup'])->whereUuid(['school', 'group', 'user']);
+
+    // routes for the subjects of a school
+    Route::resource('schools.subjects', SubjectController::class)->scoped()->whereUuid(['school', 'subject']);
 });

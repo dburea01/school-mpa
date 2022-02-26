@@ -2,7 +2,5 @@
 
 
 @section('content')
-
 FORBIDDEN
-
 @endsection

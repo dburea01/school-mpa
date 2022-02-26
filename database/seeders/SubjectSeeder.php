@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Group;
 use App\Models\School;
+use App\Models\Subject;
 use Illuminate\Database\Seeder;
 
-class GroupSeeder extends Seeder
+class SubjectSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,9 +17,8 @@ class GroupSeeder extends Seeder
     {
         $schools = School::all();
 
-        // create some groups for each school
         foreach ($schools as $school) {
-            Group::factory()->count(random_int(10, 50))->create([
+            Subject::factory()->count(random_int(5, 10))->create([
                 'school_id' => $school->id
             ]);
         }
