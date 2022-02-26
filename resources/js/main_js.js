@@ -1,9 +1,3 @@
-// hamburger menu
-var hamburger = document.querySelector(".hamburger");
-hamburger.addEventListener("click", function () {
-    document.querySelector("body").classList.toggle("active");
-})
-
 // toast
 var toastElList = [].slice.call(document.querySelectorAll('.toast'))
 var toastList = toastElList.map(function (toastEl) {

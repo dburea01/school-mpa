@@ -1,22 +1,18 @@
-@extends('layouts.layout_with_menu_sidebar')
+@extends('layouts.layout_with_horizontal_menu')
 
 @section('content')
-<div class="row">
-    <div class="col mx-auto">
-        @include('errors.session-values')
-    </div>
-</div>
 
-<h1 class="text-center">@lang('users.title') ({{$users->total()}})&nbsp;<a
-        href="/schools/{{ $school->id }}/users/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"></i>
+@include('errors.session-values')
+
+
+<h1 class="text-center">@lang('users.title') ({{$users->total()}})&nbsp;<a href="/schools/{{ $school->id }}/users/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"></i>
         @lang('users.add')</a></h1>
 
 <div class="row mt-3 mb-3">
     <div class="col-md-10">
         <form class="row" action="/schools/{{ $school->id }}/users">
             <div class="col-md-3 col-sm-12">
-                <input type="text" class="form-control form-control-sm mr-sm-2" name="user_name" id="user_name"
-                    placeholder="@lang('users.filter_by_user_name')" value="{{ $user_name }}">
+                <input type="text" class="form-control form-control-sm mr-sm-2" name="user_name" id="user_name" placeholder="@lang('users.filter_by_user_name')" value="{{ $user_name }}">
             </div>
 
             <div class="col-md-3 col-sm-12">

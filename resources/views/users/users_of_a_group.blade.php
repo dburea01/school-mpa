@@ -1,4 +1,4 @@
-@extends('layouts.layout_with_menu_sidebar')
+@extends('layouts.layout_with_horizontal_menu')
 
 @section('content')
 
@@ -28,19 +28,15 @@
                         @foreach ($usersOfAGroup as $userOfAGroup)
                         <tr>
                             <td>
-                                <a href="/schools/{{ $school->id }}/users/{{ $userOfAGroup->id }}">{{
-                                    $userOfAGroup->full_name }}</a>
+                                {{ $userOfAGroup->full_name }}
                                 @if ($userOfAGroup->status === 'INACTIVE')
-                                <i class="bi bi-exclamation-triangle-fill text-danger"
-                                    title="@lang('users.user_inactive')"></i>
+                                <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('users.user_inactive')"></i>
                                 @endif
                             </td>
                             <td>{{ $userOfAGroup->role->name }}</td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#modalRemoveUserFromGroup_{{ $userOfAGroup->id }}"
-                                    aria-label="remove">
-                                    <i class="bi bi-trash"></i>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalRemoveUserFromGroup_{{ $userOfAGroup->id }}" aria-label="remove">
+                                    <i class="bi bi-person-dash"></i>
                                 </button>
                             </td>
                         </tr>
@@ -60,15 +56,12 @@
 
                 <div class="row mb-3">
                     <div class="col-md-10">
-                        <form class="row" action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users"
-                            aria-label="search">
+                        <form class="row" action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users" aria-label="search">
                             <div class="col-md-6 col-sm-12">
-                                <input type="text" class="form-control form-control-sm" name="user_name"
-                                    value="{{ $user_name }}" />
+                                <input type="text" class="form-control form-control-sm" name="user_name" value="{{ $user_name }}" />
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <button type="submit" class="btn btn-primary btn-sm btn-block"><i
-                                        class="bi bi-funnel"></i>
+                                <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel"></i>
                                     @lang('users.filter')</button>
                             </div>
 
@@ -93,8 +86,7 @@
                             <td>
                                 {{ $userWithoutGroup->full_name }}
                                 @if ($userWithoutGroup->status === 'INACTIVE')
-                                <i class="bi bi-exclamation-triangle-fill text-danger"
-                                    title="@lang('users.user_inactive')"></i>
+                                <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('users.user_inactive')"></i>
                                 @endif
                             </td>
                             <td>{{ $userWithoutGroup->role->name }}</td>
@@ -104,7 +96,7 @@
                                     <input type="hidden" name="user_id" value="{{ $userWithoutGroup->id }}" />
                                     <input type="hidden" name="user_name" value="{{ $user_name }}" />
                                     <button type="submit" class="btn btn-sm btn-success" aria-label="add">
-                                        <i class="bi bi-plus-circle"></i></button>
+                                        <i class="bi bi-person-plus"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -123,8 +115,7 @@
 
 <!-- Modal -->
 @foreach ($usersOfAGroup as $userOfAGroup)
-<div class="modal fade" id="modalRemoveUserFromGroup_{{ $userOfAGroup->id }}" tabindex="-1"
-    aria-labelledby="modalLabel_{{ $userOfAGroup->id }}" aria-hidden="true">
+<div class="modal fade" id="modalRemoveUserFromGroup_{{ $userOfAGroup->id }}" tabindex="-1" aria-labelledby="modalLabel_{{ $userOfAGroup->id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -139,12 +130,10 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <form class="form-inline" method="POST"
-                    action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users/{{ $userOfAGroup->id }}">
+                <form class="form-inline" method="POST" action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users/{{ $userOfAGroup->id }}">
                     @csrf
                     @method('DELETE')
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i
-                            class="bi bi-chevron-left"></i> @lang('group.cancel_remove_user')</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-chevron-left"></i> @lang('group.cancel_remove_user')</button>
                     <button type="submit" class="btn btn-sm btn-danger ml-3"><i class="bi bi-trash"></i>
                         @lang('group.confirm_remove_user', ['full_name' => $userOfAGroup->full_name])</button>
                 </form>

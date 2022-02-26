@@ -1,4 +1,4 @@
-@extends('layouts.layout_with_menu_sidebar')
+@extends('layouts.layout_with_horizontal_menu')
 
 @section('content')
 <div class="row">
@@ -7,20 +7,17 @@
     </div>
 </div>
 
-<h1 class="text-center">@lang('groups.title') ({{$groups->total()}})&nbsp;<a
-        href="/schools/{{ $school->id }}/groups/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"></i>
+<h1 class="text-center">@lang('groups.title') ({{$groups->total()}})&nbsp;<a href="/schools/{{ $school->id }}/groups/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"></i>
         @lang('groups.add')</a></h1>
 
 <div class="row mt-3 mb-3">
     <form class="row" action="/schools/{{ $school->id }}/groups">
         <div class="col-md-3 col-sm-12">
-            <input type="text" class="form-control form-control-sm mr-sm-2" name="group_name" id="group_name"
-                placeholder="@lang('groups.filter_by_group_name')" value="{{ $group_name }}">
+            <input type="text" class="form-control form-control-sm mr-sm-2" name="group_name" id="group_name" placeholder="@lang('groups.filter_by_group_name')" value="{{ $group_name }}">
         </div>
 
         <div class="col-md-3 col-sm-12">
-            <input type="text" class="form-control form-control-sm mr-sm-2" name="group_city" id="group_city"
-                placeholder="@lang('groups.filter_by_group_city')" value="{{ $group_city }}">
+            <input type="text" class="form-control form-control-sm mr-sm-2" name="group_city" id="group_city" placeholder="@lang('groups.filter_by_group_city')" value="{{ $group_city }}">
         </div>
 
         <div class="col-md-3 col-sm-12 d-grid gap-2 d-md-block">
@@ -46,8 +43,7 @@
                     <td>
                         <a href="/schools/{{ $school->id }}/groups/{{ $group->id }}/edit">{{ $group->name }}</a>
                         @if ($group->status === 'INACTIVE')
-                        <i class="bi bi-exclamation-triangle-fill text-danger"
-                            title="@lang('groups.group_inactive')"></i>
+                        <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('groups.group_inactive')"></i>
                         @endif
                     </td>
                     <td>{{ $group->city }}</td>
