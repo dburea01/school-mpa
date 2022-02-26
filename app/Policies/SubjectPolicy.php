@@ -10,15 +10,23 @@ class SubjectPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+    protected $school;
+
+    public function __construct()
+    {
+        $this->school = request()->route()->parameter('school');
+    }
+
+    public function before(User $user)
+    {
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
+    }
+
     public function viewAny(User $user)
     {
-        //
+        return ($user->isDirector() && $user->school_id === $this->school->id);
     }
 
     /**

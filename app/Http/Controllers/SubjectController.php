@@ -6,9 +6,17 @@ use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use App\Models\School;
+use App\Repositories\SubjectRepository;
 
 class SubjectController extends Controller
 {
+    private $subjectRepository;
+
+    public function __construct(SubjectRepository $subjectRepository)
+    {
+        $this->authorizeResource(Subject::class);
+        $this->subjectRepository = $subjectRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +24,9 @@ class SubjectController extends Controller
      */
     public function index(School $school)
     {
-        $subjects = Subject::where('school_id', $school->id)->orderBy('name')->get();
-
         return view('subjects.subjects', [
             'school' => $school,
-            'subjects' => $subjects
+            'subjects' => $this->subjectRepository->all($school)
         ]);
     }
 

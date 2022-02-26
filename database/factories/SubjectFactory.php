@@ -12,9 +12,9 @@ class SubjectFactory extends Factory
     public function definition()
     {
         return [
-            'short_name' => strtoupper($this->faker->word(10)),
+            'short_name' => strtoupper($this->faker->text(10)),
             'name' => $this->faker->word,
-            'status' => 'ACTIVE',
+            'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
             'option' => false,
             'created_by' => 'factory',
             'comment' => $this->faker->sentence()

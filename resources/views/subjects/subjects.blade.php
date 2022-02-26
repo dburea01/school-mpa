@@ -15,7 +15,7 @@
             <thead>
                 <tr>
                     <th>@lang('subjects.short_name')</th>
-                    <th>@lang('subject.name')</th>
+                    <th>@lang('subjects.name')</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,6 +29,7 @@
                         @endif
                     </td>
                     <td>{{ $subject->name }}</td>
+                    <td>{{ $subject->comment }}</td>
                 </tr>
                 @endforeach
             </tbody>
