@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Symfony\Component\HttpFoundation\Request;
 
 class StoreSubjectRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreSubjectRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +23,18 @@ class StoreSubjectRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
-            //
+            'name' => 'required|max:30',
+            'short_name' => [
+                'required',
+                'min:2',
+                Rule::unique('subjects', 'short_name')->ignore($this->subject)->where(function ($query) use ($request) {
+                    return $query->where('school_id', $request->school->id);
+                }),
+            ],
+            'status' => 'required|in:ACTIVE,INACTIVE',
         ];
     }
 }

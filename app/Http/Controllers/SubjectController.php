@@ -7,6 +7,7 @@ use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use App\Models\School;
 use App\Repositories\SubjectRepository;
+use Illuminate\Support\Facades\Lang;
 
 class SubjectController extends Controller
 {
@@ -35,9 +36,15 @@ class SubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(School $school)
     {
-        //
+        $subject = new Subject();
+        $subject->status = 'ACTIVE';
+
+        return view('subjects.subject_form', [
+            'school' => $school,
+            'subject' => $subject
+        ]);
     }
 
     /**
@@ -46,9 +53,14 @@ class SubjectController extends Controller
      * @param  \App\Http\Requests\StoreSubjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSubjectRequest $request)
+    public function store(StoreSubjectRequest $request, School $school)
     {
-        //
+        try {
+            $subject = $this->subjectRepository->insert($school, $request->all());
+            return redirect('/schools/' . $school->id . '/subjects')->with('success', trans('subject.subject_created', ['name' => $subject->name]));
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -68,9 +80,12 @@ class SubjectController extends Controller
      * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subject $subject)
+    public function edit(School $school, Subject $subject)
     {
-        //
+        return view('subjects.subject_form', [
+            'school' => $school,
+            'subject' => $subject
+        ]);
     }
 
     /**
@@ -80,9 +95,14 @@ class SubjectController extends Controller
      * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSubjectRequest $request, Subject $subject)
+    public function update(StoreSubjectRequest $request, School $school, Subject $subject)
     {
-        //
+        try {
+            $this->subjectRepository->update($subject, $request->all());
+            return redirect('/schools/' . $school->id . '/subjects')->with('success', trans('subject.subject_updated', ['name' => $subject->name]));
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -91,8 +111,13 @@ class SubjectController extends Controller
      * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy(School $school, Subject $subject)
     {
-        //
+        try {
+            $this->subjectRepository->destroy($subject);
+            return redirect('/schools/' . $school->id . '/subjects')->with('success', trans('subject.subject_deleted', ['name' => $subject->name]));
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Group;
+use App\Models\School;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -20,26 +21,26 @@ class SubjectRepository
     {
     }
 
-    public function update(Group $group, array $groupData)
+    public function update(Subject $subject, array $data)
     {
-        $group->fill($groupData);
-        $group->save();
+        $subject->fill($data);
+        $subject->save();
 
-        return $group;
+        return $subject;
     }
 
-    public function destroy(Group $group): void
+    public function destroy(Subject $subject): void
     {
-        $group->delete();
+        $subject->delete();
     }
 
-    public function insert($school_id, $groupData)
+    public function insert(School $school, array $data)
     {
-        $group = new Group();
-        $group->school_id = $school_id;
-        $group->fill($groupData);
-        $group->save();
+        $subject = new Subject();
+        $subject->school_id = $school->id;
+        $subject->fill($data);
+        $subject->save();
 
-        return $group;
+        return $subject;
     }
 }

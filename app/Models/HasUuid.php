@@ -17,13 +17,13 @@ trait HasUuid
         static::creating(function ($model) {
             $model->id = Uuid::uuid4()->toString();
             if (Auth::check()) {
-                $model->created_by = Auth::user()->id;
+                $model->created_by = Auth::user()->full_name;
             }
         });
 
         static::updating(function ($model) {
             if (Auth::check()) {
-                $model->updated_by = Auth::user()->id;
+                $model->updated_by = Auth::user()->full_name;
             }
         });
     }
