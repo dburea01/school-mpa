@@ -16,7 +16,7 @@ class User extends Authenticatable
     public $incrementing = false;
 
     protected $keyType = 'string';
-    
+
     protected $fillable = [
         'role_id',
         'group_id',
@@ -44,12 +44,12 @@ class User extends Authenticatable
     {
         return $this->role_id === 'SUPERADMIN';
     }
-    
+
     public function isDirector()
     {
         return $this->role_id === 'DIRECTOR';
     }
-    
+
     public function getFullNameAttribute()
     {
         return "{$this->last_name} {$this->first_name}";
@@ -64,7 +64,7 @@ class User extends Authenticatable
     {
         $this->attributes['birth_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
     }
-    
+
     public function setLastNameAttribute($value)
     {
         $this->attributes['last_name'] = strtoupper($value);
@@ -85,8 +85,8 @@ class User extends Authenticatable
         return $this->belongsTo(School::class);
     }
 
-    public function group()
+    public function user_groups()
     {
-        return $this->belongsTo(Group::class);
+        return $this->hasMany(UserGroup::class);
     }
 }

@@ -33,12 +33,13 @@
 </div>
 
 <div class="row">
-    <div class="col-md-10">
+    <div class="col">
         <table class="table table-sm table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>@lang('users.name')</th>
                     <th>@lang('users.role')</th>
+                    <th>@lang('users.in_group')</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,6 +53,14 @@
                         @endif
                     </td>
                     <td>{{ $user->role->name }}</td>
+                    <td>
+                        @foreach($user->user_groups as $user_group)
+                        @php $group = \App\Models\Group::find($user_group->group_id) @endphp
+                        <span class="badge bg-info"><a href="/schools/{{ $school->id }}/groups/{{ $user_group->group_id }}/users">{{ $group->name }}</a></span>
+
+                        @endforeach
+                    </td>
+
                 </tr>
                 @endforeach
             </tbody>
@@ -65,27 +74,7 @@
         @endif
     </div>
 
-    <div class="col-md-2">
-        <table class="table table-sm table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th colspan="2" class="text-center">@lang('users.summary')</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($summary_users_by_role as $role)
-                <tr>
-                    <th>{{ App\Models\Role::find($role->role_id)->name }}</th>
-                    <td>{{ $role->user_count }}</td>
-                </tr>
-                @endforeach
-                <tr class="table-info">
-                    <th>@lang('users.total')</th>
-                    <td><strong>{{ $summary_users_by_role->sum('user_count') }}</strong></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
 </div>
 
 

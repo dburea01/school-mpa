@@ -26,16 +26,6 @@ class Group extends Model
         'status'
     ];
 
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
-
-    public function school()
-    {
-        return $this->belongsTo(School::class);
-    }
-
     public function setCountryIdAttribute($value)
     {
         $this->attributes['country_id'] = strtoupper($value);
@@ -44,5 +34,15 @@ class Group extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper($value);
+    }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class);
+    }
+
+    public function user_groups()
+    {
+        return $this->hasMany(UserGroup::class);
     }
 }

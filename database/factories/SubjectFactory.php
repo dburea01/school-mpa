@@ -15,7 +15,7 @@ class SubjectFactory extends Factory
             'short_name' => strtoupper($this->faker->text(10)),
             'name' => $this->faker->word,
             'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
-            'option' => false,
+            // 'option' => false,
             'created_by' => 'factory',
             'comment' => $this->faker->sentence()
         ];

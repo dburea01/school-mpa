@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'modify_group' => 'Modify a family',
+    'modify_group' => 'Modify the family :group_name',
     'create_group' => 'Create a family',
     'name' => 'Family name',
     'address' => 'Address',

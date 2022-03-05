@@ -27,7 +27,7 @@ class UserController extends Controller
     public function index(School $school, Request $request)
     {
         $users = $this->userRepository->all($school->id, $request->all());
-        
+
         return view('users.users', [
             'school' => $school,
             'users' => $users,
@@ -46,7 +46,7 @@ class UserController extends Controller
     public function create(School $school)
     {
         $user = new User();
-        $user->status="ACTIVE";
+        $user->status = "ACTIVE";
         $user->role_id = "STUDENT";
 
         return view('users.user_form', [
@@ -65,13 +65,13 @@ class UserController extends Controller
     {
         // check if the user to create is a potential duplicated user.
         $existingUsers = $this->userRepository->getExistingUsers($school->id, $request->last_name, $request->first_name, $request->birth_date);
-        
+
         if ($existingUsers->count() !== 0) {
             $userToCreate = new User();
             $userToCreate->school_id = $school->id;
             $userToCreate->fill($request->all());
 
-            return redirect('/schools/'.$school->id.'/users/potential-duplicated-user')->with([
+            return redirect('/schools/' . $school->id . '/users/potential-duplicated-user')->with([
                 'existingUsers' => $existingUsers,
                 'userToCreate' => $userToCreate
             ]);
@@ -79,7 +79,7 @@ class UserController extends Controller
 
         try {
             $user = $this->userRepository->insert($school->id, null, $request->all());
-            return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' created.');
+            return redirect('/schools/' . $school->id . '/users')->with('success', 'User ' . $user->full_name . ' created.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -122,7 +122,7 @@ class UserController extends Controller
         // $this->authorize('update', [User::class, $user, $school]);
         try {
             $this->userRepository->update($user, $request->all());
-            return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' updated.');
+            return redirect('/schools/' . $school->id . '/users')->with('success', 'User ' . $user->full_name . ' updated.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -139,7 +139,7 @@ class UserController extends Controller
         // $this->authorize('delete', [User::class, $user]);
         try {
             $this->userRepository->destroy($user);
-            return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' deleted.');
+            return redirect('/schools/' . $school->id . '/users')->with('success', 'User ' . $user->full_name . ' deleted.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -160,7 +160,7 @@ class UserController extends Controller
         // @todo : security et validation
         try {
             $user = $this->userRepository->insert($school->id, null, $request->all());
-            return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' created.');
+            return redirect('/schools/' . $school->id . '/users')->with('success', 'User ' . $user->full_name . ' created.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -169,13 +169,15 @@ class UserController extends Controller
     public function usersOfAGroup(Request $request, School $school, Group $group)
     {
         $usersOfAGroup = $this->userRepository->usersOfAGroup($school->id, $group->id);
-        $usersWithoutGroup = $this->userRepository->usersWithoutGroup($school->id, $request->all());
+        $usersFiltered = $request->has('user_name') && $request->user_name !== '' ?
+            $this->userRepository->all($school->id, ['user_name' => $request->query('user_name')])
+            : [];
 
         return view('users.users_of_a_group', [
             'school' => $school,
             'group' => $group,
             'usersOfAGroup' => $usersOfAGroup,
-            'usersWithoutGroup' => $usersWithoutGroup,
+            'usersFiltered' => $usersFiltered,
             'user_name' => $request->query('user_name', '')
         ]);
     }
@@ -185,7 +187,7 @@ class UserController extends Controller
         // @todo : authorization + validation
         try {
             $user = $this->userRepository->addUserForAGroup($group->id, $request->user_id);
-            return redirect('/schools/'.$school->id.'/groups/'.$group->id.'/users?user_name='.$request->user_name)->with('success', 'User '.$user->full_name.' added for the family.');
+            return redirect('/schools/' . $school->id . '/groups/' . $group->id . '/users?user_name=' . $request->user_name)->with('success', 'User ' . $user->full_name . ' added for the family.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -193,10 +195,10 @@ class UserController extends Controller
 
     public function removeUserFromAGroup(School $school, Group $group, User $user)
     {
-        // @todo : security
+        // @todo : authorizatiob
         try {
-            $this->userRepository->removeUserFromAGroup($school->id, $group->id, $user->id);
-            return redirect('/schools/'.$school->id.'/groups/'.$group->id.'/users')->with('success', 'User '.$user->full_name.' removed for the family.');
+            $this->userRepository->removeUserFromAGroup($group->id, $user->id);
+            return redirect('/schools/' . $school->id . '/groups/' . $group->id . '/users')->with('success', 'User ' . $user->full_name . ' removed for the family.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

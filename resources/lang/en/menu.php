@@ -6,6 +6,7 @@ return [
     'schools' => 'Schools',
     'myoptions' => 'My options',
     'myschool' => 'My school',
+    'reports' => 'Reports',
     'users' => 'Users',
     'groups' => 'Families',
     'periods' => 'Periods',

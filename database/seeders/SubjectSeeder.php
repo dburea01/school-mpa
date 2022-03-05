@@ -18,9 +18,14 @@ class SubjectSeeder extends Seeder
         $schools = School::all();
 
         foreach ($schools as $school) {
-            Subject::factory()->count(random_int(5, 10))->create([
-                'school_id' => $school->id
-            ]);
+            try {
+                Subject::factory()->count(random_int(5, 10))->create([
+                    'school_id' => $school->id
+                ]);
+            } catch (\Throwable $th) {
+                echo $th->getMessage();
+                echo "on continue ....";
+            }
         }
     }
 }

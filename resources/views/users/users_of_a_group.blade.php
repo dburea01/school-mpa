@@ -3,7 +3,7 @@
 @section('content')
 
 
-<h2 class="text-center mb-3">@if ($group->id) @lang('group.modify_group') @else @lang('group.create_group') @endif</h2>
+<h2 class="text-center mb-3">@if ($group->id) @lang('group.modify_group', ['group_name' => $group->name]) @else @lang('group.create_group') @endif</h2>
 
 <x-group-tabs activeTab="users" schoolId="{{ $school->id }}" groupId="{{ $group->id }}" newGroup="{{ false }}" />
 
@@ -35,7 +35,7 @@
                             </td>
                             <td>{{ $userOfAGroup->role->name }}</td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalRemoveUserFromGroup_{{ $userOfAGroup->id }}" aria-label="remove">
+                                <button type="button" class="btn btn-sm btn-danger" title="@lang('user.remove_user_from_group')" data-bs-toggle="modal" data-bs-target="#modalRemoveUserFromGroup_{{ $userOfAGroup->id }}" aria-label="remove">
                                     <i class="bi bi-person-dash"></i>
                                 </button>
                             </td>
@@ -53,7 +53,6 @@
         <div class="card">
             <div class="card-header text-center">@lang('group.add_user_for_a_group')</div>
             <div class="card-body">
-
                 <div class="row mb-3">
                     <div class="col-md-10">
                         <form class="row" action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users" aria-label="search">
@@ -69,9 +68,7 @@
                     </div>
                 </div>
 
-                @if (count($usersWithoutGroup) === 0)
-                no users found
-                @else
+
                 <table class="table table-sm table-hover table-bordered">
                     <thead>
                         <tr>
@@ -81,29 +78,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($usersWithoutGroup as $userWithoutGroup)
+                        @foreach ($usersFiltered as $userFiltered)
                         <tr>
                             <td>
-                                {{ $userWithoutGroup->full_name }}
-                                @if ($userWithoutGroup->status === 'INACTIVE')
+                                {{ $userFiltered->full_name }}
+                                @if ($userFiltered->status === 'INACTIVE')
                                 <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('users.user_inactive')"></i>
                                 @endif
                             </td>
-                            <td>{{ $userWithoutGroup->role->name }}</td>
+                            <td>{{ $userFiltered->role->name }}</td>
                             <td>
                                 <form action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users" method="POST">
                                     @csrf
-                                    <input type="hidden" name="user_id" value="{{ $userWithoutGroup->id }}" />
+                                    <input type="hidden" name="user_id" value="{{ $userFiltered->id }}" />
                                     <input type="hidden" name="user_name" value="{{ $user_name }}" />
-                                    <button type="submit" class="btn btn-sm btn-success" aria-label="add">
-                                        <i class="bi bi-person-plus"></i></button>
+                                    <button type="submit" class="btn btn-sm btn-success" aria-label="add" title="@lang('user.add_user_to_group')">
+                                        <i class="bi bi-person-plus"></i> </button>
                                 </form>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-                @endif
+
 
 
 

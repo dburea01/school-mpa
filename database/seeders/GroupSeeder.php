@@ -19,7 +19,7 @@ class GroupSeeder extends Seeder
 
         // create some groups for each school
         foreach ($schools as $school) {
-            Group::factory()->count(random_int(10, 50))->create([
+            Group::factory()->count(random_int(5, 20))->create([
                 'school_id' => $school->id
             ]);
         }

@@ -11,7 +11,7 @@
         @lang('groups.add')</a></h1>
 
 <div class="row mt-3 mb-3">
-    <form class="row" action="/schools/{{ $school->id }}/groups">
+    <form class="row col-md-8 mx-auto" action="/schools/{{ $school->id }}/groups">
         <div class="col-md-3 col-sm-12">
             <input type="text" class="form-control form-control-sm mr-sm-2" name="group_name" id="group_name" placeholder="@lang('groups.filter_by_group_name')" value="{{ $group_name }}">
         </div>
@@ -28,7 +28,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 mx-auto">
         <table class="table table-sm table-striped table-bordered table-hover">
             <thead>
                 <tr>
@@ -47,7 +47,7 @@
                         @endif
                     </td>
                     <td>{{ $group->city }}</td>
-                    <td><a href="/schools/{{ $school->id }}/groups/{{ $group->id }}/users">{{ $group->users_count }}</a>
+                    <td><a href="/schools/{{ $school->id }}/groups/{{ $group->id }}/users">{{ $group->user_groups_count }}</a>
                     </td>
                 </tr>
                 @endforeach
@@ -61,26 +61,7 @@
         @endif
     </div>
 
-    <div class="col-md-4">
-        <table class="table table-sm table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th colspan="2" class="text-center">@lang('groups.summary')</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>@lang('groups.qty_students')</th>
-                    <td>{{ $summary_users_by_role->firstWhere('role_id', 'STUDENT')->user_count }}</td>
-                </tr>
-                <tr>
-                    <th>@lang('groups.qty_parents')</th>
-                    <td>{{ $summary_users_by_role->firstWhere('role_id', 'PARENT')->user_count }}</td>
-                </tr>
-            </tbody>
-        </table>
 
-    </div>
 </div>
 
 

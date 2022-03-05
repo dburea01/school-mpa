@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\School;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\UserGroup;
 
 class UserSeeder extends Seeder
 {
@@ -37,29 +38,41 @@ class UserSeeder extends Seeder
                 'role_id' => 'TEACHER',
             ]);
 
-            // for each groups, create 2 parents + some students
+            // for each groups, create 2 parents + some students and associate them
             $groups = Group::where('school_id', $school->id)->get();
 
             foreach ($groups as $group) {
-                User::factory()->count(2)->create([
+                $parents = User::factory()->count(2)->create([
                     'school_id' => $school->id,
                     'role_id' => 'PARENT',
-                    'group_id' => $group->id,
                     'last_name' => $group->name
                 ]);
 
-                User::factory()->count(random_int(1, 3))->create([
+                $this->createUserGroup($group, $parents);
+
+                $students = User::factory()->count(random_int(1, 3))->create([
                     'school_id' => $school->id,
                     'role_id' => 'STUDENT',
-                    'group_id' => $group->id,
                     'last_name' => $group->name
                 ]);
+
+                $this->createUserGroup($group, $students);
             }
 
             // qty of max users of the school, regarding the quantity of users just inserted in the DB
             $qtyUsers = User::where('school_id', $school->id)->count();
             $school->max_users = round($qtyUsers * (1 + random_int(10, 40) / 100));
             $school->save();
+        }
+    }
+
+    public function createUserGroup(Group $group, $users)
+    {
+        foreach ($users as $user) {
+            UserGroup::factory()->create([
+                'group_id' => $group->id,
+                'user_id' => $user->id
+            ]);
         }
     }
 }

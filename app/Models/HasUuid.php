@@ -16,15 +16,11 @@ trait HasUuid
     {
         static::creating(function ($model) {
             $model->id = Uuid::uuid4()->toString();
-            if (Auth::check()) {
-                $model->created_by = Auth::user()->full_name;
-            }
+            $model->created_by = Auth::check() ? Auth::user()->full_name : '?';
         });
 
         static::updating(function ($model) {
-            if (Auth::check()) {
-                $model->updated_by = Auth::user()->full_name;
-            }
+            $model->updated_by = Auth::check() ? Auth::user()->full_name : '?';
         });
     }
 }

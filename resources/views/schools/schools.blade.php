@@ -38,6 +38,7 @@
                 <th>@lang('schools.groups')</th>
                 <th>@lang('schools.periods')</th>
                 <th>@lang('schools.subjects')</th>
+                <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
@@ -70,6 +71,9 @@
                 <td>
                     <a href="/schools/{{ $school->id }}/subjects">{{ $school->subjects_count }}</a>
                 </td>
+                <td>
+                    <a href="/schools/{{ $school->id }}/reports"><i class="bi bi-table" title="reports"></i></a>
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -78,7 +82,7 @@
 </div>
 
 @if($schools->hasPages())
-<div class="d-flex justify-content-center">
+<div class=" d-flex justify-content-center">
     {{ $schools->withQueryString()->links() }}
 </div>
 @endif

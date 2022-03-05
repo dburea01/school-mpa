@@ -79,6 +79,10 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
                             <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/edit">@lang('menu.myschool')</a></li>
+                            <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/reports">@lang('menu.reports')</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/users">@lang('menu.users')</a></li>
                             <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/groups">@lang('menu.groups')</a></li>
                             <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/subjects">@lang('menu.subjects')</a></li>
@@ -114,7 +118,11 @@
 
                 </ul>
 
-                <span class="navbar-text text-truncate"> Ecole Sainte Marie (Année scolaire
+
+                @php
+                $school = App\Models\School::find(Auth::user()->school_id)
+                @endphp
+                <span class="navbar-text text-truncate">{{ $school->name }} (Année scolaire
                     2021-2022)
                 </span>
 

@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('school_id')->nullable();
-            $table->uuid('group_id')->nullable();
             $table->string('status');
             $table->string('role_id');
             $table->string('last_name');
@@ -38,10 +37,8 @@ class CreateUsersTable extends Migration
             $table->string('created_by');
             $table->string('updated_by')->nullable();
             $table->timestamps();
-        
 
             $table->foreign('school_id')->references('id')->on('schools')->cascadeOnDelete();
-            $table->foreign('group_id')->references('id')->on('groups')->nullOnDelete();
             $table->foreign('role_id')->references('id')->on('roles')->nullOnDelete();
         });
 
