@@ -45,10 +45,10 @@
 
     <p>
         SuperAdmin : {{ App\Models\User::where('role_id', 'SUPERADMIN')->first()->email }}<br>
-        Director : {{ App\Models\User::where('role_id', 'DIRECTOR')->first()->email }}<br>
-        Parent : {{ App\Models\User::where('role_id', 'PARENT')->first()->email }}<br>
-        Teacher : {{ App\Models\User::where('role_id', 'TEACHER')->first()->email }}<br>
-        Student : {{ App\Models\User::where('role_id', 'STUDENT')->first()->email }}<br>
+        Director : {{ App\Models\User::where('role_id', 'DIRECTOR')->where('status', 'ACTIVE')->first()->email }}<br>
+        Parent : {{ App\Models\User::where('role_id', 'PARENT')->where('status', 'ACTIVE')->first()->email }}<br>
+        Teacher : {{ App\Models\User::where('role_id', 'TEACHER')->where('status', 'ACTIVE')->first()->email }}<br>
+        Student : {{ App\Models\User::where('role_id', 'STUDENT')->where('status', 'ACTIVE')->first()->email }}<br>
     </p>
 
 

@@ -122,7 +122,7 @@
                 @php
                 $school = App\Models\School::find(Auth::user()->school_id)
                 @endphp
-                <span class="navbar-text text-truncate">{{ $school->name }} (Année scolaire
+                <span class="navbar-text text-truncate">{{ $school ? $school->name : '' }} (Année scolaire
                     2021-2022)
                 </span>
 
