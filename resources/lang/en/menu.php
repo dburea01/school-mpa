@@ -11,6 +11,7 @@ return [
     'groups' => 'Families',
     'periods' => 'Periods',
     'subjects' => 'Subjects',
+    'periods' => 'Periods',
     'assignments' => 'Assignments'
 
 ];

@@ -67,7 +67,9 @@
                 <td>
                     <a href="/schools/{{ $school->id }}/groups">{{ $school->groups_count }}</a>
                 </td>
-                <td></td>
+                <td>
+                    <a href="/schools/{{ $school->id }}/periods">{{ $school->periods_count }}</a>
+                </td>
                 <td>
                     <a href="/schools/{{ $school->id }}/subjects">{{ $school->subjects_count }}</a>
                 </td>

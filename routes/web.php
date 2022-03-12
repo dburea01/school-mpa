@@ -3,6 +3,7 @@
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
@@ -56,6 +57,9 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the subjects of a school
     Route::resource('schools.subjects', SubjectController::class)->scoped()->whereUuid(['school', 'subject']);
+
+    // routes for the periods of a school
+    Route::resource('schools.periods', PeriodController::class)->scoped()->whereUuid(['school', 'period']);
 
     // route for the report
     Route::get('schools/{school}/reports', [ReportController::class, 'report'])->whereUuid('school');

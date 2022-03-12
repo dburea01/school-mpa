@@ -86,6 +86,7 @@
                             <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/users">@lang('menu.users')</a></li>
                             <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/groups">@lang('menu.groups')</a></li>
                             <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/subjects">@lang('menu.subjects')</a></li>
+                            <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/periods">@lang('menu.periods')</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

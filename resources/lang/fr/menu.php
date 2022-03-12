@@ -8,6 +8,7 @@ return [
     'users' => 'Utilisateurs',
     'periods' => 'Périodes',
     'subjects' => 'Matières',
+    'periods' => 'Années scolaires',
     'assignments' => 'Affectations'
 
 ];

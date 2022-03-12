@@ -47,4 +47,9 @@ class School extends Model
     {
         return $this->hasMany(Subject::class);
     }
+
+    public function periods()
+    {
+        return $this->hasMany(Period::class);
+    }
 }
