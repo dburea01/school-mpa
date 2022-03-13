@@ -121,10 +121,14 @@
 
 
                 @php
-                $school = App\Models\School::find(Auth::user()->school_id)
+                $school = App\Models\School::find(Auth::user()->school_id);
+                if ($school) {
+                $currentPeriod = App\Models\Period::where('school_id', $school->id)->where('current', true)->first();
+                }
                 @endphp
-                <span class="navbar-text text-truncate">{{ $school ? $school->name : '' }} (Année scolaire
-                    2021-2022)
+                <span class="navbar-text text-truncate">
+                    {{ $school ? $school->name : 'no school' }} -
+                    {{ isset($currentPeriod) ? $currentPeriod->name : 'no current period' }}
                 </span>
 
             </div>

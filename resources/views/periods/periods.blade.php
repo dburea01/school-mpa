@@ -8,6 +8,16 @@
 <h1 class="text-center">@lang('periods.title') ({{$periods->count()}})&nbsp;<a href="/schools/{{ $school->id }}/periods/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
         @lang('periods.add')</a></h1>
 
+@if (count($currentPeriod) === 0)
+<div class="row">
+    <div class="col">
+        <div class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> @lang('periods.no_current_period')
+        </div>
+    </div>
+</div>
+
+@endif
 
 <div class="row">
     <div class="col">

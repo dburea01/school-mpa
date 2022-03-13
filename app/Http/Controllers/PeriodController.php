@@ -20,9 +20,15 @@ class PeriodController extends Controller
 
     public function index(School $school)
     {
+        $periods = $this->periodRepository->all($school);
+        $currentPeriod = $periods->filter(function ($period) {
+            return $period->current === true;
+        });
+
         return view('periods.periods', [
             'school' => $school,
-            'periods' => $this->periodRepository->all($school)
+            'periods' => $periods,
+            'currentPeriod' => $currentPeriod
         ]);
     }
 
