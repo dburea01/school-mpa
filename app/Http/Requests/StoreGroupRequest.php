@@ -26,11 +26,11 @@ class StoreGroupRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => ['required', 'max:60'],
-            'address1' => ['required', 'max:60'],
+            'name' => $this->requiredAndMax(),
+            'address1' => $this->requiredAndMax(),
             'address2' => 'max:60',
             'address3' => 'max:60',
-            'city' => ['required', 'max:60'],
+            'city' => $this->requiredAndMax(),
             'country_id' => 'required|size:2',
             'zip_code' => 'required|max:10',
             'status' => [
@@ -38,5 +38,10 @@ class StoreGroupRequest extends FormRequest
                 'in:ACTIVE,INACTIVE'
             ]
         ];
+    }
+
+    private function requiredAndMax()
+    {
+        return 'required|max:60';
     }
 }
