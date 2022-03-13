@@ -125,10 +125,10 @@
 
         <div class="row mb-3">
             <div class="col-sm-10 offset-sm-2  d-grid gap-2 d-block">
-                <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2"></i>
+                <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2" aria-label="save"></i>
                     @lang('group.save')</button>
                 @if ($group->id)
-                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteGroup"><i class="bi bi-trash"></i> @lang('group.delete', ['name' =>
+                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteGroup"><i class="bi bi-trash" aria-label="save"></i> @lang('group.delete', ['name' =>
                     $group->name])</button>
                 @endif
             </div>
@@ -152,8 +152,8 @@
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
-                            <i class="bi bi-chevron-left"></i> @lang('group.cancel_delete')</button>
-                        <button type="submit" class="btn btn-sm btn-danger ml-3"><i class="bi bi-trash"></i>@lang('group.confirm_delete', ['name' => $group->name])</button>
+                            <i class="bi bi-chevron-left" aria-label="save"></i> @lang('group.cancel_delete')</button>
+                        <button type="submit" class="btn btn-sm btn-danger ml-3"><i class="bi bi-trash" aria-label="save"></i>@lang('group.confirm_delete', ['name' => $group->name])</button>
                     </form>
                 </div>
             </div>
