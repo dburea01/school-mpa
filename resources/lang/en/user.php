@@ -21,5 +21,12 @@ return [
     'confirm_delete' => 'Delete <strong>:full_name</strong>',
 
     'add_user_to_group' => 'Add user to this group',
-    'remove_user_from_group' => 'Remove user from this group'
+    'remove_user_from_group' => 'Remove user from this group',
+
+    'user_created' => 'The user ":name" has been created.',
+    'user_updated' => 'The user ":name" has been updated.',
+    'user_deleted' => 'The user ":name" has been deleted.',
+
+    'user_added_to_family' => 'The user ":name" has been added to the family.',
+    'user_removed_from_family' => 'The user ":name" has been removed from the family.',
 ];
