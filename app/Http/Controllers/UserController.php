@@ -188,10 +188,11 @@ class UserController extends Controller
             return back()->with('error', $th->getMessage());
         }
     }
-
+    /**
+     * warning : security
+     */
     public function removeUserFromAGroup(School $school, Group $group, User $user)
     {
-        // TODO(someone) authorizations
         try {
             $this->userRepository->removeUserFromAGroup($group->id, $user->id);
             return redirect("/schools/$school->id/groups/$group->id/users")->with('success', trans('user.user_removed_from_family', ['name' => $user->full_name]));
