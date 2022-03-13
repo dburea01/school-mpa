@@ -53,7 +53,6 @@ class SchoolController extends Controller
     {
         try {
             $school = $this->schoolRepository->insert($request->all());
-            // return redirect()->route('schools.index')->with('success', 'School ' . $school->name . ' created.');
             return redirect("/schools")->with('success', trans('schools.school_created', ['name' => $school->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());

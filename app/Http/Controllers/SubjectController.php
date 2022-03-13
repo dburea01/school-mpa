@@ -57,7 +57,7 @@ class SubjectController extends Controller
     {
         try {
             $subject = $this->subjectRepository->insert($school, $request->all());
-            return redirect('/schools/' . $school->id . '/subjects')->with('success', trans('subject.subject_created', ['name' => $subject->name]));
+            return redirect("/schools/$school->id/subjects")->with('success', trans('subject.subject_created', ['name' => $subject->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -99,7 +99,7 @@ class SubjectController extends Controller
     {
         try {
             $this->subjectRepository->update($subject, $request->all());
-            return redirect('/schools/' . $school->id . '/subjects')->with('success', trans('subject.subject_updated', ['name' => $subject->name]));
+            return redirect("/schools/$school->id/subjects")->with('success', trans('subject.subject_updated', ['name' => $subject->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -115,7 +115,7 @@ class SubjectController extends Controller
     {
         try {
             $this->subjectRepository->destroy($subject);
-            return redirect('/schools/' . $school->id . '/subjects')->with('success', trans('subject.subject_deleted', ['name' => $subject->name]));
+            return redirect("/schools/$school->id/subjects")->with('success', trans('subject.subject_deleted', ['name' => $subject->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
