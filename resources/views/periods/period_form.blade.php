@@ -80,9 +80,9 @@
 
         <div class="row mb-3">
             <div class="col-sm-10 offset-sm-2  d-grid gap-2 d-block">
-                <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2"></i> @lang('period.save')</button>
+                <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2" aria-hidden="true"></i> @lang('period.save')</button>
                 @if ($period->id)
-                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeletePeriod"><i class="bi bi-trash"></i> @lang('period.delete')</button>
+                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeletePeriod"><i class="bi bi-trash" aria-hidden="true"></i> @lang('period.delete')</button>
                 @endif
             </div>
         </div>
@@ -104,8 +104,8 @@
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
-                            <i class="bi bi-chevron-left"></i> @lang('period.cancel_delete')</button>
-                        <button type="submit" class="btn btn-sm btn-danger ml-3"><i class="bi bi-trash"></i> @lang('period.delete')</button>
+                            <i class="bi bi-chevron-left" aria-hidden="true"></i> @lang('period.cancel_delete')</button>
+                        <button type="submit" class="btn btn-sm btn-danger ml-3"><i class="bi bi-trash" aria-hidden="true"></i> @lang('period.delete')</button>
                     </form>
                 </div>
             </div>

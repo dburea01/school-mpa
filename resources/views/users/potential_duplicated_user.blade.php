@@ -73,11 +73,11 @@
 
                     <div class="mb-3 row">
                         <div class="col d-grid gap-2 d-block">
-                            <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2"></i>
+                            <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2" aria-hidden="true"></i>
                                 @lang('potential_duplicated_user.confirm_duplicated_user')</button>
 
                             <a href="{{ url()->previous() }}" class="btn btn-sm btn-danger">
-                                <i class="bi bi-chevron-left"></i>
+                                <i class="bi bi-chevron-left" aria-hidden="true"></i>
                                 @lang('potential_duplicated_user.cancel_duplicated_user')
                             </a>
 

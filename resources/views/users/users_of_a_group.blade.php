@@ -30,13 +30,13 @@
                             <td>
                                 {{ $userOfAGroup->full_name }}
                                 @if ($userOfAGroup->status === 'INACTIVE')
-                                <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('users.user_inactive')"></i>
+                                <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true" title="@lang('users.user_inactive')"></i>
                                 @endif
                             </td>
                             <td>{{ $userOfAGroup->role->name }}</td>
                             <td>
                                 <button type="button" class="btn btn-sm btn-danger" title="@lang('user.remove_user_from_group')" data-bs-toggle="modal" data-bs-target="#modalRemoveUserFromGroup_{{ $userOfAGroup->id }}" aria-label="remove">
-                                    <i class="bi bi-person-dash"></i>
+                                    <i class="bi bi-person-dash" aria-hidden="true"></i>
                                 </button>
                             </td>
                         </tr>
@@ -60,7 +60,7 @@
                                 <input type="text" class="form-control form-control-sm" name="user_name" value="{{ $user_name }}" />
                             </div>
                             <div class="col-md-6 col-sm-12">
-                                <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel"></i>
+                                <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel" aria-hidden="true"></i>
                                     @lang('users.filter')</button>
                             </div>
 
@@ -83,7 +83,7 @@
                             <td>
                                 {{ $userFiltered->full_name }}
                                 @if ($userFiltered->status === 'INACTIVE')
-                                <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('users.user_inactive')"></i>
+                                <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true" title="@lang('users.user_inactive')"></i>
                                 @endif
                             </td>
                             <td>{{ $userFiltered->role->name }}</td>
@@ -93,7 +93,7 @@
                                     <input type="hidden" name="user_id" value="{{ $userFiltered->id }}" />
                                     <input type="hidden" name="user_name" value="{{ $user_name }}" />
                                     <button type="submit" class="btn btn-sm btn-success" aria-label="add" title="@lang('user.add_user_to_group')">
-                                        <i class="bi bi-person-plus"></i> </button>
+                                        <i class="bi bi-person-plus" aria-hidden="true"></i> </button>
                                 </form>
                             </td>
                         </tr>
@@ -130,8 +130,8 @@
                 <form class="form-inline" method="POST" action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users/{{ $userOfAGroup->id }}">
                     @csrf
                     @method('DELETE')
-                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-chevron-left"></i> @lang('group.cancel_remove_user')</button>
-                    <button type="submit" class="btn btn-sm btn-danger ml-3"><i class="bi bi-trash"></i>
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-chevron-left" aria-hidden="true"></i> @lang('group.cancel_remove_user')</button>
+                    <button type="submit" class="btn btn-sm btn-danger ml-3"><i class="bi bi-trash" aria-hidden="true"></i>
                         @lang('group.confirm_remove_user', ['full_name' => $userOfAGroup->full_name])</button>
                 </form>
             </div>

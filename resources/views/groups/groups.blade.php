@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<h1 class="text-center">@lang('groups.title') ({{$groups->total()}})&nbsp;<a href="/schools/{{ $school->id }}/groups/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"></i>
+<h1 class="text-center">@lang('groups.title') ({{$groups->total()}})&nbsp;<a href="/schools/{{ $school->id }}/groups/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
         @lang('groups.add')</a></h1>
 
 <div class="row mt-3 mb-3">
@@ -21,7 +21,7 @@
         </div>
 
         <div class="col-md-3 col-sm-12 d-grid gap-2 d-md-block">
-            <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel"></i>
+            <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel" aria-hidden="true"></i>
                 @lang('groups.filter')</button>
         </div>
     </form>
@@ -43,7 +43,7 @@
                     <td>
                         <a href="/schools/{{ $school->id }}/groups/{{ $group->id }}/edit">{{ $group->name }}</a>
                         @if ($group->status === 'INACTIVE')
-                        <i class="bi bi-exclamation-triangle-fill text-danger" title="@lang('groups.group_inactive')"></i>
+                        <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true" title="@lang('groups.group_inactive')"></i>
                         @endif
                     </td>
                     <td>{{ $group->city }}</td>
