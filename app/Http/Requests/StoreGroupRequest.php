@@ -26,11 +26,11 @@ class StoreGroupRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => 'required|max:60',
-            'address1' => 'required|max:60',
+            'name' => ['required', 'max:60'],
+            'address1' => ['required', 'max:60'],
             'address2' => 'max:60',
             'address3' => 'max:60',
-            'city' => 'required|max:60',
+            'city' => ['required', 'max:60'],
             'country_id' => 'required|size:2',
             'zip_code' => 'required|max:10',
             'status' => [
