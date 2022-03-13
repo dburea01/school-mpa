@@ -151,9 +151,11 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * warning : security
+     */
     public function savePotentialDuplicatedUser(School $school, Request $request)
     {
-        // TODO(someone) authorizations
         try {
             $user = $this->userRepository->insert($school->id, $request->all());
             return redirect('/schools/' . $school->id . '/users')->with('success', 'User ' . $user->full_name . ' created.');
@@ -178,9 +180,11 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * warning : security
+     */
     public function addUserForAGroup(Request $request, School $school, Group $group)
     {
-        // ToDo(ganncamp) per the business partners, more checks needed
         try {
             $user = $this->userRepository->addUserForAGroup($group->id, $request->user_id);
             return redirect("/schools/$school->id/groups/$group->id/users?user_name=$request->user_name")->with('success', trans('user.user_added_to_family', ['name' => $user->full_name]));
@@ -188,6 +192,7 @@ class UserController extends Controller
             return back()->with('error', $th->getMessage());
         }
     }
+
     /**
      * warning : security
      */
