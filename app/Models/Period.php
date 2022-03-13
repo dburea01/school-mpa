@@ -25,12 +25,17 @@ class Period extends Model
 
     protected function getStartDateAttribute($value)
     {
-        return isset($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y') : '';
+        return isset($value) ? $this->formatDate($value) : '';
     }
 
     protected function getEndDateAttribute($value)
     {
-        return isset($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y') : '';
+        return isset($value) ? $this->formatDate($value) : '';
+    }
+
+    private function formatDate($value)
+    {
+        return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
     }
 
     public function school()

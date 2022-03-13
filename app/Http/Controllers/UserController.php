@@ -134,7 +134,6 @@ class UserController extends Controller
      */
     public function destroy(School $school, User $user)
     {
-        // $this->authorize('delete', [User::class, $user]);
         try {
             $this->userRepository->destroy($user);
             return redirect("/schools/$school->id/users")->with('success', trans('user.user_created', ['name' => $user->full_name]));

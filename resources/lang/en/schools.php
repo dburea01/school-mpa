@@ -14,6 +14,7 @@ return [
     'filter_by_school_name' => 'Filter by school name',
     'filter_by_city' => 'Filter by city',
     'groups' => 'Groups',
+    'periods' => 'Periods',
     'subjects' => 'Subjects',
 
     'school_created' => 'The school ":name" has been created.',
