@@ -25,5 +25,9 @@ return [
     'remove_user_of_a_group' => 'Remove <strong>:full_name</strong> from this family',
     'warning_remove_user_no_possible_rollback' => 'Warning, you are going to remove <strong>:full_name</strong> from this family. Please confirm. Note that the user won\'t be deleted, but only removed from this family.',
     'confirm_remove_user' => 'Confirm the remove',
-    'cancel_remove_user' => 'Cancel'
+    'cancel_remove_user' => 'Cancel',
+
+    'group_created' => 'The family ":name" has been created.',
+    'group_updated' => 'The family ":name" has been updated.',
+    'group_deleted' => 'The family ":name" has been deleted.'
 ];

@@ -66,9 +66,9 @@ class GroupController extends Controller
     {
         try {
             $group = $this->groupRepository->insert($school->id, $request->all());
-            return redirect('schools/' . $school->id . '/groups/' . $group->id . '/users')->with('success', 'Family ' . $group->name . ' created.');
+            // return redirect('schools/' . $school->id . '/groups/' . $group->id . '/users')->with('success', 'Family ' . $group->name . ' created.');
             // return redirect($this->redirect_to_groups_list($school->id) . '/' . $group->id . '/users')->with('success', 'Family ' . $group->name . ' created.');
-
+            return redirect("schools/$school->id/groups/$group->id/users")->with('success', trans('group.group_created', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -110,8 +110,9 @@ class GroupController extends Controller
     {
         try {
             $group = $this->groupRepository->update($group, $request->all());
-            return redirect('schools/' . $school->id . '/groups')->with('success', 'Family ' . $group->name . ' updated.');
+            // return redirect('schools/' . $school->id . '/groups')->with('success', 'Family ' . $group->name . ' updated.');
             // return redirect($this->redirect_to_groups_list($school->id))->with('success', 'Family ' . $group->name . ' updated.');
+            return redirect("schools/$school->id/groups")->with('success', trans('group.group_updated', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -127,8 +128,9 @@ class GroupController extends Controller
     {
         try {
             $this->groupRepository->destroy($group);
-            return redirect('schools/' . $school->id . '/groups')->with('success', 'Family ' . $group->name . ' deleted.');
+            // return redirect('schools/' . $school->id . '/groups')->with('success', 'Family ' . $group->name . ' deleted.');
             // return redirect($this->redirect_to_groups_list($school->id))->with('success', 'Family ' . $group->name . ' deleted.');
+            return redirect("schools/$school->id/groups")->with('success', trans('group.group_deleted', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
