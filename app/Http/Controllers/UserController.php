@@ -151,9 +151,11 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * todo : authorization
+     */
     public function savePotentialDuplicatedUser(School $school, Request $request)
     {
-        // @todo : security et validation
         try {
             $user = $this->userRepository->insert($school->id, $request->all());
             return redirect('/schools/' . $school->id . '/users')->with('success', 'User ' . $user->full_name . ' created.');
@@ -178,9 +180,11 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * todo : authorization + validation
+     */
     public function addUserForAGroup(Request $request, School $school, Group $group)
     {
-        // @todo : authorization + validation
         try {
             $user = $this->userRepository->addUserForAGroup($group->id, $request->user_id);
             return redirect("/schools/$school->id/groups/$group->id/users?user_name=$request->user_name")->with('success', trans('user.user_added_to_family', ['name' => $user->full_name]));
@@ -189,9 +193,11 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * todo : authorization
+     */
     public function removeUserFromAGroup(School $school, Group $group, User $user)
     {
-        // @todo : authorizatiob
         try {
             $this->userRepository->removeUserFromAGroup($group->id, $user->id);
             return redirect("/schools/$school->id/groups/$group->id/users")->with('success', trans('user.user_removed_from_family', ['name' => $user->full_name]));
