@@ -180,7 +180,7 @@ class UserController extends Controller
 
     public function addUserForAGroup(Request $request, School $school, Group $group)
     {
-        // TODO(ganncamp) per the business partners, more checks needed
+        // ToDo(ganncamp) per the business partners, more checks needed
         try {
             $user = $this->userRepository->addUserForAGroup($group->id, $request->user_id);
             return redirect("/schools/$school->id/groups/$group->id/users?user_name=$request->user_name")->with('success', trans('user.user_added_to_family', ['name' => $user->full_name]));
