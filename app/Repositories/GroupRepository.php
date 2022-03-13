@@ -26,10 +26,6 @@ class GroupRepository
         return $groupsQuery->paginate(10);
     }
 
-    public function get($groupId, array $request): void
-    {
-    }
-
     public function update(Group $group, array $groupData)
     {
         $group->fill($groupData);

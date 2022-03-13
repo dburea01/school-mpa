@@ -31,41 +31,12 @@ class UserRepository
         return $usersQuery->paginate(10);
     }
 
-    /*
-    public function usersWithoutGroup(string $schoolId, $request)
+    public function getExistingUsers(string $schoolId, String $lastName, string $firstName)
     {
-        $usersQuery =  User::where('school_id', $schoolId)->with('role')
-        ->whereNull('group_id')
-        ->whereIn('role_id', ['STUDENT', 'PARENT'])->orderBy('last_name');
-
-        if (array_key_exists('user_name', $request) && $request['user_name'] !== null && strlen($request['user_name']) > 1) {
-            $usersQuery->where(function ($query) use ($request) {
-                $query->where('first_name', 'ilike', '%' . $request['user_name'] . '%')
-                      ->orWhere('last_name', 'ilike', '%' . $request['user_name'] . '%');
-            });
-        }
-
-        return $usersQuery->get();
-    }
-    */
-
-    public function getExistingUsers(string $schoolId, String $lastName, string $firstName, string $birthDate)
-    {
-        // dd($lastName.$firstName.$birthDate);
-        $existingUsers = User::where('school_id', $schoolId)
+        return User::where('school_id', $schoolId)
             ->where('last_name', 'ilike', $lastName)
             ->where('first_name', 'ilike', $firstName)
             ->get();
-
-        // dd($potentialDuplicatedUsers);
-
-        return $existingUsers;
-    }
-
-
-
-    public function get($schoolId, array $request): void
-    {
     }
 
     public function update(User $user, array $userData)

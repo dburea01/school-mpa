@@ -17,10 +17,6 @@ class SubjectRepository
         return Subject::where('school_id', $school->id)->orderBy('name')->get();
     }
 
-    public function get($groupId, array $request): void
-    {
-    }
-
     public function update(Subject $subject, array $data)
     {
         $subject->fill($data);

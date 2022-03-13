@@ -20,42 +20,9 @@ class SchoolRepository
             $query->where('city', 'ilike', '%' . $request['city'] . '%');
         }
 
-        if (\array_key_exists('country_id', $request)) {
-            $query->where('country_id', '=', $request['country_id']);
-        }
 
-        if (\array_key_exists('school_type_id', $request) && !empty($request['school_type_id'])) {
-            $query->where('school_type_id', '=', $request['school_type_id']);
-        }
-
-        if (\array_key_exists('school_status', $request) && !empty($request['school_status'])) {
-            $query->where('school_status', '=', $request['school_status']);
-        }
-
-        if (\array_key_exists('sort', $request)) {
-            $query->orderBy($request['sort']);
-        }
-
-        if (\array_key_exists('desc', $request)) {
-            $query->orderBy($request['desc'], 'desc');
-        }
-
-        if (\array_key_exists('fields', $request)) {
-            $fields = explode(',', $request['fields']);
-            foreach ($fields as $field) {
-                if ('users_count' === $field) {
-                    $query->withCount('users');
-                } else {
-                    $query->addSelect(trim($field));
-                }
-            }
-        }
 
         return $query->paginate(10);
-    }
-
-    public function get($schoolId, array $request): void
-    {
     }
 
     public function update($schoolId, array $schoolData)

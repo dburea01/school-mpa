@@ -18,9 +18,6 @@ class PeriodRepository
         return Period::where('school_id', $school->id)->orderBy('start_date', 'desc')->get();
     }
 
-    public function get($groupId, array $request): void
-    {
-    }
 
     public function update(Period $period, array $data)
     {
