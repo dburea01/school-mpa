@@ -34,7 +34,7 @@
 
 <div class="row">
     <div class="col">
-        <table class="table table-sm table-striped table-bordered table-hover">
+        <table class="table table-sm table-striped table-bordered table-hover" aria-label="users list">
             <thead>
                 <tr>
                     <th>@lang('users.name')</th>

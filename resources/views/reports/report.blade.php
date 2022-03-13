@@ -7,7 +7,7 @@
 <div class="row mt-3">
     <div class="col-md-4">
 
-        <table class="table table-sm table-striped table-bordered table-hover">
+        <table class="table table-sm table-striped table-bordered table-hover" aria-label="users report">
             <thead>
                 <tr>
                     <th colspan="2" class="text-center">@lang('report.user_summary')</th>
@@ -31,7 +31,7 @@
 
     <div class="col-md-4">
 
-        <table class="table table-sm table-striped table-bordered table-hover">
+        <table class="table table-sm table-striped table-bordered table-hover" aria-label="sex-report">
             <thead>
                 <tr>
                     <th colspan="2" class="text-center">@lang('report.sex_summary')</th>

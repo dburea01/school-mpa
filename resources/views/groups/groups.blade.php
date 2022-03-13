@@ -29,7 +29,7 @@
 
 <div class="row">
     <div class="col-md-8 mx-auto">
-        <table class="table table-sm table-striped table-bordered table-hover">
+        <table class="table table-sm table-striped table-bordered table-hover" aria-label="List of groups">
             <thead>
                 <tr>
                     <th>@lang('groups.name')</th>

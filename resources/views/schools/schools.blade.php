@@ -28,7 +28,7 @@
 </div>
 
 <div class="row">
-    <table class="table table-sm table-striped table-bordered table-hover">
+    <table class="table table-sm table-striped table-bordered table-hover" aria-label="schools list">
         <thead>
             <tr>
                 <th>@lang('schools.name')</th>

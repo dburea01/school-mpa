@@ -94,7 +94,7 @@
             <div class="card-header">@lang('potential_duplicated_user.existing_users')</div>
             <div class="card-body">
                 @if(session('existingUsers'))
-                <table class="table table-bordered table-sm table-striped">
+                <table class="table table-bordered table-sm table-striped" aria-label="existing users">
                     <thead>
                         <tr>
                             <th>@lang('user.full_name')</th>

@@ -15,7 +15,7 @@
                 <strong>({{count($usersOfAGroup)}})</strong>
             </div>
             <div class="card-body">
-                <table class="table table-sm table-hover table-bordered">
+                <table class="table table-sm table-hover table-bordered" aria-label="list of the users of a group">
                     <thead>
                         <tr>
                             <th>@lang('group.user_name_of_a_group')</th>
@@ -69,7 +69,7 @@
                 </div>
 
 
-                <table class="table table-sm table-hover table-bordered">
+                <table class="table table-sm table-hover table-bordered" aria-label="users filtered">
                     <thead>
                         <tr>
                             <th>@lang('user.full_name')</th>
