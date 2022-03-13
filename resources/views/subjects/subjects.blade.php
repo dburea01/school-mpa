@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col">
-        <table class="table table-sm table-striped table-bordered table-hover">
+        <table class="table table-sm table-striped table-bordered table-hover" aria-label="List of the subjects">
             <thead>
                 <tr>
                     <th>@lang('subjects.short_name')</th>

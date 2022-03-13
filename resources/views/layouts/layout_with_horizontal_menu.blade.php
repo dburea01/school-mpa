@@ -127,13 +127,6 @@
                     2021-2022)
                 </span>
 
-                <!--
-                <form class="d-flex">
-                    <input class="form-control form-control-sm me-2" type="search" placeholder="Search"
-                        aria-label="Search">
-                    <button class="btn btn-success btn-sm" type="submit">Search</button>
-                </form>
-            -->
             </div>
         </div>
     </nav>
