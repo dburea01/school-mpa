@@ -14,6 +14,10 @@ return [
     'filter_by_school_name' => 'Filter by school name',
     'filter_by_city' => 'Filter by city',
     'groups' => 'Groups',
-    'subjects' => 'Subjects'
+    'subjects' => 'Subjects',
+
+    'school_created' => 'The school ":name" has been created.',
+    'school_updated' => 'The school ":name" has been updated.',
+    'school_deleted' => 'The school ":name" has been deleted.'
 
 ];

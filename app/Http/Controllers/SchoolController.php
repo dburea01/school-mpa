@@ -53,9 +53,10 @@ class SchoolController extends Controller
     {
         try {
             $school = $this->schoolRepository->insert($request->all());
-            return redirect()->route('schools.index')->with('success', 'School ' . $school->name . ' created.');
+            // return redirect()->route('schools.index')->with('success', 'School ' . $school->name . ' created.');
+            return redirect("/schools")->with('success', trans('schools.school_created', ['name' => $school->name]));
         } catch (\Throwable $th) {
-            return redirect()->route('schools.index')->with('error', $th->getMessage());
+            return back()->with('error', $th->getMessage());
         }
     }
 
@@ -67,7 +68,7 @@ class SchoolController extends Controller
      */
     public function show(School $school)
     {
-        dd('show');
+        //
     }
 
     /**
@@ -94,10 +95,10 @@ class SchoolController extends Controller
     {
         try {
             $school = $this->schoolRepository->update($school->id, $request->all());
-            // return redirect()->route('schools.index')->with('success', 'School '.$school->name.' updated.');
-            return redirect()->back()->with('success', 'School ' . $school->name . ' updated.');
+
+            return redirect()->back()->with('success', trans('schools.school_updated', ['name' => $school->name]));
         } catch (\Throwable $th) {
-            return redirect()->route('schools.index')->with('error', $th->getMessage());
+            return back()->with('error', $th->getMessage());
         }
     }
 
@@ -111,9 +112,9 @@ class SchoolController extends Controller
     {
         try {
             $this->schoolRepository->destroy($school->id);
-            return redirect()->route('schools.index')->with('success', 'School ' . $school->name . ' deleted.');
+            return redirect("/schools")->with('success', trans('schools.school_deleted', ['name' => $school->name]));
         } catch (\Throwable $th) {
-            return redirect()->route('schools.index')->with('error', $th->getMessage());
+            return back()->with('error', $th->getMessage());
         }
     }
 }
