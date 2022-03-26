@@ -12,6 +12,7 @@ return [
     'periods' => 'Periods',
     'subjects' => 'Subjects',
     'periods' => 'Periods',
+    'classrooms' => 'Classrooms',
     'assignments' => 'Assignments'
 
 ];

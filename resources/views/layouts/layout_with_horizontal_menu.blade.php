@@ -10,7 +10,8 @@
     <title>Dashboard Template · essai dom</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="icon" href="img/carre_vert_48_48.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
@@ -43,7 +44,9 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">LaraSchool</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -53,7 +56,8 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->full_name }} ({{ Auth::user()->role->name }})
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
@@ -74,19 +78,30 @@
 
                     @if (Auth::user()->isDirector())
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             @lang('menu.myoptions')
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                            <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/edit">@lang('menu.myschool')</a></li>
-                            <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/reports">@lang('menu.reports')</a></li>
+                            <li><a class="dropdown-item"
+                                    href="/schools/{{ Auth::user()->school_id }}/edit">@lang('menu.myschool')</a></li>
+                            <li><a class="dropdown-item"
+                                    href="/schools/{{ Auth::user()->school_id }}/reports">@lang('menu.reports')</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/users">@lang('menu.users')</a></li>
-                            <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/groups">@lang('menu.groups')</a></li>
-                            <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/subjects">@lang('menu.subjects')</a></li>
-                            <li><a class="dropdown-item" href="/schools/{{ Auth::user()->school_id }}/periods">@lang('menu.periods')</a></li>
+                            <li><a class="dropdown-item"
+                                    href="/schools/{{ Auth::user()->school_id }}/users">@lang('menu.users')</a></li>
+                            <li><a class="dropdown-item"
+                                    href="/schools/{{ Auth::user()->school_id }}/groups">@lang('menu.groups')</a></li>
+                            <li><a class="dropdown-item"
+                                    href="/schools/{{ Auth::user()->school_id }}/subjects">@lang('menu.subjects')</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="/schools/{{ Auth::user()->school_id }}/periods">@lang('menu.periods')</a></li>
+                            <li><a class="dropdown-item"
+                                    href="/schools/{{ Auth::user()->school_id }}/classrooms">@lang('menu.classrooms')</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -96,7 +111,8 @@
                     @endif
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             @switch(session()->get('locale'))
                             @case('en')
                             <img src="{{ asset('img/flag_en.png') }}" alt="en" />
@@ -110,9 +126,11 @@
 
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/change-locale/fr"><img src="{{ asset('img/flag_fr.png') }}" alt="fr" />
+                            <li><a class="dropdown-item" href="/change-locale/fr"><img
+                                        src="{{ asset('img/flag_fr.png') }}" alt="fr" />
                                     Français</a></li>
-                            <li><a class="dropdown-item" href="/change-locale/en"><img src="{{ asset('img/flag_en.png') }}" alt="en" />
+                            <li><a class="dropdown-item" href="/change-locale/en"><img
+                                        src="{{ asset('img/flag_en.png') }}" alt="en" />
                                     English</a></li>
                         </ul>
                     </li>
@@ -153,7 +171,8 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
 
     <script src="{{ asset('js/main_js.js') }}"></script>

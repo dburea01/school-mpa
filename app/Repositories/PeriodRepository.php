@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repositories;
 
 use App\Models\Group;
@@ -13,11 +12,15 @@ use Illuminate\Support\Facades\DB;
 
 class PeriodRepository
 {
-    public function all($school)
+    public function all(School $school)
     {
         return Period::where('school_id', $school->id)->orderBy('start_date', 'desc')->get();
     }
 
+    public function getPeriod(School $school, String $periodId)
+    {
+        return Period::where('school_id', $school->id)->where('id', $periodId)->first();
+    }
 
     public function update(Period $period, array $data)
     {
@@ -60,5 +63,12 @@ class PeriodRepository
         $newCurrentPeriod->save();
 
         return $newCurrentPeriod;
+    }
+
+    public function getCurrentPeriod(School $school) : ?Period
+    {
+        return Period::where('school_id', $school->id)
+        ->where('current', true)
+        ->first();
     }
 }

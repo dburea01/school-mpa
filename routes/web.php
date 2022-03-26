@@ -7,6 +7,7 @@ use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ClassroomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -27,7 +28,6 @@ Route::get('/change-locale/{lang}', [HomeController::class, 'changeLocale']);
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
-
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -60,6 +60,9 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the periods of a school
     Route::resource('schools.periods', PeriodController::class)->scoped()->whereUuid(['school', 'period']);
+
+    // routes for the classrooms of a school
+    Route::resource('schools.classrooms', ClassroomController::class)->scoped()->whereUuid(['school', 'classroom']);
 
     // route for the report
     Route::get('schools/{school}/reports', [ReportController::class, 'report'])->whereUuid('school');

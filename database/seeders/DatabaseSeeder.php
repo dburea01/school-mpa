@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\School;
@@ -20,7 +19,8 @@ class DatabaseSeeder extends Seeder
             GroupSeeder::class,
             UserSeeder::class,
             SubjectSeeder::class,
-            PeriodSeeder::class
+            PeriodSeeder::class,
+            ClassroomSeeder::class
         ]);
     }
 }

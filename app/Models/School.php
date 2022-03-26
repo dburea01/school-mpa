@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,8 +25,6 @@ class School extends Model
         'status'
     ];
 
-
-
     public function setCountryIdAttribute($value)
     {
         $this->attributes['country_id'] = strtoupper($value);
@@ -51,5 +48,10 @@ class School extends Model
     public function periods()
     {
         return $this->hasMany(Period::class);
+    }
+
+    public function classrooms()
+    {
+        return $this->hasMany(Classroom::class);
     }
 }

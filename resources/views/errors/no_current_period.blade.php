@@ -2,5 +2,5 @@
 
 
 @section('content')
-@lang('errors.forbidden')
+@lang('errors.no_current_period')
 @endsection
