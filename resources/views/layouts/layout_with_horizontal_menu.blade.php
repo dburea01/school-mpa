@@ -146,7 +146,7 @@
                 @endphp
                 <span class="navbar-text text-truncate">
                     {{ $school ? $school->name : 'no school' }} -
-                    {{ isset($currentPeriod) ? $currentPeriod->name : 'no current period' }}
+                    {{ isset($currentPeriod->name) ? $currentPeriod->name : 'no current period' }}
                 </span>
 
             </div>

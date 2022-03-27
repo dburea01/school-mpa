@@ -50,7 +50,8 @@
                         @endif
                     </td>
 
-                    <td><a href="/schools/{{ $school->id }}/classrooms/{{ $classroom->id }}/users">123</a>
+                    <td><a href="/schools/{{ $school->id }}/classrooms/{{ $classroom->id }}/users">{{
+                            $classroom->assignments_count }}</a>
                     </td>
                 </tr>
                 @endforeach

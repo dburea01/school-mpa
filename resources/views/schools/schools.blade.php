@@ -7,21 +7,25 @@
     </div>
 </div>
 
-<h1 class="text-center">@lang('schools.title') ({{$schools->total()}})&nbsp;<a href="/schools/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
+<h1 class="text-center">@lang('schools.title') ({{$schools->total()}})&nbsp;<a href="/schools/create"
+        class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
         Add</a></h1>
 
 <div class="row mt-3 mb-3">
     <form class="row" action="/schools">
         <div class="col-md-3 col-sm-12">
-            <input type="text" class="form-control form-control-sm mr-sm-2" name="school_name" id="school_name" placeholder="@lang('schools.filter_by_school_name')" value="{{ $school_name }}">
+            <input type="text" class="form-control form-control-sm mr-sm-2" name="school_name" id="school_name"
+                placeholder="@lang('schools.filter_by_school_name')" value="{{ $school_name }}">
         </div>
 
         <div class="col-md-3 col-sm-12">
-            <input type="text" class="form-control form-control-sm mr-sm-2" name="city" id="city" placeholder="@lang('schools.filter_by_city')" value="{{ $city }}">
+            <input type="text" class="form-control form-control-sm mr-sm-2" name="city" id="city"
+                placeholder="@lang('schools.filter_by_city')" value="{{ $city }}">
         </div>
 
         <div class="col-md-3 col-sm-12 d-grid gap-2 d-md-block">
-            <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel" aria-hidden="true"></i> Filter</button>
+            <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel"
+                    aria-hidden="true"></i> Filter</button>
         </div>
 
     </form>
@@ -38,6 +42,7 @@
                 <th>@lang('schools.groups')</th>
                 <th>@lang('schools.periods')</th>
                 <th>@lang('schools.subjects')</th>
+                <th>@lang('schools.classrooms')</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -47,7 +52,8 @@
                 <td>
                     <a href="/schools/{{ $school->id }}/edit">{{ $school->name }}</a>
                     @if ($school->status === 'INACTIVE')
-                    <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true" title="@lang('schools.school_inactive')"></i>
+                    <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"
+                        title="@lang('schools.school_inactive')"></i>
                     @endif
                 </td>
 
@@ -55,9 +61,12 @@
 
                 <td>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-label="progress_{{$school->id}}" style="width: {{ 100 * $school->users_count/$school->max_users }}%;" aria-valuenow="{{ 100 * $school->users_count / $school->max_users }}" aria-valuemin="0" aria-valuemax="100">{{ $school->users_count }} / {{ $school->max_users }} ({{
-                                floor(100 *
-                                $school->users_count / $school->max_users) }}%)
+                        <div class="progress-bar" role="progressbar" aria-label="progress_{{$school->id}}"
+                            style="width: {{ 100 * $school->users_count/$school->max_users }}%;"
+                            aria-valuenow="{{ 100 * $school->users_count / $school->max_users }}" aria-valuemin="0"
+                            aria-valuemax="100">{{ $school->users_count }} / {{ $school->max_users }} ({{
+                            floor(100 *
+                            $school->users_count / $school->max_users) }}%)
                         </div>
                     </div>
                 </td>
@@ -74,7 +83,11 @@
                     <a href="/schools/{{ $school->id }}/subjects">{{ $school->subjects_count }}</a>
                 </td>
                 <td>
-                    <a href="/schools/{{ $school->id }}/reports"><i class="bi bi-table" aria-hidden="true" title="reports"></i></a>
+                    <a href="/schools/{{ $school->id }}/classrooms"><i class="bi bi-building"></i></a>
+                </td>
+                <td>
+                    <a href="/schools/{{ $school->id }}/reports"><i class="bi bi-table" aria-hidden="true"
+                            title="reports"></i></a>
                 </td>
             </tr>
             @endforeach

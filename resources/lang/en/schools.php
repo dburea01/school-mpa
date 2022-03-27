@@ -2,7 +2,6 @@
 
 return [
 
-
     'title' => 'Schools list',
     'name' => 'Name',
     'school_inactive' => 'inactive school',
@@ -16,6 +15,7 @@ return [
     'groups' => 'Groups',
     'periods' => 'Periods',
     'subjects' => 'Subjects',
+    'classrooms' => 'Classrooms',
 
     'school_created' => 'The school ":name" has been created.',
     'school_updated' => 'The school ":name" has been updated.',

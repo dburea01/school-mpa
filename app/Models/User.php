@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -88,5 +87,10 @@ class User extends Authenticatable
     public function user_groups()
     {
         return $this->hasMany(UserGroup::class);
+    }
+
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class);
     }
 }

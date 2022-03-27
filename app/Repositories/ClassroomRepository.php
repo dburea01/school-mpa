@@ -13,6 +13,7 @@ class ClassroomRepository
     {
         return Classroom::where('school_id', $school->id)
         ->where('period_id', $period->id)
+        ->withCount(['assignments'])
         ->orderBy('name')->get();
     }
 

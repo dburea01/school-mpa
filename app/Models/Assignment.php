@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Classroom extends Model
+class Assignment extends Model
 {
     use HasFactory, HasUuid;
 
@@ -14,8 +14,10 @@ class Classroom extends Model
 
     protected $fillable = [
         'school_id',
-        'period_id',
-        'name',
+        'classroom_id',
+        'user_id',
+        'start_date',
+        'end_date',
         'comment',
         'status'
     ];
@@ -25,13 +27,13 @@ class Classroom extends Model
         return $this->belongsTo(School::class);
     }
 
-    public function period()
+    public function classroom()
     {
-        return $this->belongsTo(Period::class);
+        return $this->belongsTo(Classroom::class);
     }
 
-    public function assignments()
+    public function user()
     {
-        return $this->hasMany(Assignment::class);
+        return $this->belongsTo(User::class);
     }
 }
