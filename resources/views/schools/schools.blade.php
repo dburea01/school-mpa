@@ -83,7 +83,8 @@
                     <a href="/schools/{{ $school->id }}/subjects">{{ $school->subjects_count }}</a>
                 </td>
                 <td>
-                    <a href="/schools/{{ $school->id }}/classrooms"><i class="bi bi-building"></i></a>
+                    <a href="/schools/{{ $school->id }}/classrooms"><i class="bi bi-building"
+                            aria-hidden="true"></i></a>
                 </td>
                 <td>
                     <a href="/schools/{{ $school->id }}/reports"><i class="bi bi-table" aria-hidden="true"
