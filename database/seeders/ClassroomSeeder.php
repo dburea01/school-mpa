@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\Classroom;
@@ -30,7 +31,7 @@ class ClassroomSeeder extends Seeder
             try {
                 Classroom::factory()->count(random_int(2, 5))->create([
                     'school_id' => $school->id,
-                    'period_id' => $period->id
+                    'period_id' => $period->id,
                 ]);
             } catch (\Throwable $th) {
                 echo $th->getMessage();

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,13 +19,13 @@ class Role extends Model
     protected $keyType = 'string';
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at', 'updated_at',
     ];
 
     protected $fillable = [
         'id',
         'name',
         'position',
-        'displayable'
+        'displayable',
     ];
 }

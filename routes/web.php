@@ -1,15 +1,15 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GroupController;
-use App\Http\Controllers\SchoolController;
-use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ClassroomController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------

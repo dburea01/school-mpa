@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class Period extends Model
 {
@@ -19,7 +20,7 @@ class Period extends Model
         'start_date',
         'end_date',
         'current',
-        'comment'
+        'comment',
     ];
 
     protected function getStartDateAttribute($value)

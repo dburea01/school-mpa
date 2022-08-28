@@ -8,5 +8,5 @@ return [
     'end_date' => 'End_date',
     'comment' => 'Comment',
     'current_period' => 'Current period',
-    'no_current_period' => 'Warning : you have no current period.'
+    'no_current_period' => 'Warning : you have no current period.',
 ];

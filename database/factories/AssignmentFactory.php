@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -13,11 +14,12 @@ class AssignmentFactory extends Factory
     public function definition()
     {
         $startDate = $this->faker->date();
+
         return [
             'start_date' => $this->faker->date(),
             'end_date' => $this->faker->date('Y-m-d', $startDate),
             'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
-            'comment' => $this->faker->sentence()
+            'comment' => $this->faker->sentence(),
         ];
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Assignment;
 use App\Http\Requests\StoreAssignmentRequest;
 use App\Http\Requests\UpdateAssignmentRequest;
+use App\Models\Assignment;
 
 class AssignmentController extends Controller
 {

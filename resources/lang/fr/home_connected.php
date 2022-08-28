@@ -2,6 +2,5 @@
 
 return [
 
-
-'welcome' => 'Bienvenue',
+    'welcome' => 'Bienvenue',
 ];

@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'all_status' => 'All status'
+    'all_status' => 'All status',
 ];

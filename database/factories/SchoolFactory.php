@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SchoolFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -23,7 +22,7 @@ class SchoolFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Ecole ' . $this->faker->word,
+            'name' => 'Ecole '.$this->faker->word,
             'address1' => $this->faker->streetAddress(),
             'zip_code' => $this->faker->postcode,
             'city' => $this->faker->city,

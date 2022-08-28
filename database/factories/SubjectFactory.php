@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Factories;
 
 use App\Models\Subject;
@@ -13,12 +14,12 @@ class SubjectFactory extends Factory
         return [
             'short_name' => strtoupper($this->faker->text(10)),
             'name' => [
-                'en' => 'en ' . $this->faker->word,
-                'fr' => 'fr ' . $this->faker->word
+                'en' => 'en '.$this->faker->word,
+                'fr' => 'fr '.$this->faker->word,
             ],
             'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
             'created_by' => 'factory',
-            'comment' => $this->faker->sentence()
+            'comment' => $this->faker->sentence(),
         ];
     }
 }

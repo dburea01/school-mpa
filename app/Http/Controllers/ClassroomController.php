@@ -1,9 +1,9 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
 use App\Http\Requests\StoreClassroomRequest;
-use App\Http\Requests\UpdateClassroomRequest;
+use App\Models\Classroom;
 use App\Models\School;
 use App\Repositories\ClassroomRepository;
 use App\Repositories\PeriodRepository;
@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 class ClassroomController extends Controller
 {
     private $classroomRepository;
+
     private $periodRepository;
 
     public function __construct(
@@ -33,7 +34,7 @@ class ClassroomController extends Controller
     {
         $currentPeriod = $this->periodRepository->getCurrentPeriod($school);
 
-        if (!$currentPeriod) {
+        if (! $currentPeriod) {
             return view('errors.no_current_period');
         }
 
@@ -48,7 +49,7 @@ class ClassroomController extends Controller
             'school' => $school,
             'classrooms' => $classrooms,
             'periods' => $periods,
-            'periodToDisplay' => $period
+            'periodToDisplay' => $period,
         ]);
     }
 
@@ -66,7 +67,7 @@ class ClassroomController extends Controller
         return view('classrooms.classroom_form', [
             'school' => $school,
             'classroom' => $classroom,
-            'periods' => $this->periodRepository->all($school)
+            'periods' => $this->periodRepository->all($school),
         ]);
     }
 
@@ -80,6 +81,7 @@ class ClassroomController extends Controller
     {
         try {
             $classroom = $this->classroomRepository->insert($school, $request->all());
+
             return redirect("schools/$school->id/classrooms?period_id=$classroom->period_id")->with('success', trans('classroom.classroom_created', ['name' => $classroom->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -108,7 +110,7 @@ class ClassroomController extends Controller
         return view('classrooms.classroom_form', [
             'school' => $school,
             'classroom' => $classroom,
-            'periods' => $this->periodRepository->all($school)
+            'periods' => $this->periodRepository->all($school),
         ]);
     }
 
@@ -123,6 +125,7 @@ class ClassroomController extends Controller
     {
         try {
             $classroomUpdated = $this->classroomRepository->update($classroom, $request->all());
+
             return redirect("schools/$school->id/classrooms?period_id=$classroomUpdated->period_id")->with('success', trans('classroom.classroom_updated', ['name' => $classroomUpdated->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -139,6 +142,7 @@ class ClassroomController extends Controller
     {
         try {
             $this->classroomRepository->destroy($classroom);
+
             return redirect("schools/$school->id/classrooms?period_id=$classroom->period_id")->with('success', trans('classroom.classroom_deleted', ['name' => $classroom->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());

@@ -10,6 +10,4 @@ return [
     'in_group' => 'In family',
     'user_inactive' => 'inactive user',
 
-
-
 ];

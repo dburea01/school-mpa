@@ -7,9 +7,13 @@ use Illuminate\View\Component;
 class SelectUserStatus extends Component
 {
     public $name;
+
     public $id;
+
     public $required;
+
     public $status;
+
     /**
      * Create a new component instance.
      *

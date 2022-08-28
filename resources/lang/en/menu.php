@@ -13,6 +13,6 @@ return [
     'subjects' => 'Subjects',
     'periods' => 'Periods',
     'classrooms' => 'Classrooms',
-    'assignments' => 'Assignments'
+    'assignments' => 'Assignments',
 
 ];

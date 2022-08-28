@@ -8,10 +8,15 @@ use Illuminate\View\Component;
 class SelectRole extends Component
 {
     public $roles;
+
     public $name;
+
     public $id;
+
     public $required = false;
+
     public $value;
+
     /**
      * Create a new component instance.
      *

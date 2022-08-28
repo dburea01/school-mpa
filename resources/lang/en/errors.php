@@ -13,5 +13,5 @@ return [
 
     'summary' => 'Summary',
     'qty_students' => 'Quantity of students',
-    'qty_parents' => 'Quantity of parents'
+    'qty_parents' => 'Quantity of parents',
 ];

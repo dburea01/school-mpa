@@ -19,5 +19,5 @@ return [
 
     'period_created' => 'The period ":name" has been created.',
     'period_updated' => 'The period ":name" has been updated.',
-    'period_deleted' => 'The period ":name" has been deleted.'
+    'period_deleted' => 'The period ":name" has been deleted.',
 ];

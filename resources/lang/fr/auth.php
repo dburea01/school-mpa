@@ -7,6 +7,6 @@ return [
     'password' => 'Mot de passe',
     'stay_connected' => 'Rester connecté',
     'login' => 'Connection',
-    'password_lost' => 'Mot de passe perdu ?'
+    'password_lost' => 'Mot de passe perdu ?',
 
 ];

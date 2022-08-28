@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\School;
 use App\Http\Requests\StoreSchoolRequest;
-use App\Http\Requests\UpdateSchoolRequest;
+use App\Models\School;
 use App\Repositories\SchoolRepository;
 use Illuminate\Http\Request;
 
@@ -25,7 +24,7 @@ class SchoolController extends Controller
         return view('schools.schools', [
             'schools' => $schools,
             'school_name' => $request->query('school_name', ''),
-            'city' => $request->query('city', '')
+            'city' => $request->query('city', ''),
         ]);
     }
 
@@ -37,12 +36,13 @@ class SchoolController extends Controller
     public function create()
     {
         $school = new School();
-        $school->status = "INACTIVE";
+        $school->status = 'INACTIVE';
 
         return view('schools.school_form', [
             'school' => $school,
         ]);
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -53,7 +53,8 @@ class SchoolController extends Controller
     {
         try {
             $school = $this->schoolRepository->insert($request->all());
-            return redirect("/schools")->with('success', trans('schools.school_created', ['name' => $school->name]));
+
+            return redirect('/schools')->with('success', trans('schools.school_created', ['name' => $school->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -111,7 +112,8 @@ class SchoolController extends Controller
     {
         try {
             $this->schoolRepository->destroy($school->id);
-            return redirect("/schools")->with('success', trans('schools.school_deleted', ['name' => $school->name]));
+
+            return redirect('/schools')->with('success', trans('schools.school_deleted', ['name' => $school->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

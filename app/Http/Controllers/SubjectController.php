@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
-use App\Http\Requests\UpdateSubjectRequest;
 use App\Models\School;
+use App\Models\Subject;
 use App\Repositories\SubjectRepository;
-use Illuminate\Support\Facades\Lang;
 
 class SubjectController extends Controller
 {
@@ -18,6 +16,7 @@ class SubjectController extends Controller
         $this->authorizeResource(Subject::class);
         $this->subjectRepository = $subjectRepository;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +26,7 @@ class SubjectController extends Controller
     {
         return view('subjects.subjects', [
             'school' => $school,
-            'subjects' => $this->subjectRepository->all($school)
+            'subjects' => $this->subjectRepository->all($school),
         ]);
     }
 
@@ -43,7 +42,7 @@ class SubjectController extends Controller
 
         return view('subjects.subject_form', [
             'school' => $school,
-            'subject' => $subject
+            'subject' => $subject,
         ]);
     }
 
@@ -57,6 +56,7 @@ class SubjectController extends Controller
     {
         try {
             $subject = $this->subjectRepository->insert($school, $request->all());
+
             return redirect("/schools/$school->id/subjects")->with('success', trans('subject.subject_created', ['name' => $subject->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -84,7 +84,7 @@ class SubjectController extends Controller
     {
         return view('subjects.subject_form', [
             'school' => $school,
-            'subject' => $subject
+            'subject' => $subject,
         ]);
     }
 
@@ -99,6 +99,7 @@ class SubjectController extends Controller
     {
         try {
             $this->subjectRepository->update($subject, $request->all());
+
             return redirect("/schools/$school->id/subjects")->with('success', trans('subject.subject_updated', ['name' => $subject->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -115,6 +116,7 @@ class SubjectController extends Controller
     {
         try {
             $this->subjectRepository->destroy($subject);
+
             return redirect("/schools/$school->id/subjects")->with('success', trans('subject.subject_deleted', ['name' => $subject->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());

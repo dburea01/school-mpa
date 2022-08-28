@@ -2,5 +2,5 @@
 
 return [
     'male' => 'Male',
-    'female' => 'Female'
+    'female' => 'Female',
 ];

@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\Assignment;
@@ -44,7 +45,7 @@ class AssignmentSeeder extends Seeder
                 'school_id' => $classroom->school_id,
                 'classroom_id' => $classroom->id,
                 'user_id' => $user->id,
-                'comment' => $user->full_name . " ($user->role_id)"
+                'comment' => $user->full_name." ($user->role_id)",
             ]);
         }
     }

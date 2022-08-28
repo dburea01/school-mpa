@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Policies;
 
 use App\Models\Classroom;
@@ -10,6 +11,7 @@ class ClassroomPolicy
     use HandlesAuthorization;
 
     protected $school;
+
     protected $classroom;
 
     public function __construct()
@@ -33,7 +35,7 @@ class ClassroomPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->isDirector() && $user->school_id === $this->school->id);
+        return $user->isDirector() && $user->school_id === $this->school->id;
     }
 
     /**
@@ -44,7 +46,7 @@ class ClassroomPolicy
      */
     public function create(User $user)
     {
-        return ($user->isDirector() && $user->school_id === $this->school->id);
+        return $user->isDirector() && $user->school_id === $this->school->id;
     }
 
     /**
@@ -56,10 +58,9 @@ class ClassroomPolicy
      */
     public function update(User $user, Classroom $classroom)
     {
-        return ($user->isDirector() &&
+        return $user->isDirector() &&
             $user->school_id === $this->school->id &&
-            $this->school->id === $classroom->school_id
-        );
+            $this->school->id === $classroom->school_id;
     }
 
     /**
@@ -71,9 +72,8 @@ class ClassroomPolicy
      */
     public function delete(User $user, Classroom $classroom)
     {
-        return ($user->isDirector() &&
+        return $user->isDirector() &&
             $user->school_id === $this->school->id &&
-            $this->school->id === $classroom->school_id
-        );
+            $this->school->id === $classroom->school_id;
     }
 }

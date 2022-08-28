@@ -7,9 +7,13 @@ use Illuminate\View\Component;
 class GroupTabs extends Component
 {
     public $activeTab;
+
     public $schoolId;
+
     public $groupId;
+
     public $newGroup;
+
     /**
      * Create a new component instance.
      *

@@ -19,6 +19,6 @@ return [
 
     'school_created' => 'The school ":name" has been created.',
     'school_updated' => 'The school ":name" has been updated.',
-    'school_deleted' => 'The school ":name" has been deleted.'
+    'school_deleted' => 'The school ":name" has been deleted.',
 
 ];

@@ -7,9 +7,13 @@ use Illuminate\View\Component;
 class SelectUserGender extends Component
 {
     public $name;
+
     public $id;
+
     public $required;
+
     public $value;
+
     /**
      * Create a new component instance.
      *

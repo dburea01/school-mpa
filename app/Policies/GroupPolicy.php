@@ -11,6 +11,7 @@ class GroupPolicy
     use HandlesAuthorization;
 
     protected $school;
+
     protected $group;
 
     public function __construct()
@@ -28,27 +29,25 @@ class GroupPolicy
 
     public function viewAny(User $user)
     {
-        return ($user->isDirector() && $user->school_id === $this->school->id);
+        return $user->isDirector() && $user->school_id === $this->school->id;
     }
 
     public function create(User $user)
     {
-        return ($user->isDirector() && $user->school_id === $this->school->id);
+        return $user->isDirector() && $user->school_id === $this->school->id;
     }
 
     public function update(User $user, Group $group)
     {
-        return ($user->isDirector() &&
+        return $user->isDirector() &&
             $user->school_id === $this->school->id &&
-            $this->school->id === $group->school_id
-        );
+            $this->school->id === $group->school_id;
     }
 
     public function delete(User $user, Group $group)
     {
-        return ($user->isDirector() &&
+        return $user->isDirector() &&
             $user->school_id === $this->school->id &&
-            $this->school->id === $group->school_id
-        );
+            $this->school->id === $group->school_id;
     }
 }

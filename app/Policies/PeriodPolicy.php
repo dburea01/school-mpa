@@ -26,7 +26,7 @@ class PeriodPolicy
 
     public function viewAny(User $user)
     {
-        return ($user->isDirector() && $user->school_id === $this->school->id);
+        return $user->isDirector() && $user->school_id === $this->school->id;
     }
 
     public function view(User $user, Period $period)

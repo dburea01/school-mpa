@@ -7,9 +7,13 @@ use Illuminate\View\Component;
 class SelectSchoolStatus extends Component
 {
     public $name;
+
     public $id;
+
     public $required;
+
     public $status;
+
     /**
      * Create a new component instance.
      *

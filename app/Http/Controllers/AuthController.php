@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -17,7 +15,6 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        
 
         if (Auth::attempt([
             'email' => $request->email,
@@ -25,8 +22,7 @@ class AuthController extends Controller
             'status' => 'ACTIVE',
         ], $request->has('remember_me'))) {
             $request->session()->regenerate();
-            
-            
+
             return redirect('/home_connected');
         }
 

@@ -15,8 +15,8 @@ class UserRepository
 
         if (array_key_exists('user_name', $request) && $request['user_name'] !== null && strlen($request['user_name']) > 1) {
             $usersQuery->where(function ($query) use ($request) {
-                $query->where('first_name', 'ilike', '%' . $request['user_name'] . '%')
-                    ->orWhere('last_name', 'ilike', '%' . $request['user_name'] . '%');
+                $query->where('first_name', 'ilike', '%'.$request['user_name'].'%')
+                    ->orWhere('last_name', 'ilike', '%'.$request['user_name'].'%');
             });
         }
 
@@ -31,7 +31,7 @@ class UserRepository
         return $usersQuery->paginate(10);
     }
 
-    public function getExistingUsers(string $schoolId, String $lastName, string $firstName)
+    public function getExistingUsers(string $schoolId, string $lastName, string $firstName)
     {
         return User::where('school_id', $schoolId)
             ->where('last_name', 'ilike', $lastName)
@@ -65,16 +65,18 @@ class UserRepository
     public function usersOfAGroup(string $schoolId, string $groupId)
     {
         $users = UserGroup::where('group_id', $groupId)->pluck('user_id');
+
         return User::where('school_id', $schoolId)
             ->whereIn('id', $users)->get();
     }
 
     public function addUserForAGroup(string $groupId, string $userId): UserGroup
     {
-        $userGroup = new UserGroup();
-        $userGroup->user_id = $userId;
-        $userGroup->group_id = $groupId;
-        $userGroup->save();
+        $userGroup = UserGroup::create([
+            'user_id' => $userId,
+            'group_id' => $groupId,
+        ]);
+
         return $userGroup;
     }
 

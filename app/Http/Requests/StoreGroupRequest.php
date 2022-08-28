@@ -35,8 +35,8 @@ class StoreGroupRequest extends FormRequest
             'zip_code' => 'required|max:10',
             'status' => [
                 Rule::requiredIf($request->user()->isSuperAdmin()),
-                'in:ACTIVE,INACTIVE'
-            ]
+                'in:ACTIVE,INACTIVE',
+            ],
         ];
     }
 

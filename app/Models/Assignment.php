@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +20,7 @@ class Assignment extends Model
         'start_date',
         'end_date',
         'comment',
-        'status'
+        'status',
     ];
 
     public function school()

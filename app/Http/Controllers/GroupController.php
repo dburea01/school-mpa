@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
 use App\Http\Requests\StoreGroupRequest;
+use App\Models\Group;
 use App\Models\School;
-use App\Models\User;
 use App\Repositories\GroupRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -21,8 +20,6 @@ class GroupController extends Controller
         $this->userRepository = $userRepository;
     }
 
-
-
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +33,7 @@ class GroupController extends Controller
             'school' => $school,
             'groups' => $groups,
             'group_name' => $request->query('group_name', ''),
-            'group_city' => $request->query('group_city')
+            'group_city' => $request->query('group_city'),
         ]);
     }
 
@@ -48,7 +45,7 @@ class GroupController extends Controller
     public function create(School $school)
     {
         $group = new Group();
-        $group->status = "INACTIVE";
+        $group->status = 'INACTIVE';
 
         return view('groups.group_form', [
             'school' => $school,
@@ -66,6 +63,7 @@ class GroupController extends Controller
     {
         try {
             $group = $this->groupRepository->insert($school->id, $request->all());
+
             return redirect("schools/$school->id/groups/$group->id/users")->with('success', trans('group.group_created', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -93,7 +91,7 @@ class GroupController extends Controller
     {
         return view('groups.group_form', [
             'school' => $school,
-            'group' => $group
+            'group' => $group,
         ]);
     }
 
@@ -108,6 +106,7 @@ class GroupController extends Controller
     {
         try {
             $group = $this->groupRepository->update($group, $request->all());
+
             return redirect("schools/$school->id/groups")->with('success', trans('group.group_updated', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -124,6 +123,7 @@ class GroupController extends Controller
     {
         try {
             $this->groupRepository->destroy($group);
+
             return redirect("schools/$school->id/groups")->with('success', trans('group.group_deleted', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());

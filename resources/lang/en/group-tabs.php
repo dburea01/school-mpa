@@ -2,5 +2,5 @@
 
 return [
     'address' => 'Address',
-    'users' => 'Persons'
+    'users' => 'Persons',
 ];

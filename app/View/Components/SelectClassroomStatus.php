@@ -1,4 +1,5 @@
 <?php
+
 namespace App\View\Components;
 
 use Illuminate\View\Component;
@@ -6,8 +7,11 @@ use Illuminate\View\Component;
 class SelectClassroomStatus extends Component
 {
     public $name;
+
     public $id;
+
     public $required;
+
     public $status;
 
     /**

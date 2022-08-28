@@ -29,5 +29,5 @@ return [
 
     'group_created' => 'The family ":name" has been created.',
     'group_updated' => 'The family ":name" has been updated.',
-    'group_deleted' => 'The family ":name" has been deleted.'
+    'group_deleted' => 'The family ":name" has been deleted.',
 ];

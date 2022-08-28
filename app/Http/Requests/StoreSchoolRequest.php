@@ -36,11 +36,11 @@ class StoreSchoolRequest extends FormRequest
             'max_users' => [
                 Rule::requiredIf($request->user()->isSuperAdmin()),
                 'int',
-                'gt:0'
+                'gt:0',
             ],
             'status' => [
                 Rule::requiredIf($request->user()->isSuperAdmin()),
-                'in:ACTIVE,INACTIVE'
+                'in:ACTIVE,INACTIVE',
             ],
         ];
     }

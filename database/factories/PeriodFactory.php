@@ -14,11 +14,11 @@ class PeriodFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Period ' . $this->faker->word,
+            'name' => 'Period '.$this->faker->word,
             'start_date' => $this->faker->date(),
             'end_date' => $this->faker->date(),
             'current' => $this->faker->randomElement(['true', 'false']),
-            'comment' => $this->faker->sentence()
+            'comment' => $this->faker->sentence(),
         ];
     }
 }

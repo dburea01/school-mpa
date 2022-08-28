@@ -16,6 +16,7 @@ class SchoolPolicy
             return true;
         }
     }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -36,7 +37,7 @@ class SchoolPolicy
      */
     public function view(User $user, School $school)
     {
-        return ($user->school_id === $school->id && $user->isDirector());
+        return $user->school_id === $school->id && $user->isDirector();
     }
 
     /**
@@ -59,7 +60,7 @@ class SchoolPolicy
      */
     public function update(User $user, School $school)
     {
-        return ($user->school_id === $school->id && $user->isDirector());
+        return $user->school_id === $school->id && $user->isDirector();
     }
 
     /**

@@ -8,6 +8,6 @@ return [
 
     'sex_summary' => 'Students by sex',
     'gender_female' => 'Female',
-    'gender_male' => 'Male'
+    'gender_male' => 'Male',
 
 ];

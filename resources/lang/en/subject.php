@@ -18,5 +18,5 @@ return [
 
     'subject_created' => 'The subject ":name" has been created.',
     'subject_updated' => 'The subject ":name" has been updated.',
-    'subject_deleted' => 'The subject ":name" has been deleted.'
+    'subject_deleted' => 'The subject ":name" has been deleted.',
 ];

@@ -19,7 +19,7 @@ class PeriodSeeder extends Seeder
 
         foreach ($schools as $school) {
             Period::factory()->count(2)->create([
-                'school_id' => $school->id
+                'school_id' => $school->id,
             ]);
         }
     }

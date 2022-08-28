@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\School;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
@@ -46,7 +45,7 @@ class StoreUserRequest extends FormRequest
                 'required_unless:role_id,STUDENT',
                 Rule::unique('users', 'email')->where(function ($query) use ($request) {
                     return $query->where('school_id', $request->school_id);
-                })->ignore($this->user)
+                })->ignore($this->user),
             ],
             'status' => 'required|in:ACTIVE,INACTIVE',
             'gender_id' => 'required_if:role_id,STUDENT|in:1,2',

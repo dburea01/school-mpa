@@ -7,6 +7,6 @@ return [
     'password' => 'Password',
     'stay_connected' => 'Stay connected on this device',
     'login' => 'Login',
-    'password_lost' => 'Password lost ?'
+    'password_lost' => 'Password lost ?',
 
 ];

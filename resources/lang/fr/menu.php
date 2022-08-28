@@ -10,6 +10,6 @@ return [
     'periods' => 'Périodes',
     'subjects' => 'Matières',
     'periods' => 'Années scolaires',
-    'assignments' => 'Affectations'
+    'assignments' => 'Affectations',
 
 ];

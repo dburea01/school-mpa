@@ -20,11 +20,11 @@ class SubjectSeeder extends Seeder
         foreach ($schools as $school) {
             try {
                 Subject::factory()->count(random_int(5, 10))->create([
-                    'school_id' => $school->id
+                    'school_id' => $school->id,
                 ]);
             } catch (\Throwable $th) {
                 echo $th->getMessage();
-                echo "on continue ....";
+                echo 'on continue ....';
             }
         }
     }

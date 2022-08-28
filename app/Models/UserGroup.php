@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +16,7 @@ class UserGroup extends Model
     protected $fillable =
     [
         'user_id',
-        'group_id'
+        'group_id',
     ];
 
     public function group()

@@ -23,7 +23,7 @@ class Group extends Model
         'country_id',
         'group_id',
         'comment',
-        'status'
+        'status',
     ];
 
     public function setCountryIdAttribute($value)

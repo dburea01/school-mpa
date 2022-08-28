@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\Group;
 use App\Models\School;
 use App\Models\Subject;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class SubjectRepository
 {

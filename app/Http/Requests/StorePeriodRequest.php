@@ -26,7 +26,7 @@ class StorePeriodRequest extends FormRequest
         return [
             'name' => 'required|max:30',
             'start_date' => 'required|date_format:d/m/Y',
-            'end_date' => 'required|date_format:d/m/Y|after:start_date'
+            'end_date' => 'required|date_format:d/m/Y|after:start_date',
         ];
     }
 }

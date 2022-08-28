@@ -1,14 +1,11 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Repositories;
 
-use App\Models\Group;
 use App\Models\Period;
 use App\Models\School;
-use App\Models\Subject;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class PeriodRepository
 {
@@ -17,7 +14,7 @@ class PeriodRepository
         return Period::where('school_id', $school->id)->orderBy('start_date', 'desc')->get();
     }
 
-    public function getPeriod(School $school, String $periodId)
+    public function getPeriod(School $school, string $periodId)
     {
         return Period::where('school_id', $school->id)->where('id', $periodId)->first();
     }
@@ -65,7 +62,7 @@ class PeriodRepository
         return $newCurrentPeriod;
     }
 
-    public function getCurrentPeriod(School $school) : ?Period
+    public function getCurrentPeriod(School $school): ?Period
     {
         return Period::where('school_id', $school->id)
         ->where('current', true)

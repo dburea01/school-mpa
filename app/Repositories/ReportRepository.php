@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class ReportRepository
 {
-
     public function summaryUsersByRole(School $school)
     {
         return DB::table('users')
