@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repositories;
 
 use App\Models\User;
@@ -15,8 +14,8 @@ class UserRepository
 
         if (array_key_exists('user_name', $request) && $request['user_name'] !== null && strlen($request['user_name']) > 1) {
             $usersQuery->where(function ($query) use ($request) {
-                $query->where('first_name', 'ilike', '%'.$request['user_name'].'%')
-                    ->orWhere('last_name', 'ilike', '%'.$request['user_name'].'%');
+                $query->where('first_name', 'ilike', '%' . $request['user_name'] . '%')
+                    ->orWhere('last_name', 'ilike', '%' . $request['user_name'] . '%');
             });
         }
 
@@ -72,12 +71,10 @@ class UserRepository
 
     public function addUserForAGroup(string $groupId, string $userId): UserGroup
     {
-        $userGroup = UserGroup::create([
+        return UserGroup::create([
             'user_id' => $userId,
             'group_id' => $groupId,
         ]);
-
-        return $userGroup;
     }
 
     public function removeUserFromAGroup(string $groupId, string $userId)

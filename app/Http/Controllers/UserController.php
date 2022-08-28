@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
@@ -162,7 +161,7 @@ class UserController extends Controller
         try {
             $user = $this->userRepository->insert($school->id, $request->all());
 
-            return redirect('/schools/'.$school->id.'/users')->with('success', 'User '.$user->full_name.' created.');
+            return redirect('/schools/' . $school->id . '/users')->with('success', 'User ' . $user->full_name . ' created.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -190,7 +189,7 @@ class UserController extends Controller
     public function addUserForAGroup(Request $request, School $school, Group $group)
     {
         try {
-            $userGroup = $this->userRepository->addUserForAGroup($group->id, $request->user_id);
+            $this->userRepository->addUserForAGroup($group->id, $request->user_id);
             $user = User::find($request->user_id);
 
             return redirect("/schools/$school->id/groups/$group->id/users?user_name=$request->user_name")->with('success', trans('user.user_added_to_family', ['name' => $user->full_name]));
