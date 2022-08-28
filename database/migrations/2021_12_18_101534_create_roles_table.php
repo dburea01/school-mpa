@@ -22,40 +22,38 @@ class CreateRolesTable extends Migration
             $table->timestamps();
         });
 
-        $role = new Role();
-        $role->id = 'TEACHER';
-        $role->position = 10;
-        $role->displayable = true;
-        $role->name = ['en' => 'Teacher', 'fr' => 'Enseignant'];
-        $role->save();
+        $roles = [
+            [
+                'id' => 'TEACHER',
+                'position' => 10,
+                'name' => ['en' => 'Teacher', 'fr' => 'Enseignant']
+            ],
+            [
+                'id' => 'STUDENT',
+                'position' => 20,
+                'name' => ['en' => 'Student', 'fr' => 'Etudiant']
+            ],
+            [
+                'id' => 'PARENT',
+                'position' => 30,
+                'name' => ['en' => 'Parent', 'fr' => 'Parent']
+            ],
+            [
+                'id' => 'DIRECTOR',
+                'position' => 40,
+                'name' => ['en' => 'Director', 'fr' => 'Directeur']
+            ],
+            [
+                'id' => 'SUPERADMIN',
+                'position' => 50,
+                'name' => ['en' => 'Super Administrator', 'fr' => 'Super Administrateur']
+            ],
 
-        $role = new Role();
-        $role->id = 'STUDENT';
-        $role->position = 20;
-        $role->displayable = true;
-        $role->name = ['en' => 'Student', 'fr' => 'Etudiant'];
-        $role->save();
+        ];
 
-        $role = new Role();
-        $role->id = 'PARENT';
-        $role->position = 30;
-        $role->displayable = true;
-        $role->name = ['en' => 'Parent', 'fr' => 'Parent'];
-        $role->save();
-
-        $role = new Role();
-        $role->id = 'DIRECTOR';
-        $role->position = 40;
-        $role->displayable = true;
-        $role->name = ['en' => 'Director', 'fr' => 'Directeur'];
-        $role->save();
-
-        $role = new Role();
-        $role->id = 'SUPERADMIN';
-        $role->position = 50;
-        $role->displayable = false;
-        $role->name = ['en' => 'Super Administrator', 'fr' => 'Super Administrateur'];
-        $role->save();
+        foreach ($roles as $role) {
+            Role::create($role);
+        }
     }
 
     /**

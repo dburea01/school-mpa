@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class Period extends Model
 {
-    use HasFactory, HasUuid;
+    use HasFactory, HasUuid, HasCreatedUpdatedBy;
 
     public $incrementing = false;
 

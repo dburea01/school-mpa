@@ -17,17 +17,15 @@ class CreateSubjectsTable extends Migration
             $table->uuid('id')->primary();
             $table->uuid('school_id');
             $table->string('short_name', 10);
-            $table->string('name');
+            $table->json('name');
             // $table->boolean('option');
-            $table->string('status');
+            $table->string('status')->comment('ACTIVE / INACTIVE');
             $table->text('comment')->nullable();
             $table->timestamps();
             $table->string('created_by');
             $table->string('updated_by')->nullable();
             $table->unique(['school_id', 'short_name']);
-        });
 
-        Schema::table('subjects', function (Blueprint $table): void {
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
         });
     }

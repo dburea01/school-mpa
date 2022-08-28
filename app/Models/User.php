@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasUuid;
+    use HasFactory, Notifiable, HasUuid, HasCreatedUpdatedBy;
 
     public $incrementing = false;
 

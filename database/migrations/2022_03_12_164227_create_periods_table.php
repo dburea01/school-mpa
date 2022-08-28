@@ -24,9 +24,7 @@ class CreatePeriodsTable extends Migration
             $table->timestamps();
             $table->string('created_by');
             $table->string('updated_by')->nullable();
-        });
 
-        Schema::table('periods', function (Blueprint $table): void {
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
         });
     }

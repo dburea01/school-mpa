@@ -1,13 +1,13 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Subject extends Model
 {
-    use HasFactory, HasUuid;
+    use HasFactory, HasUuid, HasTranslations;
 
     public $incrementing = false;
 
@@ -20,6 +20,10 @@ class Subject extends Model
         'option',
         'status',
         'comment'
+    ];
+
+    public $translatable = [
+        'name',
     ];
 
     public function setShortNameAttribute($value): void

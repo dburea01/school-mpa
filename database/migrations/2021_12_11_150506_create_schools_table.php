@@ -23,7 +23,7 @@ class CreateSchoolsTable extends Migration
             $table->string('city', 100);
             $table->string('country_id', 2);
             $table->string('comment')->nullable();
-            $table->string('status');
+            $table->string('status')->comment('ACTIVE / INACTIVE');
             //$table->string('school_type_id', 10);
             //$table->string('school_status', 10);
             $table->integer('max_users');
@@ -32,13 +32,6 @@ class CreateSchoolsTable extends Migration
             $table->string('updated_by')->nullable();
             $table->primary('id');
         });
-
-        /*
-        Schema::table('schools', function (Blueprint $table): void {
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
-            $table->foreign('school_type_id')->references('id')->on('school_types')->onDelete('set null');
-        });
-        */
     }
 
     /**

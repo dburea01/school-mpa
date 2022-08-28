@@ -26,9 +26,7 @@ class CreateAssignmentsTable extends Migration
             $table->string('created_by');
             $table->string('updated_by')->nullable();
             $table->unique(['school_id', 'classroom_id', 'user_id']);
-        });
 
-        Schema::table('assignments', function (Blueprint $table): void {
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');

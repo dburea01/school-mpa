@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Assignment extends Model
 {
-    use HasFactory, HasUuid;
+    use HasFactory, HasUuid, HasCreatedUpdatedBy;
 
     public $incrementing = false;
 
