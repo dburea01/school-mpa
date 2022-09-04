@@ -1,11 +1,13 @@
-@extends('layouts.layout_with_horizontal_menu')
+@extends('layouts.app_layout')
 
 @section('content')
 
 @include('errors.session-values')
 
 
-<h1 class="text-center">@lang('periods.title') ({{$periods->count()}})&nbsp;<a href="/schools/{{ $school->id }}/periods/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
+<h1 class="text-center">@lang('periods.title') ({{$periods->count()}})&nbsp;<a
+        href="/schools/{{ $school->id }}/periods/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"
+            aria-hidden="true"></i>
         @lang('periods.add')</a></h1>
 
 @if (count($currentPeriod) === 0)
@@ -37,7 +39,8 @@
                         <a href="/schools/{{ $school->id }}/periods/{{ $period->id }}/edit">{{
                             $period->name }}</a>
                         @if ($period->current)
-                        <i class="bi bi-check-circle-fill text-success" aria-hidden="true" title="@lang('periods.current_period')"></i>
+                        <i class="bi bi-check-circle-fill text-success" aria-hidden="true"
+                            title="@lang('periods.current_period')"></i>
                         @endif
                     </td>
                     <td>{{ $period->start_date }}</td>

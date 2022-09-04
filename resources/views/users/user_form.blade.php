@@ -1,4 +1,4 @@
-@extends('layouts.layout_with_horizontal_menu')
+@extends('layouts.app_layout')
 
 @section('content')
 <div class="row">
@@ -18,7 +18,8 @@
 
         @csrf
         <div class="row mb-3">
-            <label for="role_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.role_id') : *</label>
+            <label for="role_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.role') :
+                *</label>
 
             <div class="col-sm-4">
                 <x-select-role name="role_id" id="role_id" required="false" :value="$user->role_id" />
@@ -29,10 +30,14 @@
         </div>
 
         <div class="row mb-3">
-            <label for="last_name" class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.last_name') : *</label>
+            <label for="last_name"
+                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.last_name') : *</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm @error('last_name') is-invalid @enderror text-uppercase" required name="last_name" id="last_name" maxlength="60" value="{{ old('last_name', $user->last_name) }}" />
+                <input type="text"
+                    class="form-control form-control-sm @error('last_name') is-invalid @enderror text-uppercase"
+                    required name="last_name" id="last_name" maxlength="60"
+                    value="{{ old('last_name', $user->last_name) }}" />
                 @if ($errors->has('last_name'))
                 <span class="text-danger">{{ $errors->first('last_name') }}</span>
                 @endif
@@ -40,10 +45,14 @@
         </div>
 
         <div class="row mb-3">
-            <label for="first_name" class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.first_name') : *</label>
+            <label for="first_name"
+                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.first_name') : *</label>
 
             <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm @error('first_name') is-invalid @enderror text-capitalize" required name="first_name" id="first_name" maxlength="60" value="{{ old('first_name', $user->first_name) }}" />
+                <input type="text"
+                    class="form-control form-control-sm @error('first_name') is-invalid @enderror text-capitalize"
+                    required name="first_name" id="first_name" maxlength="60"
+                    value="{{ old('first_name', $user->first_name) }}" />
                 @if ($errors->has('first_name'))
                 <span class="text-danger">{{ $errors->first('first_name') }}</span>
                 @endif
@@ -51,10 +60,12 @@
         </div>
 
         <div class="row mb-3" v-if="role_id === 'STUDENT'">
-            <label for="birth_date" class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.birth_date') : *</label>
+            <label for="birth_date"
+                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.birth_date') : *</label>
 
             <div class="col-sm-4">
-                <input type="text" class="form-control form-control-sm @error('birth_date') is-invalid @enderror" name="birth_date" id="birth_date" value="{{ old('birth_date', $user->birth_date) }}" />
+                <input type="text" class="form-control form-control-sm @error('birth_date') is-invalid @enderror"
+                    name="birth_date" id="birth_date" value="{{ old('birth_date', $user->birth_date) }}" />
                 <div class="col-sm-2 form-text">dd/mm/yyyy</div>
 
             </div>
@@ -69,7 +80,8 @@
             <label for="gender_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.gender_id') : *</label>
 
             <div class="col-sm-2">
-                <x-select-user-gender name="gender_id" id="gender_id" required="false" :value="old('gender_id', $user->gender_id)" />
+                <x-select-user-gender name="gender_id" id="gender_id" required="false"
+                    :value="old('gender_id', $user->gender_id)" />
                 @if ($errors->has('gender_id'))
                 <span class="text-danger">{{ $errors->first('gender_id') }}</span>
                 @endif
@@ -82,7 +94,8 @@
             </label>
 
             <div class="col-sm-10">
-                <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror" name="email" id="email" value="{{ old('email', $user->email) }}" />
+                <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror"
+                    name="email" id="email" value="{{ old('email', $user->email) }}" />
                 @if ($errors->has('email'))
                 <span class="text-danger">{{ $errors->first('email') }}</span>
                 @endif
@@ -108,7 +121,8 @@
                 :</label>
 
             <div class="col-sm-10">
-                <textarea class="form-control form-control-sm @error('comment') is-invalid @enderror" name="comment" id="comment" rows="4" maxlength="500">{{ old('comment', $user->comment) }}</textarea>
+                <textarea class="form-control form-control-sm @error('comment') is-invalid @enderror" name="comment"
+                    id="comment" rows="4" maxlength="500">{{ old('comment', $user->comment) }}</textarea>
                 @if ($errors->has('comment'))
                 <span class="text-danger">{{ $errors->first('comment') }}</span>
                 @endif
@@ -120,7 +134,9 @@
                 <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2" aria-hidden="true"></i>
                     @lang('user.save')</button>
                 @if ($user->id)
-                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteUser"><i class="bi bi-trash" aria-hidden="true"></i> @lang('user.delete')</button>
+                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                    data-bs-target="#modalDeleteUser"><i class="bi bi-trash" aria-hidden="true"></i>
+                    @lang('user.delete')</button>
                 @endif
             </div>
         </div>
@@ -142,8 +158,10 @@
                     <form class="form-inline" method="POST" action="/schools/{{ $school->id }}/users/{{ $user->id }}">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i class="bi bi-chevron-left" aria-hidden="true"></i> @lang('user.cancel_delete')</button>
-                        <button type="submit" class="btn btn-sm btn-danger ml-3"><i class="bi bi-trash" aria-hidden="true"></i>
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i
+                                class="bi bi-chevron-left" aria-hidden="true"></i> @lang('user.cancel_delete')</button>
+                        <button type="submit" class="btn btn-sm btn-danger ml-3"><i class="bi bi-trash"
+                                aria-hidden="true"></i>
                             @lang('user.confirm_delete', ['full_name' => $user->full_name])</button>
                     </form>
                 </div>

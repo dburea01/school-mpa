@@ -138,7 +138,7 @@ class UserController extends Controller
         try {
             $this->userRepository->destroy($user);
 
-            return redirect("/schools/$school->id/users")->with('success', trans('user.user_created', ['name' => $user->full_name]));
+            return redirect("/schools/$school->id/users")->with('success', trans('user.user_deleted', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

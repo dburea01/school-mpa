@@ -1,11 +1,13 @@
-@extends('layouts.layout_with_horizontal_menu')
+@extends('layouts.app_layout')
 
 @section('content')
 
 @include('errors.session-values')
 
 
-<h1 class="text-center">@lang('subjects.title') ({{$subjects->count()}})&nbsp;<a href="/schools/{{ $school->id }}/subjects/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
+<h1 class="text-center">@lang('subjects.title') ({{$subjects->count()}})&nbsp;<a
+        href="/schools/{{ $school->id }}/subjects/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"
+            aria-hidden="true"></i>
         @lang('subjects.add')</a></h1>
 
 
@@ -25,7 +27,8 @@
                         <a href="/schools/{{ $school->id }}/subjects/{{ $subject->id }}/edit">{{
                             $subject->short_name }}</a>
                         @if ($subject->status === 'INACTIVE')
-                        <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true" title="@lang('subjects.subject_inactive')"></i>
+                        <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"
+                            title="@lang('subjects.subject_inactive')"></i>
                         @endif
                     </td>
                     <td>{{ $subject->name }}</td>

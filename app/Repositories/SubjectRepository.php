@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repositories;
 
 use App\Models\School;
@@ -11,7 +10,7 @@ class SubjectRepository
 {
     public function all($school)
     {
-        return Subject::where('school_id', $school->id)->orderBy('name')->get();
+        return Subject::where('school_id', $school->id)->orderBy('name->App::getLocale()')->get();
     }
 
     public function update(Subject $subject, array $data)

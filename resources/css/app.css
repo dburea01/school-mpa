@@ -5,7 +5,7 @@ body {
 
 .navbar,
 footer {
-    background-color: rgb(135, 252, 226);
+    background-color: rgb(135, 252, 230);
 }
 
 main > .container {
@@ -17,4 +17,3 @@ main > .container {
     top: 30px;
     right: 30px;
 }
-
