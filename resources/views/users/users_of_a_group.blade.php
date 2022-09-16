@@ -96,7 +96,11 @@
                                 @endif
                             </td>
                             <td>{{ $userFiltered->role->name }}</td>
-                            <td>
+                            <td>@if ($usersOfAGroup->doesntcontain(function($userOfAGroup) use($userFiltered) {
+                                return $userOfAGroup->id === $userFiltered->id;
+                                }))
+
+
                                 <form action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users" method="POST">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{ $userFiltered->id }}" />
@@ -105,6 +109,10 @@
                                         title="@lang('user.add_user_to_group')">
                                         <i class="bi bi-person-plus" aria-hidden="true"></i> </button>
                                 </form>
+
+
+                                @endif
+
                             </td>
                         </tr>
                         @endforeach

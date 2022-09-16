@@ -12,7 +12,7 @@ class UserRepository
     {
         $usersQuery = User::where('school_id', $schoolId)->with('role')->with('user_groups')->orderBy('last_name');
 
-        if (array_key_exists('user_name', $request) && $request['user_name'] !== null && strlen($request['user_name']) > 1) {
+        if (array_key_exists('user_name', $request) && $request['user_name'] !== null) {
             $usersQuery->where(function ($query) use ($request) {
                 $query->where('first_name', 'ilike', '%' . $request['user_name'] . '%')
                     ->orWhere('last_name', 'ilike', '%' . $request['user_name'] . '%');

@@ -78,7 +78,7 @@ class UserController extends Controller
         try {
             $user = $this->userRepository->insert($school->id, $request->all());
 
-            return redirect("/schools/$school->id/users")->with('success', trans('user.user_created', ['name' => $user->full_name]));
+            return redirect("/schools/$school->id/users?user_name=$user->last_name")->with('success', trans('user.user_created', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -119,9 +119,9 @@ class UserController extends Controller
     public function update(StoreUserRequest $request, School $school, User $user)
     {
         try {
-            $this->userRepository->update($user, $request->all());
+            $user = $this->userRepository->update($user, $request->all());
 
-            return redirect("/schools/$school->id/users")->with('success', trans('user.user_updated', ['name' => $user->full_name]));
+            return redirect("/schools/$school->id/users?user_name=$user->last_name")->with('success', trans('user.user_updated', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -171,7 +171,7 @@ class UserController extends Controller
     {
         $usersOfAGroup = $this->userRepository->usersOfAGroup($school->id, $group->id);
         $usersFiltered = $request->has('user_name') && $request->user_name !== '' ?
-            $this->userRepository->all($school->id, ['user_name' => $request->query('user_name')])
+            $this->userRepository->all($school->id, $request->all())
             : [];
 
         return view('users.users_of_a_group', [
@@ -184,7 +184,8 @@ class UserController extends Controller
     }
 
     /**
-     * warning : security
+     * todo : security
+     * todo : if user already exists in the group : do nothing
      */
     public function addUserForAGroup(Request $request, School $school, Group $group)
     {
@@ -205,8 +206,7 @@ class UserController extends Controller
     {
         try {
             $this->userRepository->removeUserFromAGroup($group->id, $user->id);
-
-            return redirect("/schools/$school->id/groups/$group->id/users")->with('success', trans('user.user_removed_from_family', ['name' => $user->full_name]));
+            return back()->with('success', trans('user.user_removed_from_family', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
