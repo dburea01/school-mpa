@@ -7,6 +7,7 @@ use App\Models\School;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -77,11 +78,21 @@ class UserController extends Controller
 
         try {
             $user = $this->userRepository->insert($school->id, $request->all());
-
+            if ($request->has('image_user')) {
+                $this->processImage($user, $request->image_user, 'images_user');
+                // $user->clearMediaCollection('images_user');
+                // $user->addMedia($request->image_user)->toMediaCollection('images_user');
+            }
             return redirect("/schools/$school->id/users?user_name=$user->last_name")->with('success', trans('user.user_created', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
+    }
+
+    public function processImage(User $user, $imageUser, string $collection)
+    {
+        $user->clearMediaCollection($collection);
+        $user->addMedia($imageUser)->toMediaCollection($collection);
     }
 
     /**
@@ -120,7 +131,11 @@ class UserController extends Controller
     {
         try {
             $user = $this->userRepository->update($user, $request->all());
-
+            if ($request->has('image_user')) {
+                $this->processImage($user, $request->image_user, 'images_user');
+                // $user->clearMediaCollection('images_user');
+                // $user->addMedia($request->image_user)->toMediaCollection('images_user');
+            }
             return redirect("/schools/$school->id/users?user_name=$user->last_name")->with('success', trans('user.user_updated', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());

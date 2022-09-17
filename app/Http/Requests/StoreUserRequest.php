@@ -1,11 +1,11 @@
 <?php
-
 namespace App\Http\Requests;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class StoreUserRequest extends FormRequest
 {
@@ -37,7 +37,7 @@ class StoreUserRequest extends FormRequest
             'role_id' => 'required|exists:roles,id',
             'first_name' => 'required',
             'last_name' => 'required',
-
+            'image_user' => 'mimes:jpg,bmp,png|max:1024',
             'email' => [
                 'bail',
                 'email',

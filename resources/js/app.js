@@ -5,5 +5,9 @@ var toastList = toastElList.map(function (toastEl) {
 });
 toastList.forEach(toast => toast.show()); // This show them
 
+// tooltips
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
 // vue
-window.Vue = require('vue')
+// window.Vue = require('vue')

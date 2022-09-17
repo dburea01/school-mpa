@@ -21,7 +21,7 @@
             @foreach ($periods as $period)
             <option value="{{ $period->id }}" @if ($period->id === $periodToDisplay->id) selected @endif>
                 {{ $period->name }}
-                @if ($period->current) (***) @endif
+                @if ($period->current) (x) @endif
             </option>
             @endforeach
         </select>
