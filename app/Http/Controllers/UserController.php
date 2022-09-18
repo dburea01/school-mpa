@@ -5,8 +5,10 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\Group;
 use App\Models\School;
 use App\Models\User;
+use App\Policies\GroupPolicy;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -77,11 +79,21 @@ class UserController extends Controller
 
         try {
             $user = $this->userRepository->insert($school->id, $request->all());
-
+            if ($request->has('image_user')) {
+                $this->processImage($user, $request->image_user, 'images_user');
+                // $user->clearMediaCollection('images_user');
+                // $user->addMedia($request->image_user)->toMediaCollection('images_user');
+            }
             return redirect("/schools/$school->id/users?user_name=$user->last_name")->with('success', trans('user.user_created', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
+    }
+
+    public function processImage(User $user, $imageUser, string $collection)
+    {
+        $user->clearMediaCollection($collection);
+        $user->addMedia($imageUser)->toMediaCollection($collection);
     }
 
     /**
@@ -120,7 +132,11 @@ class UserController extends Controller
     {
         try {
             $user = $this->userRepository->update($user, $request->all());
-
+            if ($request->has('image_user')) {
+                $this->processImage($user, $request->image_user, 'images_user');
+                // $user->clearMediaCollection('images_user');
+                // $user->addMedia($request->image_user)->toMediaCollection('images_user');
+            }
             return redirect("/schools/$school->id/users?user_name=$user->last_name")->with('success', trans('user.user_updated', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -183,27 +199,23 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * todo : security
-     * todo : if user already exists in the group : do nothing
-     */
     public function addUserForAGroup(Request $request, School $school, Group $group)
     {
+        $this->authorize('create', Group::class);
         try {
             $this->userRepository->addUserForAGroup($group->id, $request->user_id);
             $user = User::find($request->user_id);
 
             return redirect("/schools/$school->id/groups/$group->id/users?user_name=$request->user_name")->with('success', trans('user.user_added_to_family', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
-            return back()->with('error', $th->getMessage());
+            return back()->with('error', 'an error occured.');
         }
     }
 
-    /**
-     * warning : security
-     */
     public function removeUserFromAGroup(School $school, Group $group, User $user)
     {
+        $this->authorize('delete', [Group::class, $group]);
+
         try {
             $this->userRepository->removeUserFromAGroup($group->id, $user->id);
             return back()->with('success', trans('user.user_removed_from_family', ['name' => $user->full_name]));

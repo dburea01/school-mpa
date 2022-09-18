@@ -9,14 +9,21 @@
 
 <h2 class="text-center">@if ($user->id) @lang('user.modify_user') @else @lang('user.create_user') @endif</h2>
 
+
+
+
 @if ($user->id)
-<form action="/schools/{{ $school->id }}/users/{{ $user->id }}" method="POST">
+<form action="/schools/{{ $school->id }}/users/{{ $user->id }}" method="POST" enctype="multipart/form-data">
     @method('PUT')
     @else
-    <form action="/schools/{{ $school->id }}/users" method="POST">
+    <form action="/schools/{{ $school->id }}/users" method="POST" enctype="multipart/form-data">
         @endif
 
+
         @csrf
+
+
+
         <div class="row mb-3">
             <label for="role_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.role') :
                 *</label>
@@ -29,9 +36,22 @@
             </div>
         </div>
 
+        <div class="row mb-3 civility">
+            <label for="civility_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.civility') :
+                *</label>
+
+            <div class="col-sm-4">
+                <x-select-civility name="civility_id" id="civility_id" required="false" :value="$user->civility_id" />
+                @if ($errors->has('civility_id'))
+                <span class="text-danger">{{ $errors->first('civility_id') }}</span>
+                @endif
+            </div>
+        </div>
+
         <div class="row mb-3">
             <label for="last_name"
-                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.last_name') : *</label>
+                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.last_name') :
+                *</label>
 
             <div class="col-sm-10">
                 <input type="text"
@@ -46,7 +66,8 @@
 
         <div class="row mb-3">
             <label for="first_name"
-                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.first_name') : *</label>
+                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.first_name') :
+                *</label>
 
             <div class="col-sm-10">
                 <input type="text"
@@ -59,9 +80,10 @@
             </div>
         </div>
 
-        <div class="row mb-3" v-if="role_id === 'STUDENT'">
+        <div class="row mb-3 student">
             <label for="birth_date"
-                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.birth_date') : *</label>
+                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.birth_date') :
+                *</label>
 
             <div class="col-sm-4">
                 <input type="text" class="form-control form-control-sm @error('birth_date') is-invalid @enderror"
@@ -76,8 +98,9 @@
             @endif
         </div>
 
-        <div class="row mb-3" v-if="role_id === 'STUDENT'">
-            <label for="gender_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.gender_id') : *</label>
+        <div class="row mb-3 student">
+            <label for="gender_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.gender') :
+                *</label>
 
             <div class="col-sm-2">
                 <x-select-user-gender name="gender_id" id="gender_id" required="false"
@@ -87,7 +110,6 @@
                 @endif
             </div>
         </div>
-
 
         <div class="row mb-3">
             <label for="email" class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.email') :
@@ -102,18 +124,28 @@
             </div>
         </div>
 
-
-
-
         <div class="row mb-3">
-            <label for="status" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.status') : *</label>
+            <label class="col-sm-2 col-form-label col-form-label-sm">@lang('user.status') :
+                *</label>
 
-            <div class="col-sm-2">
-                <x-select-user-status name="status" id="status" required="true" :status="$user->status" />
+            <div class="col">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="status" id="active_user" value="ACTIVE"
+                        @if($user->isActive()) checked @endif>
+                    <label class="form-check-label" for="active_user">Active user</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="status" id="inactive_user" value="INACTIVE" @if(!
+                        $user->isActive()) checked @endif>
+                    <label class="form-check-label" for="inactive_user">Inactive user</label>
+                </div>
+
                 @if ($errors->has('status'))
                 <span class="text-danger">{{ $errors->first('status') }}</span>
                 @endif
             </div>
+
+
         </div>
 
         <div class="row mb-3">
@@ -130,6 +162,29 @@
         </div>
 
         <div class="row mb-3">
+            <label for="image_user"
+                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.image_user')
+                :</label>
+
+            <div class="col-sm-10">
+                @if ($user->getFirstMedia('images_user'))
+                <img id="uploadPreview" style="width: 200px;" src="{{ $user->getFirstMedia('images_user')->getUrl() }}"
+                    alt="image not found" />
+                @else
+
+                <img id="uploadPreview" style="width: 200px;" src="{{ asset('img/image_avatar.png') }}"
+                    alt="image not found" />
+                @endif
+
+
+                <input id="image_user" type="file" name="image_user" onchange="PreviewImage();" />
+                @if ($errors->has('image_user'))
+                <span class="text-danger">{{ $errors->first('image_user') }}</span>
+                @endif
+            </div>
+        </div>
+
+        <div class="row mb-3">
             <div class="col-sm-10 offset-sm-2  d-grid gap-2 d-block">
                 <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2" aria-hidden="true"></i>
                     @lang('user.save')</button>
@@ -140,7 +195,10 @@
                 @endif
             </div>
         </div>
+
     </form>
+
+
 
     <!-- Modal -->
     <div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -174,22 +232,36 @@
 
     @section('extra_js')
     <script>
-        const App = {
-            data() {
-                return {
-                    role_id: ''
-                }
-            },
-            mounted() {
-                this.role_id = '{{ $user->role_id }}'
-            },
-            methods: {
-                onChangeRole(event) {
-                    this.role_id = event.target.value
+        function PreviewImage() {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("image_user").files[0]);
+
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview").src = oFREvent.target.result;
+            };
+        };
+
+        $(document).ready(function(){
+
+            displayHiddeElement()
+
+            $("#role_id").change(function(){
+                displayHiddeElement();
+            })
+
+            function displayHiddeElement() {
+                if ($("#role_id").val() == 'STUDENT'){
+                    $(".student").show()
+                    $(".civility").hide()
+                } else {
+                    $(".student").hide()
+                    $(".civility").show()
                 }
             }
-        }
 
-        Vue.createApp(App).mount('#container')
+        })
+
+        
+   
     </script>
     @endsection

@@ -1,15 +1,18 @@
 <?php
-
 namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     use HasFactory, Notifiable, HasUuid, HasCreatedUpdatedBy;
+    use InteractsWithMedia;
 
     public $incrementing = false;
 
@@ -26,7 +29,15 @@ class User extends Authenticatable
         'password',
         'status',
         'gender_id',
+        'civility_id',
     ];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+              ->width(50)
+              ->height(50);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -48,9 +59,16 @@ class User extends Authenticatable
         return $this->role_id === 'DIRECTOR';
     }
 
+    public function isActive(): bool
+    {
+        return $this->status === 'ACTIVE';
+    }
+
     public function getFullNameAttribute()
     {
-        return "{$this->last_name} {$this->first_name}";
+        return $this->role_id !== 'STUDENT' ?
+        "{$this->civility->name} {$this->last_name} {$this->first_name}" :
+        "{$this->last_name} {$this->first_name}";
     }
 
     public function getBirthDateAttribute($value)
@@ -76,6 +94,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function civility()
+    {
+        return $this->belongsTo(Civility::class);
     }
 
     public function school()

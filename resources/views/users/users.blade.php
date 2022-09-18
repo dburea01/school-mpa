@@ -10,7 +10,7 @@
             aria-hidden="true"></i>
         @lang('users.add')</a></h1>
 
-<div class="row mt-3 mb-3">
+<div class="row mt-3 mb-3 d-flex justify-content-center">
     <div class="col-md-10">
         <form class="row" action="/schools/{{ $school->id }}/users">
             <div class="col-md-3 col-sm-12">
@@ -33,6 +33,8 @@
             </div>
 
         </form>
+
+
     </div>
 </div>
 
@@ -41,22 +43,36 @@
         <table class="table table-sm table-striped table-bordered table-hover" aria-label="users list">
             <thead>
                 <tr>
+                    <th>&nbsp;</th>
                     <th>@lang('users.name')</th>
+                    <th>@lang('users.email')</th>
                     <th>@lang('users.role')</th>
                     <th>@lang('users.in_group')</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($users as $user)
-                <tr>
+                <tr class="align-middle">
+                    <td class="text-center">
+                        <a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">
+                            @if($user->getFirstMedia('images_user'))
+                            <img src="{{ $user->getFirstMedia('images_user')->getUrl('thumb') }}" alt="thumb not found"
+                                height="50" />
+                            @else
+                            <i class="bi bi-person-square" style="font-size: 2rem;" aria-hidden="true"></i>
+                            @endif
+                        </a>
+                    </td>
                     <td>
-                        <a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{
-                            $user->full_name }}</a>
+                        <a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{ $user->full_name }}</a>
+
                         @if ($user->status === 'INACTIVE')
                         <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"
-                            title="@lang('users.user_inactive')"></i>
+                            data-bs-toggle="tooltip" data-bs-placement="right"
+                            data-bs-title="@lang('users.user_inactive')"></i>
                         @endif
                     </td>
+                    <td>{{ $user->email }}</td>
                     <td>{{ $user->role->name }}</td>
                     <td>
                         @foreach($user->user_groups as $user_group)
@@ -74,6 +90,7 @@
 
         </table>
 
+
         @if($users->hasPages())
         <div class="d-flex justify-content-center">
             {{ $users->withQueryString()->links() }}
@@ -82,8 +99,8 @@
     </div>
 
 
-</div>
 
+</div>
 
 
 @endsection
