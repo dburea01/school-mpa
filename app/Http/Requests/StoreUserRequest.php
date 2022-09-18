@@ -49,6 +49,7 @@ class StoreUserRequest extends FormRequest
             ],
             'status' => 'required|in:ACTIVE,INACTIVE',
             'gender_id' => 'required_if:role_id,STUDENT|in:1,2',
+            'civility_id' => 'nullable|required_unless:role_id,STUDENT|exists:civilities,id',
             'birth_date' => 'required_if:role_id,STUDENT|date_format:d/m/Y',
         ];
     }

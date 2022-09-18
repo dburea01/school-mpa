@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -14,14 +13,20 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $genderId = $this->faker->randomElement(['male', 'female']);
+
+        $firstName = $this->faker->firstName($genderId);
+        $lastName = $this->faker->lastName();
+
         return [
             'status' => fake()->randomElement(['ACTIVE', 'INACTIVE']),
-            'first_name' => $this->faker->firstName(),
-            'last_name' => $this->faker->lastName(),
-            'email' => $this->faker->unique()->safeEmail,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => strtolower($firstName) . '.' . strtolower($lastName) . '@' . $this->faker->domainName(),
             'password' => Hash::make('azerty'),
             'birth_date' => $this->faker->date('d/m/Y'),
-            'gender_id' => $this->faker->randomElement(['1', '2']),
+            'gender_id' => $genderId === 'male' ? '1' : '2',
+            'civility_id' => $genderId === 'male' ? 'MR' : 'MISS',
             'comment' => $this->faker->paragraphs(3, true),
             'created_by' => 'factory',
             // 'email_verified_at' => $this->faker->dateTimeThisYear()

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('first_name');
             $table->string('gender_id', 1)->nullable()->comment('1 : male / 2 : female');
+            $table->string('civility_id', 10)->nullable()->comment('Mr / Miss');
             $table->string('email')->nullable();
             $table->date('birth_date')->nullable();
             $table->text('comment')->nullable();
@@ -41,6 +42,7 @@ class CreateUsersTable extends Migration
 
             $table->foreign('school_id')->references('id')->on('schools')->cascadeOnDelete();
             $table->foreign('role_id')->references('id')->on('roles')->nullOnDelete();
+            $table->foreign('civility_id')->references('id')->on('civilities')->nullOnDelete();
         });
 
         DB::statement('ALTER TABLE users ADD CONSTRAINT check_is_super_admin CHECK ( (school_id IS NULL AND role_id = \'SUPERADMIN\') OR (school_id IS NOT NULL) )');

@@ -10,7 +10,7 @@
             aria-hidden="true"></i>
         @lang('users.add')</a></h1>
 
-<div class="row mt-3 mb-3">
+<div class="row mt-3 mb-3 d-flex justify-content-center">
     <div class="col-md-10">
         <form class="row" action="/schools/{{ $school->id }}/users">
             <div class="col-md-3 col-sm-12">
@@ -45,6 +45,7 @@
                 <tr>
                     <th>&nbsp;</th>
                     <th>@lang('users.name')</th>
+                    <th>@lang('users.email')</th>
                     <th>@lang('users.role')</th>
                     <th>@lang('users.in_group')</th>
                 </tr>
@@ -71,6 +72,7 @@
                             data-bs-title="@lang('users.user_inactive')"></i>
                         @endif
                     </td>
+                    <td>{{ $user->email }}</td>
                     <td>{{ $user->role->name }}</td>
                     <td>
                         @foreach($user->user_groups as $user_group)

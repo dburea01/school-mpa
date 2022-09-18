@@ -29,6 +29,7 @@ class User extends Authenticatable implements HasMedia
         'password',
         'status',
         'gender_id',
+        'civility_id',
     ];
 
     public function registerMediaConversions(Media $media = null): void
@@ -65,7 +66,9 @@ class User extends Authenticatable implements HasMedia
 
     public function getFullNameAttribute()
     {
-        return "{$this->last_name} {$this->first_name}";
+        return $this->role_id !== 'STUDENT' ?
+        "{$this->civility->name} {$this->last_name} {$this->first_name}" :
+        "{$this->last_name} {$this->first_name}";
     }
 
     public function getBirthDateAttribute($value)
@@ -91,6 +94,11 @@ class User extends Authenticatable implements HasMedia
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function civility()
+    {
+        return $this->belongsTo(Civility::class);
     }
 
     public function school()

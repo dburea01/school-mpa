@@ -36,6 +36,18 @@
             </div>
         </div>
 
+        <div class="row mb-3 civility">
+            <label for="civility_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.civility') :
+                *</label>
+
+            <div class="col-sm-4">
+                <x-select-civility name="civility_id" id="civility_id" required="false" :value="$user->civility_id" />
+                @if ($errors->has('civility_id'))
+                <span class="text-danger">{{ $errors->first('civility_id') }}</span>
+                @endif
+            </div>
+        </div>
+
         <div class="row mb-3">
             <label for="last_name"
                 class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.last_name') :
@@ -68,7 +80,7 @@
             </div>
         </div>
 
-        <div class="row mb-3" v-if="role_id === 'STUDENT'">
+        <div class="row mb-3 student">
             <label for="birth_date"
                 class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.birth_date') :
                 *</label>
@@ -86,8 +98,8 @@
             @endif
         </div>
 
-        <div class="row mb-3" v-if="role_id === 'STUDENT'">
-            <label for="gender_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.gender_id') :
+        <div class="row mb-3 student">
+            <label for="gender_id" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.gender') :
                 *</label>
 
             <div class="col-sm-2">
@@ -113,7 +125,7 @@
         </div>
 
         <div class="row mb-3">
-            <label for="status" class="col-sm-2 col-form-label col-form-label-sm">@lang('user.status') :
+            <label class="col-sm-2 col-form-label col-form-label-sm">@lang('user.status') :
                 *</label>
 
             <div class="col">
@@ -220,31 +232,36 @@
 
     @section('extra_js')
     <script>
-        const App = {
-            data() {
-                return {
-                    role_id: ''
-                }
-            },
-            mounted() {
-                this.role_id = '{{ $user->role_id }}'
-            },
-            methods: {
-                onChangeRole(event) {
-                    this.role_id = event.target.value
+        function PreviewImage() {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("image_user").files[0]);
+
+            oFReader.onload = function (oFREvent) {
+                document.getElementById("uploadPreview").src = oFREvent.target.result;
+            };
+        };
+
+        $(document).ready(function(){
+
+            displayHiddeElement()
+
+            $("#role_id").change(function(){
+                displayHiddeElement();
+            })
+
+            function displayHiddeElement() {
+                if ($("#role_id").val() == 'STUDENT'){
+                    $(".student").show()
+                    $(".civility").hide()
+                } else {
+                    $(".student").hide()
+                    $(".civility").show()
                 }
             }
-        }
 
-        Vue.createApp(App).mount('#container')
+        })
 
-        function PreviewImage() {
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("image_user").files[0]);
-
-        oFReader.onload = function (oFREvent) {
-            document.getElementById("uploadPreview").src = oFREvent.target.result;
-        };
-    };
+        
+   
     </script>
     @endsection
