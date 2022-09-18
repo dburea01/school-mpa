@@ -1,5 +1,5 @@
 @extends('layouts.app_layout')
-
+@section('title', __('titles.groups'))
 @section('content')
 <div class="row">
     <div class="col mx-auto">

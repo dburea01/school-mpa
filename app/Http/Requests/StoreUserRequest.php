@@ -51,6 +51,7 @@ class StoreUserRequest extends FormRequest
             'gender_id' => 'required_if:role_id,STUDENT|in:1,2',
             'civility_id' => 'nullable|required_unless:role_id,STUDENT|exists:civilities,id',
             'birth_date' => 'required_if:role_id,STUDENT|date_format:d/m/Y',
+            'country_id' => 'exists:countries,id'
         ];
     }
 }

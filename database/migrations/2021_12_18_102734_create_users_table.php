@@ -43,6 +43,7 @@ class CreateUsersTable extends Migration
             $table->foreign('school_id')->references('id')->on('schools')->cascadeOnDelete();
             $table->foreign('role_id')->references('id')->on('roles')->nullOnDelete();
             $table->foreign('civility_id')->references('id')->on('civilities')->nullOnDelete();
+            $table->foreign('country_id')->references('id')->on('countries')->nullOnDelete();
         });
 
         DB::statement('ALTER TABLE users ADD CONSTRAINT check_is_super_admin CHECK ( (school_id IS NULL AND role_id = \'SUPERADMIN\') OR (school_id IS NOT NULL) )');

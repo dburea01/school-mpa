@@ -28,6 +28,11 @@ class UserFactory extends Factory
             'gender_id' => $genderId === 'male' ? '1' : '2',
             'civility_id' => $genderId === 'male' ? 'MR' : 'MISS',
             'comment' => $this->faker->paragraphs(3, true),
+            'address1' => $this->faker->streetSuffix() . ' ' . $this->faker->streetName(),
+            'address2' => $this->faker->streetName(),
+            'city' => $this->faker->city(),
+            'zip_code' => $this->faker->postcode,
+            'country_id' => $this->faker->randomElement(['FR', 'BE', 'IT']),
             'created_by' => 'factory',
             // 'email_verified_at' => $this->faker->dateTimeThisYear()
         ];

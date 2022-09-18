@@ -7,7 +7,7 @@
     <meta name="description" content="template admin bootstrap">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 
-    <title>Dashboard Template · essai dom</title>
+    <title>{{ config('app.name') }} · @yield('title')</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"

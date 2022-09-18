@@ -1,5 +1,5 @@
 @extends('layouts.app_layout')
-
+@section('title', __('titles.user_form'))
 @section('content')
 <div class="row">
     <div class="col mx-auto">
@@ -125,6 +125,74 @@
         </div>
 
         <div class="row mb-3">
+            <label for="address1" class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.address1')
+                :
+            </label>
+
+            <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm @error('address1') is-invalid @enderror"
+                    name="address1" id="address1" value="{{ old('address1', $user->address1) }}" />
+                @if ($errors->has('address1'))
+                <span class="text-danger">{{ $errors->first('address1') }}</span>
+                @endif
+            </div>
+            <div class="col-sm-10 offset-md-2">
+                <input type="text" class="form-control form-control-sm @error('address2') is-invalid @enderror"
+                    name="address2" id="address2" value="{{ old('address2', $user->address2) }}"
+                    aria-label="address2" />
+                @if ($errors->has('address2'))
+                <span class="text-danger">{{ $errors->first('address2') }}</span>
+                @endif
+            </div>
+            <div class="col-sm-10 offset-md-2">
+                <input type="text" class="form-control form-control-sm @error('address3') is-invalid @enderror"
+                    name="address3" id="address3" value="{{ old('address3', $user->address3) }}"
+                    aria-label="address3" />
+                @if ($errors->has('address3'))
+                <span class="text-danger">{{ $errors->first('address3') }}</span>
+                @endif
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="city" class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.city') :
+            </label>
+
+            <div class="col-sm-2">
+                <input type="text"
+                    class="form-control form-control-sm @error('city') is-invalid @enderror text-uppercase" name="city"
+                    id="city" value="{{ old('city', $user->city) }}" />
+                @if ($errors->has('city'))
+                <span class="text-danger">{{ $errors->first('city') }}</span>
+                @endif
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="country_id"
+                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.country') :
+            </label>
+            <div class="col-sm-2">
+                <x-select-country name="country_id" id="country_id" required="false"
+                    :value="old('country_id', $user->country_id)" />
+                @if ($errors->has('country_id'))
+                <span class="text-danger">{{ $errors->first('country_id') }}</span>
+                @endif
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="zip_code" class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.zip_code')
+                :
+            </label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control form-control-sm @error('zip_code') is-invalid @enderror"
+                    name="zip_code" id="zip_code" value="{{ old('zip_code', $user->zip_code) }}" />
+                @if ($errors->has('zip_code'))
+                <span class="text-danger">{{ $errors->first('zip_code') }}</span>
+                @endif
+            </div>
+        </div>
+
+        <div class="row mb-3">
             <label class="col-sm-2 col-form-label col-form-label-sm">@lang('user.status') :
                 *</label>
 
@@ -172,7 +240,7 @@
                     alt="image not found" />
                 @else
 
-                <img id="uploadPreview" style="width: 200px;" src="{{ asset('img/image_avatar.png') }}"
+                <img id="uploadPreview" style="width: 142px;height:142px" src="{{ asset('img/image_avatar.png') }}"
                     alt="image not found" />
                 @endif
 

@@ -1,5 +1,5 @@
 @extends('layouts.app_layout')
-
+@section('title', __('titles.subjects'))
 @section('content')
 
 @include('errors.session-values')

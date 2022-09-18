@@ -30,6 +30,12 @@ class User extends Authenticatable implements HasMedia
         'status',
         'gender_id',
         'civility_id',
+        'address1',
+        'address2',
+        'address3',
+        'zip_code',
+        'city',
+        'country_id'
     ];
 
     public function registerMediaConversions(Media $media = null): void
