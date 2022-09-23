@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
@@ -62,7 +63,15 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('schools.periods', PeriodController::class)->scoped()->whereUuid(['school', 'period']);
 
     // routes for the classrooms of a school
+
     Route::resource('schools.classrooms', ClassroomController::class)->scoped()->whereUuid(['school', 'classroom']);
+
+    // routes for the assignments of a school
+    /*
+    Route::middleware(['ensureAnActivePeriodExists'])->group(function () {
+        Route::get('schools/{school}/assignments/summary', [AssignmentController::class, 'summary'])->whereUuid('school');
+    });
+    */
 
     // route for the report
     Route::get('schools/{school}/reports', [ReportController::class, 'report'])->whereUuid('school');

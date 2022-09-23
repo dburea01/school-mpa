@@ -1,13 +1,23 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAssignmentRequest;
 use App\Http\Requests\UpdateAssignmentRequest;
 use App\Models\Assignment;
+use App\Models\Period;
+use App\Models\School;
+use App\Repositories\AssignmentRepository;
+use Illuminate\Http\Request;
 
 class AssignmentController extends Controller
 {
+    public $assignmentRepository;
+
+    public function __construct(AssignmentRepository $assignmentRepository)
+    {
+        $this->assignmentRepository = $assignmentRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -82,5 +92,16 @@ class AssignmentController extends Controller
     public function destroy(Assignment $assignment)
     {
         //
+    }
+
+    public function summary(School $school, Request $request)
+    {
+        //todo : permission
+        $assignmentsPerClassroom = $this->assignmentRepository->summary($school, $request->period);
+        // dd($assignmentsPerClassroom);
+        return view('assignments.summary', [
+            'school' => $school,
+            'assignmentsPerClassroom' => $assignmentsPerClassroom
+        ]);
     }
 }
