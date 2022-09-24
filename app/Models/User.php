@@ -97,6 +97,11 @@ class User extends Authenticatable implements HasMedia
         $this->attributes['first_name'] = ucwords($value);
     }
 
+    public function age()
+    {
+        return Carbon::parse($this->attributes['birth_date'])->diff(Carbon::now())->format('%y Y %m M');
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);

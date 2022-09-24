@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClassroomRequest;
@@ -33,23 +32,15 @@ class ClassroomController extends Controller
     public function index(Request $request, School $school)
     {
         $currentPeriod = $this->periodRepository->getCurrentPeriod($school);
+        $periodIdToDisplay = $request->query('period_id', $currentPeriod->id);
 
-        if (! $currentPeriod) {
-            return view('errors.no_current_period');
-        }
-
-        $periodId = $request->query('period_id') && $request->query('period_id') !== '' && Str::isUuid($request->query('period_id')) ?
-            $request->query('period_id') : $currentPeriod->id;
-        $period = $this->periodRepository->getPeriod($school, $periodId);
-        $periods = $this->periodRepository->all($school);
-
-        $classrooms = $this->classroomRepository->all($school, $period);
+        $classrooms = $this->classroomRepository->all($school, $periodIdToDisplay);
 
         return view('classrooms.classrooms', [
             'school' => $school,
             'classrooms' => $classrooms,
-            'periods' => $periods,
-            'periodToDisplay' => $period,
+            'currentPeriod' => $currentPeriod,
+            'periodIdToDisplay' => $periodIdToDisplay,
         ]);
     }
 
@@ -63,6 +54,7 @@ class ClassroomController extends Controller
         $classroom = new Classroom();
         $classroom->status = 'ACTIVE';
         $classroom->school_id = $school->id;
+        $classroom->period_id = $this->periodRepository->getCurrentPeriod($school)->id;
 
         return view('classrooms.classroom_form', [
             'school' => $school,

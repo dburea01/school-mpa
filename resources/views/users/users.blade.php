@@ -67,9 +67,7 @@
                         <a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{ $user->full_name }}</a>
 
                         @if ($user->status === 'INACTIVE')
-                        <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"
-                            data-bs-toggle="tooltip" data-bs-placement="right"
-                            data-bs-title="@lang('users.user_inactive')"></i>
+                        <x-alert-user-inactive />
                         @endif
                     </td>
                     <td>{{ $user->email }}</td>

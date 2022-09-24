@@ -14,17 +14,8 @@
 <div class="row mt-3 mb-3">
     <form class="row col-md-4 mx-auto" action="/schools/{{ $school->id }}/groups">
 
-
-        <select class="form-select form-select-sm" name="select-period" id="select-period"
-            onchange="window.location.assign('{{ url()->current().'?period_id=' }}'+this.value)">
-            <option value="">@lang('select-period.select_a_period')</option>
-            @foreach ($periods as $period)
-            <option value="{{ $period->id }}" @if ($period->id === $periodToDisplay->id) selected @endif>
-                {{ $period->name }}
-                @if ($period->current) (x) @endif
-            </option>
-            @endforeach
-        </select>
+        <x-select-period :school="$school" name="select-period" id="select_period" :value="$periodIdToDisplay"
+            onchange="window.location.assign('{{ url()->current().'?period_id=' }}'+this.value)" />
 
     </form>
 </div>
@@ -50,8 +41,8 @@
                         @endif
                     </td>
 
-                    <td><a href="/schools/{{ $school->id }}/classrooms/{{ $classroom->id }}/users">{{
-                            $classroom->assignments_count }}</a>
+                    <td><a href="/schools/{{ $school->id }}/classrooms/{{ $classroom->id }}/assignments">{{
+                            $classroom->assignments->count() }}</a>
                     </td>
                 </tr>
                 @endforeach

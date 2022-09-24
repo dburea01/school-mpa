@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="template admin bootstrap">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name') }} · @yield('title')</title>
 
@@ -29,7 +30,7 @@
 
     <!-- Begin page content -->
     <main class="flex-shrink-0">
-        <div class="container" id="container">
+        <div class="container mt-3" id="container">
             @yield('content')
         </div>
     </main>

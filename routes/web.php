@@ -43,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the users
     Route::resource('schools.users', UserController::class)->scoped()->whereUuid(['school', 'user']);
+    Route::get('schools/{school}/users/autocomplete', [UserController::class, 'autocomplete'])->whereUuid('school');
 
     // routes for the potential duplicated users
     Route::get('schools/{school}/users/potential-duplicated-user', [UserController::class, 'potentialDuplicatedUser'])->whereUuid('school');
@@ -64,8 +65,10 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the classrooms of a school
 
-    Route::resource('schools.classrooms', ClassroomController::class)->scoped()->whereUuid(['school', 'classroom']);
-
+    Route::middleware(['ensureAnActivePeriodExists'])->group(function () {
+        Route::resource('schools.classrooms', ClassroomController::class)->scoped()->whereUuid(['school', 'classroom']);
+        Route::resource('schools.classrooms.assignments', AssignmentController::class)->scoped()->whereUuid(['school', 'classroom', 'assignment']);
+    });
     // routes for the assignments of a school
     /*
     Route::middleware(['ensureAnActivePeriodExists'])->group(function () {

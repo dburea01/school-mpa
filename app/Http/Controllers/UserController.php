@@ -133,7 +133,7 @@ class UserController extends Controller
             if ($request->has('image_user')) {
                 $this->processImage($user, $request->image_user, 'images_user');
             }
-            return redirect("/schools/$school->id/users?user_name=$user->last_name")->with('success', trans('user.user_updated', ['name' => $user->full_name]));
+            return back()->with('success', trans('user.user_updated', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -218,5 +218,16 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
+    }
+
+    public function autocomplete(School $school, Request $request)
+    {
+        return User::where('school_id', $school->id)
+        ->where(function ($query) use ($request) {
+            $query->where('last_name', 'ilike', '%' . $request->search . '%')
+            ->orWhere('first_name', 'ilike', '%' . $request->search . '%');
+        })
+        ->where('role_id', 'STUDENT')
+        ->get(['id', 'first_name', 'last_name']);
     }
 }

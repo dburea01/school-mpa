@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repositories;
 
 use App\Models\Classroom;
@@ -10,12 +9,25 @@ use App\Models\School;
 
 class ClassroomRepository
 {
-    public function all(School $school, Period $period)
+    public $assignmentRepository;
+
+    public function __construct(AssignmentRepository $assignmentRepository)
     {
-        return Classroom::where('school_id', $school->id)
-        ->where('period_id', $period->id)
-        ->withCount(['assignments'])
-        ->orderBy('name')->get();
+        $this->assignmentRepository = $assignmentRepository;
+    }
+
+    public function all(School $school, string $periodId)
+    {
+        $classrooms = Classroom::where('school_id', $school->id)
+        ->where('period_id', $periodId)
+        ->orderBy('name')
+        ->get();
+
+        foreach ($classrooms as $classroom) {
+            $classroom->assignments = $this->assignmentRepository->index($school, $classroom);
+        }
+
+        return $classrooms;
     }
 
     public function update(Classroom $classroom, array $data): Classroom

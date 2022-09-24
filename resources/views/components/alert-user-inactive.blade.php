@@ -1,0 +1,2 @@
+<i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true" data-bs-toggle="tooltip"
+    data-bs-placement="right" data-bs-title="@lang('users.user_inactive')"></i>

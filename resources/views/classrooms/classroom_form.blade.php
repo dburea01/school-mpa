@@ -25,15 +25,7 @@
             </label>
 
             <div class="col-sm-10">
-                <select class="form-select form-select-sm" name="period_id" id="period_id" required>
-                    <option value="">@lang('select-period.select_a_period')</option>
-                    @foreach ($periods as $period)
-                    <option value="{{ $period->id }}" @if ($period->id === $classroom->period_id) selected @endif>
-                        {{ $period->name }}
-                        @if ($period->current) (***) @endif
-                    </option>
-                    @endforeach
-                </select>
+                <x-select-period :school="$school" :value="$classroom->period_id" name="period_id" id="period_id" />
                 @if ($errors->has('period_id'))
                 <span class="text-danger">{{ $errors->first('period_id') }}</span>
                 @endif

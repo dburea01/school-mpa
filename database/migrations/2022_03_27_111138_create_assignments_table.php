@@ -20,7 +20,6 @@ class CreateAssignmentsTable extends Migration
             $table->uuid('user_id');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('status');
             $table->string('comment')->nullable();
             $table->timestamps();
             $table->string('created_by');

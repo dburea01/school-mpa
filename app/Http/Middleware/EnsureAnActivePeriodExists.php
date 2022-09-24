@@ -18,7 +18,7 @@ class EnsureAnActivePeriodExists
     {
         $period = Period::where('school_id', $request->school->id)->where('current', true)->first();
         if ($period) {
-            $request->merge(['period' => $period]);
+            // $request->merge(['period' => $period]);
             return $next($request);
         } else {
             return response()->view('errors.no_current_period');
