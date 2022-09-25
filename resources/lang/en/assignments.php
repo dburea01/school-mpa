@@ -8,6 +8,9 @@ return [
     'students_total' => 'Total',
     'search_user' => 'Search student',
     'assign' => 'Assign',
+
+    'assigned_users' => 'Assigned users',
+    'birthdates' => 'Birthdates | Ages',
     'user_already_assigned' => ':user is already assigned to this classroom.',
     'user_assigned' => ':user has been assigned to this classroom.',
     'delete_assignment' => 'Delete this assignment',
