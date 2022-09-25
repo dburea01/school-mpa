@@ -64,7 +64,8 @@ class GroupController extends Controller
         try {
             $group = $this->groupRepository->insert($school->id, $request->all());
 
-            return redirect("schools/$school->id/groups/$group->id/users")->with('success', trans('group.group_created', ['name' => $group->name]));
+            return redirect("schools/$school->id/groups/$group->id/users")
+            ->with('success', trans('group.group_created', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -107,7 +108,8 @@ class GroupController extends Controller
         try {
             $group = $this->groupRepository->update($group, $request->all());
 
-            return redirect("schools/$school->id/groups")->with('success', trans('group.group_updated', ['name' => $group->name]));
+            return redirect("schools/$school->id/groups")
+            ->with('success', trans('group.group_updated', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -124,7 +126,8 @@ class GroupController extends Controller
         try {
             $this->groupRepository->destroy($group);
 
-            return redirect("schools/$school->id/groups")->with('success', trans('group.group_deleted', ['name' => $group->name]));
+            return redirect("schools/$school->id/groups")
+            ->with('success', trans('group.group_deleted', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }

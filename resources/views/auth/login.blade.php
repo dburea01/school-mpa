@@ -22,13 +22,15 @@
         @csrf
         <h1 class="h3 mb-3 text-center">@lang('auth.title')</h1>
 
-        <input type="email" id="email" name="email" class="form-control" placeholder="@lang('auth.email')" value="{{ old('email') }}" required>
+        <input type="email" id="email" name="email" class="form-control" placeholder="@lang('auth.email')"
+            value="{{ old('email') }}" required>
         @if ($errors->has('email'))
         <span class="text-danger">{{ $errors->first('email') }}</span>
         @endif
 
 
-        <input type="password" id="password" name="password" class="form-control" placeholder="@lang('auth.password')" required>
+        <input type="password" id="password" name="password" class="form-control" placeholder="@lang('auth.password')"
+            required>
 
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="remember_me" name="remember_me">
@@ -54,8 +56,5 @@
 
 
 </div>
-
-
-
 
 @endsection

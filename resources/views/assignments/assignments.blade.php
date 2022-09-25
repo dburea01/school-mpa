@@ -35,49 +35,48 @@
     <div class="col-md-8 mx-auto">
         <table class="table table-sm table-striped table-bordered table-hover" aria-label="List of assignments">
 
-            <tbody>
-                @foreach ($assignments as $assignment)
-                <tr>
-                    <td>
-                        <a href="/schools/{{ $school->id }}/users/{{ $assignment->user->id }}/edit">{{
-                            $assignment->user->fullName }}</a>
-                        @if ($assignment->user->status === 'INACTIVE')
-                        <x-alert-user-inactive />
-                        @endif
-                    </td>
-                    <td>
-                        {{ $assignment->user->birth_date }}
-                    </td>
-                    <td>
-                        {{ $assignment->user->age() }}
-                    </td>
-                    <td>
-                        @switch($assignment->user->gender_id)
-                        @case(1)
-                        <i class="bi bi-gender-male"></i>
-                        @break
-                        @case(2)
-                        <i class="bi bi-gender-female"></i>
-                        @break
-                        @default
-                        <i class="bi bi-question"></i>
-                        @endswitch
 
-                    </td>
-                    <td>
-                        <form
-                            action="/schools/{{ $school->id }}/classrooms/{{ $classroom->id }}/assignments/{{ $assignment->id }}"
-                            method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" aria-label="add"
-                                title="@lang('assignments.delete_assignment')">
-                                <i class="bi bi-trash" aria-hidden="true"></i> </button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
+            @foreach ($assignments as $assignment)
+            <tr>
+                <td>
+                    <a href="/schools/{{ $school->id }}/users/{{ $assignment->user->id }}/edit">{{
+                        $assignment->user->fullName }}</a>
+                    @if ($assignment->user->status === 'INACTIVE')
+                    <x-alert-user-inactive />
+                    @endif
+                </td>
+                <td>
+                    {{ $assignment->user->birth_date }}
+                </td>
+                <td>
+                    {{ $assignment->user->age() }}
+                </td>
+                <td>
+                    @switch($assignment->user->gender_id)
+                    @case(1)
+                    <i class="bi bi-gender-male" aria-hidden="true"></i>
+                    @break
+                    @case(2)
+                    <i class="bi bi-gender-female" aria-hidden="true"></i>
+                    @break
+                    @default
+                    <i class="bi bi-question" aria-hidden="true"></i>
+                    @endswitch
+
+                </td>
+                <td>
+                    <form action="/schools/{{ $school->id }}/classrooms/{{ $classroom->id }}/
+                            assignments/{{ $assignment->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger" aria-label="add"
+                            title="@lang('assignments.delete_assignment')">
+                            <i class="bi bi-trash" aria-hidden="true"></i> </button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+
         </table>
 
 
@@ -113,7 +112,8 @@
 
 @section('extra_js')
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
 <script>
     $(document).ready(function(){

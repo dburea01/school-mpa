@@ -1,13 +1,14 @@
 <?php
+
 namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class User extends Authenticatable implements HasMedia
 {
@@ -35,7 +36,7 @@ class User extends Authenticatable implements HasMedia
         'address3',
         'zip_code',
         'city',
-        'country_id'
+        'country_id',
     ];
 
     public function registerMediaConversions(Media $media = null): void

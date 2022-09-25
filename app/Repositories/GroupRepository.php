@@ -8,15 +8,19 @@ use App\Models\Group;
 
 class GroupRepository
 {
-    public function all($school_id, $request)
+    public function all($schoolId, $request)
     {
-        $groupsQuery = Group::where('school_id', $school_id)->withCount('user_groups')->orderBy('name');
+        $groupsQuery = Group::where('school_id', $schoolId)->withCount('user_groups')->orderBy('name');
 
-        if (array_key_exists('group_name', $request) && $request['group_name'] !== null && strlen($request['group_name']) > 1) {
+        if (array_key_exists('group_name', $request)
+            && $request['group_name'] !== null
+            && strlen($request['group_name']) > 1) {
             $groupsQuery->where('name', 'ilike', '%'.$request['group_name'].'%');
         }
 
-        if (array_key_exists('group_city', $request) && $request['group_city'] !== null && strlen($request['group_city']) > 1) {
+        if (array_key_exists('group_city', $request)
+            && $request['group_city'] !== null
+            && strlen($request['group_city']) > 1) {
             $groupsQuery->where('city', 'ilike', '%'.$request['group_city'].'%');
         }
 
@@ -36,10 +40,10 @@ class GroupRepository
         $group->delete();
     }
 
-    public function insert($school_id, $groupData)
+    public function insert($schoolId, $groupData)
     {
         $group = new Group();
-        $group->school_id = $school_id;
+        $group->school_id = $schoolId;
         $group->fill($groupData);
         $group->save();
 

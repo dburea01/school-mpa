@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Models\User;
@@ -14,9 +15,9 @@ class UserRepository
 
         if (array_key_exists('user_name', $request) && $request['user_name'] !== null) {
             $usersQuery->where(function ($query) use ($request) {
-                $query->where('first_name', 'ilike', '%' . $request['user_name'] . '%')
-                    ->orWhere('last_name', 'ilike', '%' . $request['user_name'] . '%')
-                    ->orWhere('email', 'ilike', '%' . $request['user_name'] . '%');
+                $query->where('first_name', 'ilike', '%'.$request['user_name'].'%')
+                    ->orWhere('last_name', 'ilike', '%'.$request['user_name'].'%')
+                    ->orWhere('email', 'ilike', '%'.$request['user_name'].'%');
             });
         }
 
@@ -52,10 +53,10 @@ class UserRepository
         $user->delete();
     }
 
-    public function insert($school_id, $userData)
+    public function insert($schoolId, $userData)
     {
         $user = new User();
-        $user->school_id = $school_id;
+        $user->school_id = $schoolId;
         $user->fill($userData);
         $user->save();
 

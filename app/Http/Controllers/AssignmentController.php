@@ -1,15 +1,13 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAssignmentRequest;
-use App\Http\Requests\UpdateAssignmentRequest;
 use App\Models\Assignment;
 use App\Models\Classroom;
-use App\Models\Period;
 use App\Models\School;
 use App\Models\User;
 use App\Repositories\AssignmentRepository;
-use Illuminate\Http\Request;
 
 class AssignmentController extends Controller
 {
@@ -43,7 +41,7 @@ class AssignmentController extends Controller
             'classroom' => $classroom,
             'assignments' => $assignments,
             'qtyBoys' => $qtyBoys,
-            'qtyGirls' => $qtyGirls
+            'qtyGirls' => $qtyGirls,
         ]);
     }
 

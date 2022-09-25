@@ -7,5 +7,5 @@ return [
     'subjects' => 'Subjects list',
     'periods' => 'Periods list',
     'classrooms' => 'Classrooms list',
-    'assignments' => 'Assignments'
+    'assignments' => 'Assignments',
 ];

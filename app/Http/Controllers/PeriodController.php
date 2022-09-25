@@ -57,7 +57,8 @@ class PeriodController extends Controller
         try {
             $period = $this->periodRepository->insert($school, $request->all());
 
-            return redirect("/schools/$school->id/periods")->with('success', trans('period.period_created', ['name' => $period->name]));
+            return redirect("/schools/$school->id/periods")
+            ->with('success', trans('period.period_created', ['name' => $period->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -100,7 +101,8 @@ class PeriodController extends Controller
         try {
             $this->periodRepository->update($period, $request->all());
 
-            return redirect("/schools/$school->id/periods")->with('success', trans('period.period_updated', ['name' => $period->name]));
+            return redirect("/schools/$school->id/periods")
+            ->with('success', trans('period.period_updated', ['name' => $period->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -117,7 +119,8 @@ class PeriodController extends Controller
         try {
             $this->periodRepository->destroy($period);
 
-            return redirect("/schools/$school->id/periods")->with('success', trans('subject.subject_deleted', ['name' => $period->name]));
+            return redirect("/schools/$school->id/periods")
+            ->with('success', trans('subject.subject_deleted', ['name' => $period->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

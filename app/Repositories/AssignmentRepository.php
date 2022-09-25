@@ -1,12 +1,11 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Models\Assignment;
 use App\Models\Classroom;
-use App\Models\Period;
 use App\Models\School;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 
 class AssignmentRepository
 {
@@ -30,12 +29,10 @@ class AssignmentRepository
 
     public function insert(School $school, Classroom $classroom, User $userToAssign): Assignment
     {
-        $assignment = Assignment::create([
+        return Assignment::create([
             'school_id' => $school->id,
             'classroom_id' => $classroom->id,
-            'user_id' => $userToAssign->id
+            'user_id' => $userToAssign->id,
         ]);
-
-        return $assignment;
     }
 }

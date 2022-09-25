@@ -1,14 +1,13 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Group;
 use App\Models\School;
 use App\Models\User;
-use App\Policies\GroupPolicy;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -64,7 +63,12 @@ class UserController extends Controller
     public function store(StoreUserRequest $request, School $school)
     {
         // check if the user to create is a potential duplicated user.
-        $existingUsers = $this->userRepository->getExistingUsers($school->id, $request->last_name, $request->first_name, $request->birth_date);
+        $existingUsers = $this->userRepository->getExistingUsers(
+            $school->id,
+            $request->last_name,
+            $request->first_name,
+            $request->birth_date
+        );
 
         if ($existingUsers->count() !== 0) {
             $userToCreate = new User();
@@ -82,7 +86,9 @@ class UserController extends Controller
             if ($request->has('image_user')) {
                 $this->processImage($user, $request->image_user, 'images_user');
             }
-            return redirect("/schools/$school->id/users?user_name=$user->last_name")->with('success', trans('user.user_created', ['name' => $user->full_name]));
+
+            return redirect("/schools/$school->id/users?user_name=$user->last_name")
+            ->with('success', trans('user.user_created', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -133,6 +139,7 @@ class UserController extends Controller
             if ($request->has('image_user')) {
                 $this->processImage($user, $request->image_user, 'images_user');
             }
+
             return back()->with('success', trans('user.user_updated', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -150,7 +157,8 @@ class UserController extends Controller
         try {
             $this->userRepository->destroy($user);
 
-            return redirect("/schools/$school->id/users")->with('success', trans('user.user_deleted', ['name' => $user->full_name]));
+            return redirect("/schools/$school->id/users")
+            ->with('success', trans('user.user_deleted', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -173,7 +181,8 @@ class UserController extends Controller
         try {
             $user = $this->userRepository->insert($school->id, $request->all());
 
-            return redirect('/schools/' . $school->id . '/users')->with('success', 'User ' . $user->full_name . ' created.');
+            return redirect('/schools/'.$school->id.'/users')
+            ->with('success', 'User '.$user->full_name.' created.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -202,7 +211,8 @@ class UserController extends Controller
             $this->userRepository->addUserForAGroup($group->id, $request->user_id);
             $user = User::find($request->user_id);
 
-            return redirect("/schools/$school->id/groups/$group->id/users?user_name=$request->user_name")->with('success', trans('user.user_added_to_family', ['name' => $user->full_name]));
+            return redirect("/schools/$school->id/groups/$group->id/users?user_name=$request->user_name")
+            ->with('success', trans('user.user_added_to_family', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', 'an error occured.');
         }
@@ -214,6 +224,7 @@ class UserController extends Controller
 
         try {
             $this->userRepository->removeUserFromAGroup($group->id, $user->id);
+
             return back()->with('success', trans('user.user_removed_from_family', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -224,8 +235,8 @@ class UserController extends Controller
     {
         return User::where('school_id', $school->id)
         ->where(function ($query) use ($request) {
-            $query->where('last_name', 'ilike', '%' . $request->search . '%')
-            ->orWhere('first_name', 'ilike', '%' . $request->search . '%');
+            $query->where('last_name', 'ilike', '%'.$request->search.'%')
+            ->orWhere('first_name', 'ilike', '%'.$request->search.'%');
         })
         ->where('role_id', 'STUDENT')
         ->get(['id', 'first_name', 'last_name']);

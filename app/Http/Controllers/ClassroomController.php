@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClassroomRequest;
@@ -7,7 +8,6 @@ use App\Models\School;
 use App\Repositories\ClassroomRepository;
 use App\Repositories\PeriodRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ClassroomController extends Controller
 {
@@ -74,7 +74,8 @@ class ClassroomController extends Controller
         try {
             $classroom = $this->classroomRepository->insert($school, $request->all());
 
-            return redirect("schools/$school->id/classrooms?period_id=$classroom->period_id")->with('success', trans('classroom.classroom_created', ['name' => $classroom->name]));
+            return redirect("schools/$school->id/classrooms?period_id=$classroom->period_id")
+            ->with('success', trans('classroom.classroom_created', ['name' => $classroom->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -118,7 +119,8 @@ class ClassroomController extends Controller
         try {
             $classroomUpdated = $this->classroomRepository->update($classroom, $request->all());
 
-            return redirect("schools/$school->id/classrooms?period_id=$classroomUpdated->period_id")->with('success', trans('classroom.classroom_updated', ['name' => $classroomUpdated->name]));
+            return redirect("schools/$school->id/classrooms?period_id=$classroomUpdated->period_id")
+            ->with('success', trans('classroom.classroom_updated', ['name' => $classroomUpdated->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -135,7 +137,8 @@ class ClassroomController extends Controller
         try {
             $this->classroomRepository->destroy($classroom);
 
-            return redirect("schools/$school->id/classrooms?period_id=$classroom->period_id")->with('success', trans('classroom.classroom_deleted', ['name' => $classroom->name]));
+            return redirect("schools/$school->id/classrooms?period_id=$classroom->period_id")
+            ->with('success', trans('classroom.classroom_deleted', ['name' => $classroom->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
