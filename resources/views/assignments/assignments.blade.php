@@ -74,9 +74,8 @@
                     </td>
 
                     <td>
-                        <form
-                            action="/schools/{{$school->id}}/classrooms/{{$classroom->id}}/assignments/{{$assignment->id}}"
-                            method="POST">
+                        <form @php $action="/schools/$school->id/classrooms/$classroom->id/assignments/$assignment->id"
+                            @endphp action={{ $action }} method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger" aria-label="add"
