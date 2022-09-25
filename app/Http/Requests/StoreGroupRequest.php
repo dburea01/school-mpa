@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -28,8 +27,8 @@ class StoreGroupRequest extends FormRequest
         return [
             'name' => $this->requiredAndMax(),
             'address1' => $this->requiredAndMax(),
-            'address2' => 'max:60',
-            'address3' => 'max:60',
+            'address2' => 'max:50',
+            'address3' => 'max:50',
             'city' => $this->requiredAndMax(),
             'country_id' => 'required|size:2',
             'zip_code' => 'required|max:10',
@@ -42,6 +41,6 @@ class StoreGroupRequest extends FormRequest
 
     private function requiredAndMax()
     {
-        return 'required|max:60';
+        return 'required|max:50';
     }
 }
