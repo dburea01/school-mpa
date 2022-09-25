@@ -46,9 +46,9 @@ class StoreAssignmentRequest extends FormRequest
             ->first();
 
             if ($assignment) {
-                $validator->errors()->add('userIdToAssign', trans('assignments.user_already_assigned', [
-                    'user' => User::find($assignment->user_id)->full_name,
-                ]));
+                $user = User::find($assignment->user_id)->full_name;
+                $validator->errors()
+                ->add('userIdToAssign', trans('assignments.user_already_assigned', ['user' => $user]));
             }
         });
     }
