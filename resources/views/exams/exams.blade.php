@@ -19,12 +19,17 @@
             </div>
 
 
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-2 col-sm-12">
                 <x-select-classroom name="filter_by_classroom_id" id="filter_by_classroom_id" required="false"
                     :value="$filter_by_classroom_id" :school="$school" :placeholder="__('exams.filter_by_classroom')" />
             </div>
 
-            <div class="col-md-3 col-sm-12">
+            <div class="col-md-2 col-sm-12">
+                <x-select-subject name="filter_by_subject_id" id="filter_by_subject_id" required="false"
+                    :value="$filter_by_subject_id" :school="$school" :placeholder="__('exams.filter_by_subject')" />
+            </div>
+
+            <div class="col-md-2 col-sm-12">
                 <x-select-exam-type name="filter_by_exam_type_id" id="filter_by_exam_type_id" required="false"
                     :value="$filter_by_exam_type_id" :school="$school" :placeholder="__('exams.filter_by_exam_type')" />
             </div>
@@ -52,6 +57,7 @@
                 <tr>
                     <th>@lang('exams.title')</th>
                     <th>@lang('exams.classroom')</th>
+                    <th>@lang('exams.subject')</th>
                     <th>@lang('exams.type')</th>
                     <th>@lang('exams.status')</th>
 
@@ -65,6 +71,7 @@
                     </td>
 
                     <td>{{ $exam->classroom->name }}</td>
+                    <td>{{ $exam->subject->short_name }}</td>
                     <td>{{ $exam->exam_type->short_name }}</td>
                     <td>{{ $exam->exam_status->short_name }}</td>
 

@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->time('duration')->nullable();
-            $table->text('instructions')->nullable();
+            $table->text('instruction')->nullable();
             $table->timestamps();
             $table->string('created_by');
             $table->string('updated_by')->nullable();

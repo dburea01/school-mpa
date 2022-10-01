@@ -21,14 +21,18 @@ class ExamRepository
             });
         }
 
-        if (Str::of($request['filter_by_classroom_id'])->isUuid()) {
+        if (\array_key_exists('filter_by_classroom_id', $request) && Str::of($request['filter_by_classroom_id'])->isUuid()) {
             $query->where('classroom_id', $request['filter_by_classroom_id']);
         }
 
-        if (Str::of($request['filter_by_exam_type_id'])->isUuid()) {
+        if (\array_key_exists('filter_by_subject_id', $request) && Str::of($request['filter_by_subject_id'])->isUuid()) {
+            $query->where('subject_id', $request['filter_by_subject_id']);
+        }
+
+        if (\array_key_exists('filter_by_exam_type_id', $request) && Str::of($request['filter_by_exam_type_id'])->isUuid()) {
             $query->where('exam_type_id', $request['filter_by_exam_type_id']);
         }
-        // dd($request['filter_by_exam_status_id']);
+
         if (\array_key_exists('filter_by_exam_status_id', $request)
         && $request['filter_by_exam_status_id'] !== null
         && is_numeric(trim($request['filter_by_exam_status_id']))) {

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Policies;
 
 use App\Models\Exam;
@@ -9,6 +8,21 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class ExamPolicy
 {
     use HandlesAuthorization;
+    protected $school;
+    protected $exam;
+
+    public function __construct()
+    {
+        $this->school = request()->route()->parameter('school');
+        $this->exam = request()->route()->parameter('exam');
+    }
+
+    public function before(User $user)
+    {
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -18,7 +32,8 @@ class ExamPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return ($user->isDirector() || $user->isTeacher())
+        && ($user->school_id === $this->school->id);
     }
 
     /**
@@ -41,7 +56,8 @@ class ExamPolicy
      */
     public function create(User $user)
     {
-        //
+        return ($user->isDirector() || $user->isTeacher())
+        && ($user->school_id === $this->school->id);
     }
 
     /**
@@ -53,7 +69,7 @@ class ExamPolicy
      */
     public function update(User $user, Exam $exam)
     {
-        //
+        return $this->create($user);
     }
 
     /**

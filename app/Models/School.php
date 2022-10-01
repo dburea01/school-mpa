@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class School extends Model
 {
@@ -31,33 +31,38 @@ class School extends Model
         $this->attributes['country_id'] = strtoupper($value);
     }
 
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
 
-    public function groups()
+    public function groups(): HasMany
     {
         return $this->hasMany(Group::class);
     }
 
-    public function subjects()
+    public function subjects(): HasMany
     {
         return $this->hasMany(Subject::class);
     }
 
-    public function periods()
+    public function periods(): HasMany
     {
         return $this->hasMany(Period::class);
     }
 
-    public function classrooms()
+    public function classrooms(): HasMany
     {
         return $this->hasMany(Classroom::class);
     }
 
-    public function assignments()
+    public function assignments(): HasMany
     {
         return $this->hasMany(Assignment::class);
+    }
+
+    public function exams(): HasMany
+    {
+        return $this->hasMany(Exam::class);
     }
 }

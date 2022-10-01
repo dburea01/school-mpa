@@ -8,4 +8,7 @@ return [
     'periods' => 'Periods list',
     'classrooms' => 'Classrooms list',
     'assignments' => 'Assignments',
+
+    'exams' => 'Exams list',
+    'exam_edit' => 'Edit exam',
 ];

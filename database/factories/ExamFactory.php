@@ -24,7 +24,7 @@ class ExamFactory extends Factory
             'description' => fake()->paragraph(),
             'start_date' => $startDate,
             'end_date' => $endDate,
-            'instructions' => fake()->paragraph(),
+            'instruction' => fake()->paragraph(),
         ];
     }
 }

@@ -15,6 +15,7 @@ class ExamController extends Controller
     public function __construct(ExamRepository $examRepository)
     {
         $this->examRepository = $examRepository;
+        $this->authorizeResource(Exam::class);
     }
 
     /**
@@ -31,6 +32,7 @@ class ExamController extends Controller
             'exams' => $exams,
             'filter_by_title' => $request->query('filter_by_title', ''),
             'filter_by_classroom_id' => $request->query('filter_by_classroom_id', ''),
+            'filter_by_subject_id' => $request->query('filter_by_subject_id', ''),
             'filter_by_exam_type_id' => $request->query('filter_by_exam_type_id', ''),
             'filter_by_exam_status_id' => $request->query('filter_by_exam_status_id', ''),
         ]);
@@ -41,9 +43,15 @@ class ExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(School $school)
     {
-        //
+        $exam = new Exam();
+        $exam->exam_status_id = 'DRAFT';
+
+        return view('exams.exam_form', [
+            'school' => $school,
+            'exam' => $exam,
+        ]);
     }
 
     /**
@@ -74,9 +82,12 @@ class ExamController extends Controller
      * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function edit(Exam $exam)
+    public function edit(School $school, Exam $exam)
     {
-        //
+        return view('exams.exam_form', [
+            'school' => $school,
+            'exam' => $exam,
+        ]);
     }
 
     /**
