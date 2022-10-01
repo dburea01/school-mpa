@@ -14,5 +14,5 @@ return [
     'periods' => 'Periods',
     'classrooms' => 'Classrooms',
     'assignments' => 'Assignments',
-
+    'exams' => 'Exams'
 ];

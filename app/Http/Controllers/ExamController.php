@@ -1,21 +1,39 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Exam;
 use App\Http\Requests\StoreExamRequest;
 use App\Http\Requests\UpdateExamRequest;
+use App\Models\School;
+use App\Repositories\ExamRepository;
+use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
+    public $examRepository;
+
+    public function __construct(ExamRepository $examRepository)
+    {
+        $this->examRepository = $examRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(School $school, Request $request)
     {
-        //
+        $exams = $this->examRepository->all($school, $request->all());
+
+        return view('exams.exams', [
+            'school' => $school,
+            'exams' => $exams,
+            'filter_by_title' => $request->query('filter_by_title', ''),
+            'filter_by_classroom_id' => $request->query('filter_by_classroom_id', ''),
+            'filter_by_exam_type_id' => $request->query('filter_by_exam_type_id', ''),
+            'filter_by_exam_status_id' => $request->query('filter_by_exam_status_id', ''),
+        ]);
     }
 
     /**

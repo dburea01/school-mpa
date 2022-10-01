@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeriodController;
@@ -77,6 +78,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('schools.classrooms.assignments', AssignmentController::class)->scoped()
             ->whereUuid(['school', 'classroom', 'assignment']);
     });
+
+    // routes for the exams of a school
+    Route::resource('schools.exams', ExamController::class)->scoped()->whereUuid(['school', 'exam']);
 
     // route for the report
     Route::get('schools/{school}/reports', [ReportController::class, 'report'])->whereUuid('school');

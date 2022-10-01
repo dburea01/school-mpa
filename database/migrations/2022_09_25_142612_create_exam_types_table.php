@@ -15,13 +15,15 @@ class CreateExamTypesTable extends Migration
     public function up()
     {
         Schema::create('exam_types', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->primary();
             $table->uuid('school_id');
             $table->json('short_name');
             $table->json('name');
             $table->tinyInteger('position');
             $table->string('status')->comment('ACTIVE / INACTIVE')->default('ACTIVE');
             $table->timestamps();
+            $table->string('created_by');
+            $table->string('updated_by')->nullable();
         });
     }
 

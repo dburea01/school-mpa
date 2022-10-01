@@ -30,6 +30,7 @@ class ExamSeeder extends Seeder
 
             for ($i = 0; $i < 100  ; $i++) {
                 Exam::factory()->create([
+                    'school_id' => $school->id,
                     'exam_type_id' => $examTypes->random()->id,
                     'subject_id' => $subjects->random()->id,
                     'classroom_id' => $classrooms->random()->id,

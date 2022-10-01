@@ -14,7 +14,8 @@ return new class extends Migration {
     {
         Schema::create('exams', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('exam_type_id');
+            $table->uuid('school_id');
+            $table->uuid('exam_type_id');
             $table->uuid('subject_id');
             $table->uuid('classroom_id');
             $table->integer('exam_status_id');
@@ -28,6 +29,7 @@ return new class extends Migration {
             $table->string('created_by');
             $table->string('updated_by')->nullable();
 
+            $table->foreign('school_id')->references('id')->on('schools')->nullOnDelete();
             $table->foreign('exam_type_id')->references('id')->on('exam_types')->nullOnDelete();
             $table->foreign('subject_id')->references('id')->on('subjects')->nullOnDelete();
             $table->foreign('classroom_id')->references('id')->on('classrooms')->cascadeOnDelete();

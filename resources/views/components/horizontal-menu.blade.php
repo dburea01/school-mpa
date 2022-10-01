@@ -28,13 +28,16 @@
                 </li>
                 @endif
 
-                @if (Auth::user()->isDirector())
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         @lang('menu.myoptions')
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
+
+                        @if (Auth::user()->isDirector())
+
                         <li><a class="dropdown-item"
                                 href="/schools/{{ Auth::user()->school_id }}/edit">@lang('menu.myschool')</a></li>
                         <li><a class="dropdown-item"
@@ -54,35 +57,42 @@
                         <li><a class="dropdown-item"
                                 href="/schools/{{ Auth::user()->school_id }}/classrooms">@lang('menu.classrooms')</a>
                         </li>
+
+                        @endif
+
+                        @if (Auth::user()->isDirector() || Auth::user()->isTeacher())
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item"
+                                href="/schools/{{ Auth::user()->school_id }}/exams">@lang('menu.exams')</a></li>
+                        @endif
                     </ul>
                 </li>
-                @endif
+
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         @switch(session()->get('locale'))
                         @case('en')
-                        <img src="{{ asset('img/flag_en.png') }}" alt="en" width="20" height="13" />
+                        <img src="{{ asset('img/flag_en.png') }}" alt="en" width="20" height="13">
                         @break
                         @case('fr')
-                        <img src="{{ asset('img/flag_fr.png') }}" alt="fr" width="20" height="13" />
+                        <img src="{{ asset('img/flag_fr.png') }}" alt="fr" width="20" height="13">
                         @break
                         @default
-                        <img src="{{ asset('img/flag_en.png') }}" alt="en" width="20" height="13" />
+                        <img src="{{ asset('img/flag_en.png') }}" alt="en" width="20" height="13">
                         @endswitch
 
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/change-locale/fr"><img src="{{ asset('img/flag_fr.png') }}"
-                                    alt="fr" width="20" height="13" />
+                                    alt="fr" width="20" height="13">
                                 Français</a></li>
                         <li><a class="dropdown-item" href="/change-locale/en"><img src="{{ asset('img/flag_en.png') }}"
-                                    alt="en" width="20" height="13" />
+                                    alt="en" width="20" height="13">
                                 English</a></li>
                     </ul>
                 </li>

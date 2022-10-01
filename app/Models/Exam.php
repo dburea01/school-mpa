@@ -15,6 +15,7 @@ class Exam extends Model
 
     protected $fillable = [
         'id',
+        'school_id',
         'exam_type_id',
         'subject_id',
         'classroom_id',

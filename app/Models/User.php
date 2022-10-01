@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -64,6 +63,11 @@ class User extends Authenticatable implements HasMedia
     public function isDirector()
     {
         return $this->role_id === 'DIRECTOR';
+    }
+
+    public function isTeacher()
+    {
+        return $this->role_id === 'TEACHER';
     }
 
     public function isActive(): bool
