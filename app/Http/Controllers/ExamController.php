@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreExamRequest;
@@ -47,7 +46,7 @@ class ExamController extends Controller
     public function create(School $school)
     {
         $exam = new Exam();
-        $exam->exam_status_id = 'DRAFT';
+        $exam->exam_status_id = '10'; // draft
 
         return view('exams.exam_form', [
             'school' => $school,
@@ -61,9 +60,17 @@ class ExamController extends Controller
      * @param  \App\Http\Requests\StoreExamRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreExamRequest $request)
+    public function store(School $school, StoreExamRequest $request)
     {
-        //
+        try {
+            $exam = $this->examRepository->insert($school, $request->all());
+            return redirect("schools/$school->id/exams")->with('success', trans(
+                'exams.exam_created',
+                ['title' => $exam->title]
+            ));
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -98,9 +105,17 @@ class ExamController extends Controller
      * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateExamRequest $request, Exam $exam)
+    public function update(School $school, StoreExamRequest $request, Exam $exam)
     {
-        //
+        try {
+            $examUpdated = $this->examRepository->update($school, $exam, $request->all());
+            return redirect("schools/$school->id/exams")->with('success', trans(
+                'exams.exam_updated',
+                ['title' => $examUpdated->title]
+            ));
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
     }
 
     /**

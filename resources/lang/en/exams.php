@@ -12,4 +12,8 @@ return [
     'subject' => 'Subject',
     'type' => 'Type',
     'status' => 'Status',
+
+    'exam_updated' => 'Exam <strong>:title</strong> updated',
+    'exam_created' => 'Exam <strong>:title</strong> created',
+    'exam_deleted' => 'Exam <strong>:title</strong> deleted'
 ];

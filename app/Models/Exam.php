@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,8 +26,28 @@ class Exam extends Model
         'start_date',
         'end_date',
         'duration',
-        'instructions',
+        'instruction',
     ];
+
+    public function getStartDateAttribute($value)
+    {
+        return $this->attributes['start_date'] = Carbon::parse($value)->format('d/m/Y H:i');
+    }
+
+    public function getEndDateAttribute($value)
+    {
+        return $this->attributes['end_date'] = Carbon::parse($value)->format('d/m/Y H:i');
+    }
+
+    public function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y H:i', $value)->format('Y-m-d H:i');
+    }
+
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y H:i', $value)->format('Y-m-d H:i');
+    }
 
     public function classroom(): BelongsTo
     {

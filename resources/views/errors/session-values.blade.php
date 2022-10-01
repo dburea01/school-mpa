@@ -3,7 +3,7 @@
 <div class="toast align-items-center bg-success text-white" role=" alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
-            {{ Session::get('success') }}
+            {!! Session::get('success') !!}
         </div>
         <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
@@ -18,7 +18,7 @@ Session::forget('success');
 <div class="toast align-items-center bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
-            {{ Session::get('error') }}
+            {!! Session::get('error') !!}
         </div>
         <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
@@ -33,7 +33,7 @@ Session::forget('error');
 <div class="toast align-items-center bg-warning text-white" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
-            {{ Session::get('warning') }}
+            {!! Session::get('warning') !!}
         </div>
         <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>

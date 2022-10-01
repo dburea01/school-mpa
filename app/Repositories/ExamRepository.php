@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repositories;
 
 use App\Models\Exam;
@@ -17,8 +16,8 @@ class ExamRepository
 
         if (\array_key_exists('filter_by_title', $request)) {
             $query->where(function ($query) use ($request) {
-                $query->where('title', 'ilike', '%'.$request['filter_by_title'].'%')
-                ->orWhere('description', 'ilike', '%'.$request['filter_by_title'].'%');
+                $query->where('title', 'ilike', '%' . $request['filter_by_title'] . '%')
+                ->orWhere('description', 'ilike', '%' . $request['filter_by_title'] . '%');
             });
         }
 
@@ -46,13 +45,12 @@ class ExamRepository
         return $query->paginate(10);
     }
 
-    public function update($schoolId, array $schoolData)
+    public function update(School $school, Exam $exam, array $data)
     {
-        $school = School::find($schoolId);
-        $school->fill($schoolData);
-        $school->save();
+        $exam->fill($data);
+        $exam->save();
 
-        return $school;
+        return $exam;
     }
 
     public function destroy($schoolId): void
@@ -60,12 +58,13 @@ class ExamRepository
         School::destroy($schoolId);
     }
 
-    public function insert($schoolData)
+    public function insert(School $school, array $data)
     {
-        $school = new School();
-        $school->fill($schoolData);
-        $school->save();
+        $exam = new Exam;
+        $exam->fill($data);
+        $exam->school_id = $school->id;
+        $exam->save();
 
-        return $school;
+        return $exam;
     }
 }
