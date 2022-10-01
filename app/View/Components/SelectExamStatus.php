@@ -1,19 +1,22 @@
 <?php
+
 namespace App\View\Components;
 
-use App\Models\Classroom;
 use App\Models\ExamStatus;
-use App\Models\ExamType;
-use App\Models\School;
 use Illuminate\View\Component;
 
 class SelectExamStatus extends Component
 {
     public $examStatus;
+
     public $name;
+
     public $id;
+
     public $required = false;
+
     public $value;
+
     public $placeholder;
 
     /**

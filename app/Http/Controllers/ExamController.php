@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Exam;
 use App\Http\Requests\StoreExamRequest;
 use App\Http\Requests\UpdateExamRequest;
+use App\Models\Exam;
 use App\Models\School;
 use App\Repositories\ExamRepository;
 use Illuminate\Http\Request;

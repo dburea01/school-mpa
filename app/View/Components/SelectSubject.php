@@ -1,8 +1,7 @@
 <?php
+
 namespace App\View\Components;
 
-use App\Models\Classroom;
-use App\Models\ExamType;
 use App\Models\School;
 use App\Models\Subject;
 use Illuminate\View\Component;
@@ -10,10 +9,15 @@ use Illuminate\View\Component;
 class SelectSubject extends Component
 {
     public $subjects;
+
     public $name;
+
     public $id;
+
     public $required = false;
+
     public $value;
+
     public $placeholder;
 
     /**

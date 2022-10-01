@@ -1,4 +1,5 @@
 <?php
+
 namespace App\View\Components;
 
 use App\Models\Classroom;
@@ -8,10 +9,15 @@ use Illuminate\View\Component;
 class SelectClassroom extends Component
 {
     public $classrooms;
+
     public $name;
+
     public $id;
+
     public $required = false;
+
     public $value;
+
     public $placeholder;
 
     /**

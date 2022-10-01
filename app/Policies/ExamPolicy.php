@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Policies;
 
 use App\Models\Exam;
@@ -8,7 +9,9 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class ExamPolicy
 {
     use HandlesAuthorization;
+
     protected $school;
+
     protected $exam;
 
     public function __construct()

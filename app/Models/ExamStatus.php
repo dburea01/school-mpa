@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,6 @@ class ExamStatus extends Model
         'id',
         'position',
         'short_name',
-        'comment'
+        'comment',
     ];
 }

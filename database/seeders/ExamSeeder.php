@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\Classroom;
@@ -7,8 +8,6 @@ use App\Models\ExamStatus;
 use App\Models\ExamType;
 use App\Models\School;
 use App\Models\Subject;
-use Database\Factories\ExamFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ExamSeeder extends Seeder
@@ -28,7 +27,7 @@ class ExamSeeder extends Seeder
             $subjects = Subject::where('school_id', $school->id)->get();
             $examTypes = ExamType::where('school_id', $school->id)->get();
 
-            for ($i = 0; $i < 100  ; $i++) {
+            for ($i = 0; $i < 100; $i++) {
                 Exam::factory()->create([
                     'school_id' => $school->id,
                     'exam_type_id' => $examTypes->random()->id,

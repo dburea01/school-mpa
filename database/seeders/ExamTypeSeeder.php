@@ -1,8 +1,8 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\ExamType;
-use App\Models\Period;
 use App\Models\School;
 use Illuminate\Database\Seeder;
 
@@ -39,7 +39,7 @@ class ExamTypeSeeder extends Seeder
                     'short_name' => ['en' => 'OW', 'fr' => 'OR'],
                     'name' => ['en' => 'Oral Work', 'fr' => 'Oral'],
 
-                ]
+                ],
             ];
 
             foreach ($examTypes as $examType) {
