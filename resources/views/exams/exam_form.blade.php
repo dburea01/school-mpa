@@ -172,7 +172,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>@lang('exam.p_warning_delete_subject')</p>
+                    <p>@lang('exam.p_warning_delete_exam')</p>
                 </div>
                 <div class="modal-footer">
                     <form class="form-inline" method="POST" action="/schools/{{$school->id}}/exams/{{$exam->id}}">

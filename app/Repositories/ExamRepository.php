@@ -45,7 +45,7 @@ class ExamRepository
         return $query->paginate(10);
     }
 
-    public function update(School $school, Exam $exam, array $data)
+    public function update(Exam $exam, array $data)
     {
         $exam->fill($data);
         $exam->save();
@@ -53,9 +53,9 @@ class ExamRepository
         return $exam;
     }
 
-    public function destroy($schoolId): void
+    public function destroy(Exam $exam): void
     {
-        School::destroy($schoolId);
+        $exam->delete();
     }
 
     public function insert(School $school, array $data)

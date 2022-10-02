@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Exam extends Model
 {
+    const FORMAT_DATE_DISPLAY = 'd/m/Y H:i';
+
     use HasFactory, HasUuid, HasCreatedUpdatedBy;
 
     public $incrementing = false;
@@ -31,22 +33,22 @@ class Exam extends Model
 
     public function getStartDateAttribute($value)
     {
-        return $this->attributes['start_date'] = Carbon::parse($value)->format('d/m/Y H:i');
+        return $this->attributes['start_date'] = Carbon::parse($value)->format(self::FORMAT_DATE_DISPLAY);
     }
 
     public function getEndDateAttribute($value)
     {
-        return $this->attributes['end_date'] = Carbon::parse($value)->format('d/m/Y H:i');
+        return $this->attributes['end_date'] = Carbon::parse($value)->format(self::FORMAT_DATE_DISPLAY);
     }
 
     public function setStartDateAttribute($value)
     {
-        $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y H:i', $value)->format('Y-m-d H:i');
+        $this->attributes['start_date'] = Carbon::createFromFormat(self::FORMAT_DATE_DISPLAY, $value)->format('Y-m-d H:i');
     }
 
     public function setEndDateAttribute($value)
     {
-        $this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y H:i', $value)->format('Y-m-d H:i');
+        $this->attributes['end_date'] = Carbon::createFromFormat(self::FORMAT_DATE_DISPLAY, $value)->format('Y-m-d H:i');
     }
 
     public function classroom(): BelongsTo

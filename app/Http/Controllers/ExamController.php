@@ -64,7 +64,8 @@ class ExamController extends Controller
     {
         try {
             $exam = $this->examRepository->insert($school, $request->all());
-            return redirect("schools/$school->id/exams")->with('success', trans(
+            return redirect("schools/$school->id/exams?filter_by_title=$exam->title")
+            ->with('success', trans(
                 'exams.exam_created',
                 ['title' => $exam->title]
             ));
@@ -108,8 +109,9 @@ class ExamController extends Controller
     public function update(School $school, StoreExamRequest $request, Exam $exam)
     {
         try {
-            $examUpdated = $this->examRepository->update($school, $exam, $request->all());
-            return redirect("schools/$school->id/exams")->with('success', trans(
+            $examUpdated = $this->examRepository->update($exam, $request->all());
+            return redirect("schools/$school->id/exams?filter_by_title=$examUpdated->title")
+            ->with('success', trans(
                 'exams.exam_updated',
                 ['title' => $examUpdated->title]
             ));
@@ -124,8 +126,16 @@ class ExamController extends Controller
      * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Exam $exam)
+    public function destroy(School $school, Exam $exam)
     {
-        //
+        try {
+            $this->examRepository->destroy($exam);
+            return redirect("schools/$school->id/exams")->with('success', trans(
+                'exams.exam_deleted',
+                ['title' => $exam->title]
+            ));
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
     }
 }
