@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Models\Exam;
@@ -16,8 +17,8 @@ class ExamRepository
 
         if (\array_key_exists('filter_by_title', $request)) {
             $query->where(function ($query) use ($request) {
-                $query->where('title', 'ilike', '%' . $request['filter_by_title'] . '%')
-                ->orWhere('description', 'ilike', '%' . $request['filter_by_title'] . '%');
+                $query->where('title', 'ilike', '%'.$request['filter_by_title'].'%')
+                ->orWhere('description', 'ilike', '%'.$request['filter_by_title'].'%');
             });
         }
 

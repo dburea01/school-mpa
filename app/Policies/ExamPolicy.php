@@ -57,7 +57,7 @@ class ExamPolicy
      * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Exam $exam)
+    public function update(User $user)
     {
         return $this->create($user);
     }
@@ -69,7 +69,7 @@ class ExamPolicy
      * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Exam $exam)
+    public function delete(User $user)
     {
         return $this->create($user);
     }

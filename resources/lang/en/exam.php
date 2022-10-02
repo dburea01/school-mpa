@@ -18,5 +18,5 @@ return [
     'delete' => 'Delete this exam',
     'title_modal_delete' => 'Delete this exam',
     'p_warning_delete_exam' => 'Do you really want to delete this exam ? The deletion of this exam will also delete all the notes attached to the exam. Please confirm.',
-    'cancel_delete' => 'Cancel'
+    'cancel_delete' => 'Cancel',
 ];

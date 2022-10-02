@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests;
 
 use App\Models\Exam;
@@ -31,21 +32,21 @@ class StoreExamRequest extends FormRequest
                 'uuid',
                 Rule::exists('classrooms', 'id')->where(function ($query) {
                     return $query->where('school_id', $this->school->id);
-                })
+                }),
             ],
             'exam_type_id' => [
                 'required',
                 'uuid',
                 Rule::exists('exam_types', 'id')->where(function ($query) {
                     return $query->where('school_id', $this->school->id);
-                })
+                }),
             ],
             'subject_id' => [
                 'required',
                 'uuid',
                 Rule::exists('subjects', 'id')->where(function ($query) {
                     return $query->where('school_id', $this->school->id);
-                })
+                }),
             ],
             'exam_status_id' => 'required|exists:exam_status,id',
             'start_date' => 'required|date_format:d/m/Y H:i',

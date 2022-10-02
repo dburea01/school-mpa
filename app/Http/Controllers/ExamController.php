@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreExamRequest;
-use App\Http\Requests\UpdateExamRequest;
 use App\Models\Exam;
 use App\Models\School;
 use App\Repositories\ExamRepository;
@@ -64,11 +63,9 @@ class ExamController extends Controller
     {
         try {
             $exam = $this->examRepository->insert($school, $request->all());
+
             return redirect("schools/$school->id/exams?filter_by_title=$exam->title")
-            ->with('success', trans(
-                'exams.exam_created',
-                ['title' => $exam->title]
-            ));
+            ->with('success', trans('exams.exam_created', ['title' => $exam->title]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -110,6 +107,7 @@ class ExamController extends Controller
     {
         try {
             $examUpdated = $this->examRepository->update($exam, $request->all());
+
             return redirect("schools/$school->id/exams?filter_by_title=$examUpdated->title")
             ->with('success', trans(
                 'exams.exam_updated',
@@ -130,10 +128,14 @@ class ExamController extends Controller
     {
         try {
             $this->examRepository->destroy($exam);
-            return redirect("schools/$school->id/exams")->with('success', trans(
-                'exams.exam_deleted',
-                ['title' => $exam->title]
-            ));
+
+            return redirect("schools/$school->id/exams")->with(
+                'success',
+                trans(
+                    'exams.exam_deleted',
+                    ['title' => $exam->title]
+                )
+            );
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

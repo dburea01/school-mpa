@@ -15,5 +15,5 @@ return [
 
     'exam_updated' => 'Exam <strong>:title</strong> updated',
     'exam_created' => 'Exam <strong>:title</strong> created',
-    'exam_deleted' => 'Exam <strong>:title</strong> deleted'
+    'exam_deleted' => 'Exam <strong>:title</strong> deleted',
 ];
