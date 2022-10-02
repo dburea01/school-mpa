@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Exam extends Model
 {
@@ -73,5 +74,10 @@ class Exam extends Model
     public function exam_status(): BelongsTo
     {
         return $this->belongsTo(ExamStatus::class);
+    }
+
+    public function results(): HasMany
+    {
+        return $this->hasMany(Result::class);
     }
 }

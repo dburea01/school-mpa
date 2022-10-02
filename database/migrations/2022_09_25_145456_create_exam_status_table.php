@@ -75,6 +75,18 @@ class CreateExamStatusTable extends Migration
                 'id' => '50',
                 'position' => '50',
                 'short_name' => [
+                    'en' => 'CORRECTION IN PROGRESS',
+                    'fr' => 'CORRECTION EN COURS'
+                ],
+                'comment' => [
+                    'en' => 'The exam is being corrected.',
+                    'fr' => 'L\'examen est en cours de correction.',
+                ],
+            ],
+            [
+                'id' => '60',
+                'position' => '60',
+                'short_name' => [
                     'en' => 'CORRECTED',
                     'fr' => 'CORRIGE',
                 ],

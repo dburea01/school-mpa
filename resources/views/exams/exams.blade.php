@@ -60,7 +60,7 @@
                     <th>@lang('exams.subject')</th>
                     <th>@lang('exams.type')</th>
                     <th>@lang('exams.status')</th>
-
+                    <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,7 +74,10 @@
                     <td>{{ $exam->subject->short_name }}</td>
                     <td>{{ $exam->exam_type->short_name }}</td>
                     <td>{{ $exam->exam_status->short_name }}</td>
-
+                    <td><a class="btn btn-sm btn-primary"
+                            href="/schools/{{ $school->id }}/exams/{{ $exam->id }}/results">
+                            <i class="bi bi-123"></i></a>
+                    </td>
 
                 </tr>
                 @endforeach

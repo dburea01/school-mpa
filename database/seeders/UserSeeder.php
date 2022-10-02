@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Group;
@@ -27,7 +26,7 @@ class UserSeeder extends Seeder
         $schools = School::all();
 
         foreach ($schools as $school) {
-            User::factory()->count(2)->create([
+            User::factory()->count(1)->create([
                 'school_id' => $school->id,
                 'role_id' => 'DIRECTOR',
                 'status' => 'ACTIVE',

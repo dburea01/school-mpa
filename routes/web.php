@@ -8,6 +8,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeriodController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
@@ -81,6 +82,10 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the exams of a school
     Route::resource('schools.exams', ExamController::class)->scoped()->whereUuid(['school', 'exam']);
+
+    // routes for the results of exam
+    Route::get('schools/{school}/exams/{exam}/results', [ResultController::class, 'index'])->whereUuid(['school', 'exam']);
+    Route::post('schools/{school}/exams/{exam}/results', [ResultController::class, 'store'])->whereUuid(['school', 'exam']);
 
     // route for the report
     Route::get('schools/{school}/reports', [ReportController::class, 'report'])->whereUuid('school');

@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repositories;
 
 use App\Models\Exam;
@@ -12,13 +11,21 @@ class ExamRepository
 {
     public function all(School $school, $request)
     {
-        $query = Exam::where('school_id', $school->id)->orderBy('start_date')
-        ->with(['subject', 'classroom', 'exam_type', 'exam_status']);
+        $periodRepository = new PeriodRepository();
+        $currentPeriod = $periodRepository->getCurrentPeriod($school);
+
+        $query = Exam::where('exams.school_id', $school->id)->orderBy('start_date')
+        ->join('classrooms', function ($join) use ($currentPeriod) {
+            $join->on('classrooms.id', 'exams.classroom_id')
+            ->where('classrooms.period_id', $currentPeriod->id);
+        })
+        ->with(['subject', 'classroom', 'exam_type', 'exam_status'])
+        ->select('exams.*');
 
         if (\array_key_exists('filter_by_title', $request)) {
             $query->where(function ($query) use ($request) {
-                $query->where('title', 'ilike', '%'.$request['filter_by_title'].'%')
-                ->orWhere('description', 'ilike', '%'.$request['filter_by_title'].'%');
+                $query->where('title', 'ilike', '%' . $request['filter_by_title'] . '%')
+                ->orWhere('description', 'ilike', '%' . $request['filter_by_title'] . '%');
             });
         }
 

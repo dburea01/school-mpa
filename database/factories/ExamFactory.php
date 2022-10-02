@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -16,8 +15,8 @@ class ExamFactory extends Factory
      */
     public function definition()
     {
-        $startDate = fake()->dateTime();
-        $endDate = fake()->dateTime();
+        $startDate = fake()->dateTime()->format('d/m/Y H:i');
+        $endDate = fake()->dateTime()->format('d/m/Y H:i');
 
         return [
             'title' => fake()->sentence(),
