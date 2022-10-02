@@ -108,11 +108,13 @@ class ExamController extends Controller
         try {
             $examUpdated = $this->examRepository->update($exam, $request->all());
 
-            return redirect("schools/$school->id/exams?filter_by_title=$examUpdated->title")
-            ->with('success', trans(
-                'exams.exam_updated',
-                ['title' => $examUpdated->title]
-            ));
+            return redirect("schools/$school->id/exams?filter_by_title=$examUpdated->title")->with(
+                'success',
+                trans(
+                    'exams.exam_updated',
+                    ['title' => $examUpdated->title]
+                )
+            );
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
