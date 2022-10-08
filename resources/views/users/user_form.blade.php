@@ -57,7 +57,7 @@
                 <input type="text"
                     class="form-control form-control-sm @error('last_name') is-invalid @enderror text-uppercase"
                     required name="last_name" id="last_name" maxlength="60"
-                    value="{{ old('last_name', $user->last_name) }}" />
+                    value="{{ old('last_name', $user->last_name) }}">
                 @if ($errors->has('last_name'))
                 <span class="text-danger">{{ $errors->first('last_name') }}</span>
                 @endif
@@ -73,7 +73,7 @@
                 <input type="text"
                     class="form-control form-control-sm @error('first_name') is-invalid @enderror text-capitalize"
                     required name="first_name" id="first_name" maxlength="60"
-                    value="{{ old('first_name', $user->first_name) }}" />
+                    value="{{ old('first_name', $user->first_name) }}">
                 @if ($errors->has('first_name'))
                 <span class="text-danger">{{ $errors->first('first_name') }}</span>
                 @endif
@@ -87,7 +87,7 @@
 
             <div class="col-sm-4">
                 <input type="text" class="form-control form-control-sm @error('birth_date') is-invalid @enderror"
-                    name="birth_date" id="birth_date" value="{{ old('birth_date', $user->birth_date) }}" />
+                    name="birth_date" id="birth_date" value="{{ old('birth_date', $user->birth_date) }}">
                 <div class="col-sm-2 form-text">dd/mm/yyyy</div>
 
             </div>
@@ -117,7 +117,7 @@
 
             <div class="col-sm-10">
                 <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror"
-                    name="email" id="email" value="{{ old('email', $user->email) }}" />
+                    name="email" id="email" value="{{ old('email', $user->email) }}">
                 @if ($errors->has('email'))
                 <span class="text-danger">{{ $errors->first('email') }}</span>
                 @endif
@@ -131,23 +131,21 @@
 
             <div class="col-sm-10">
                 <input type="text" class="form-control form-control-sm @error('address1') is-invalid @enderror"
-                    name="address1" id="address1" value="{{ old('address1', $user->address1) }}" />
+                    name="address1" id="address1" value="{{ old('address1', $user->address1) }}">
                 @if ($errors->has('address1'))
                 <span class="text-danger">{{ $errors->first('address1') }}</span>
                 @endif
             </div>
             <div class="col-sm-10 offset-md-2">
                 <input type="text" class="form-control form-control-sm @error('address2') is-invalid @enderror"
-                    name="address2" id="address2" value="{{ old('address2', $user->address2) }}"
-                    aria-label="address2" />
+                    name="address2" id="address2" value="{{ old('address2', $user->address2) }}" aria-label="address2">
                 @if ($errors->has('address2'))
                 <span class="text-danger">{{ $errors->first('address2') }}</span>
                 @endif
             </div>
             <div class="col-sm-10 offset-md-2">
                 <input type="text" class="form-control form-control-sm @error('address3') is-invalid @enderror"
-                    name="address3" id="address3" value="{{ old('address3', $user->address3) }}"
-                    aria-label="address3" />
+                    name="address3" id="address3" value="{{ old('address3', $user->address3) }}" aria-label="address3">
                 @if ($errors->has('address3'))
                 <span class="text-danger">{{ $errors->first('address3') }}</span>
                 @endif
@@ -161,7 +159,7 @@
             <div class="col-sm-2">
                 <input type="text"
                     class="form-control form-control-sm @error('city') is-invalid @enderror text-uppercase" name="city"
-                    id="city" value="{{ old('city', $user->city) }}" />
+                    id="city" value="{{ old('city', $user->city) }}">
                 @if ($errors->has('city'))
                 <span class="text-danger">{{ $errors->first('city') }}</span>
                 @endif
@@ -185,12 +183,29 @@
             </label>
             <div class="col-sm-2">
                 <input type="text" class="form-control form-control-sm @error('zip_code') is-invalid @enderror"
-                    name="zip_code" id="zip_code" value="{{ old('zip_code', $user->zip_code) }}" />
+                    name="zip_code" id="zip_code" value="{{ old('zip_code', $user->zip_code) }}">
                 @if ($errors->has('zip_code'))
                 <span class="text-danger">{{ $errors->first('zip_code') }}</span>
                 @endif
             </div>
         </div>
+
+        {{-- phone number --}}
+        <div class="row mb-3">
+            <label for="phone_number"
+                class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.phone_number') :
+            </label>
+
+            <div class="col-sm-4">
+                <input type="text"
+                    class="form-control form-control-sm @error('phone_number') is-invalid @enderror text-uppercase"
+                    name="phone_number" id="phone_number" value="{{ old('phone_number', $user->phone_number) }}">
+                @if ($errors->has('phone_number'))
+                <span class="text-danger">{{ $errors->first('phone_number') }}</span>
+                @endif
+            </div>
+        </div>
+
 
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label col-form-label-sm">@lang('user.status') :
@@ -237,15 +252,15 @@
             <div class="col-sm-10">
                 @if ($user->getFirstMedia('images_user'))
                 <img id="uploadPreview" style="width: 200px;" src="{{ $user->getFirstMedia('images_user')->getUrl() }}"
-                    alt="image not found" />
+                    alt="image not found">
                 @else
 
                 <img id="uploadPreview" style="width: 142px;height:142px" src="{{ asset('img/image_avatar.png') }}"
-                    alt="image not found" />
+                    alt="image not found">
                 @endif
 
 
-                <input id="image_user" type="file" name="image_user" onchange="PreviewImage();" />
+                <input id="image_user" type="file" name="image_user" onchange="PreviewImage();">
                 @if ($errors->has('image_user'))
                 <span class="text-danger">{{ $errors->first('image_user') }}</span>
                 @endif

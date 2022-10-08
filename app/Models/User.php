@@ -37,6 +37,7 @@ class User extends Authenticatable implements HasMedia
         'zip_code',
         'city',
         'country_id',
+        'phone_number'
     ];
 
     public function registerMediaConversions(Media $media = null): void

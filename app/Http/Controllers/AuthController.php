@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -36,5 +35,34 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function homeConnected()
+    {
+        switch (Auth::user()->role_id) {
+            case 'SUPERADMIN':
+                return view('dashboards.dashboardSuperAdmin');
+                break;
+
+            case 'DIRECTOR':
+                return view('dashboards.dashboardDirector');
+                break;
+
+            case 'TEACHER':
+                return view('dashboards.dashboardTeacher');
+                break;
+
+            case 'PARENT':
+                return view('dashboards.dashboardParent');
+                break;
+
+            case 'STUDENT':
+                return view('dashboards.dashboardStudent');
+                break;
+
+            default:
+                // code...
+                break;
+        }
     }
 }

@@ -36,9 +36,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
-    Route::get('/home_connected', function () {
-        return view('home_connected');
-    })->name('home_connected');
+    Route::get('/home_connected', [AuthController::class, 'homeConnected'])->name('home_connected');
 
     // routes for the schools
     Route::resource('schools', SchoolController::class)->whereUuid('school');

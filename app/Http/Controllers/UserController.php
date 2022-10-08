@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
@@ -140,7 +139,7 @@ class UserController extends Controller
                 $this->processImage($user, $request->image_user, 'images_user');
             }
 
-            return back()->with('success', trans('user.user_updated', ['name' => $user->full_name]));
+            return redirect("schools/$school->id/users")->with('success', trans('user.user_updated', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -181,8 +180,8 @@ class UserController extends Controller
         try {
             $user = $this->userRepository->insert($school->id, $request->all());
 
-            return redirect('/schools/'.$school->id.'/users')
-            ->with('success', 'User '.$user->full_name.' created.');
+            return redirect('/schools/' . $school->id . '/users')
+            ->with('success', 'User ' . $user->full_name . ' created.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
@@ -235,8 +234,8 @@ class UserController extends Controller
     {
         return User::where('school_id', $school->id)
         ->where(function ($query) use ($request) {
-            $query->where('last_name', 'ilike', '%'.$request->search.'%')
-            ->orWhere('first_name', 'ilike', '%'.$request->search.'%');
+            $query->where('last_name', 'ilike', '%' . $request->search . '%')
+            ->orWhere('first_name', 'ilike', '%' . $request->search . '%');
         })
         ->where('role_id', 'STUDENT')
         ->get(['id', 'first_name', 'last_name']);
