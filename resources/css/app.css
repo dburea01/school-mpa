@@ -12,8 +12,4 @@ main > .container {
     padding: 10px 10px 0;
 }
 
-.toast {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-}
+

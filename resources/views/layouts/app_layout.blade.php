@@ -16,7 +16,7 @@
     <meta name="description" content="template admin">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }} · @yield('title')</title>
-    @vite(['resources/css/style.css', 'resources/js/burger.js'])
+    @vite(['resources/css/style.css', 'resources/js/app.js', 'resources/js/burger.js'])
 </head>
 
 <body>
