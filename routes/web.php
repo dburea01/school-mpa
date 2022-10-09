@@ -36,13 +36,13 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
-    Route::get('/home_connected', [AuthController::class, 'homeConnected'])->name('home_connected');
+    Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
     // routes for the schools
     Route::resource('schools', SchoolController::class)->whereUuid('school');
 
     // routes for the users
-    Route::resource('schools.users', UserController::class)->scoped()->whereUuid(['school', 'user']);
+    Route::resource('schools.users', UserController::class)->scoped()->whereUuid(['school', 'user'])->names('users');
     Route::get('schools/{school}/users/autocomplete', [UserController::class, 'autocomplete'])->whereUuid('school');
 
     // routes for the potential duplicated users
@@ -54,37 +54,35 @@ Route::middleware(['auth'])->group(function () {
     )->whereUuid('school');
 
     // routes for the groups
-    Route::resource('schools.groups', GroupController::class)->scoped()->whereUuid(['school', 'group']);
+    Route::resource('schools.groups', GroupController::class)->scoped()->whereUuid(['school', 'group'])->names('groups');
 
     // routes for the users of a group
     Route::get('schools/{school}/groups/{group}/users', [UserController::class, 'usersOfAGroup'])
-        ->whereUuid(['school', 'group']);
+        ->whereUuid(['school', 'group'])->name('users_group');
     Route::post('schools/{school}/groups/{group}/users', [UserController::class, 'AddUserForAGroup'])
         ->whereUuid(['school', 'group']);
     Route::delete('schools/{school}/groups/{group}/users/{user}', [UserController::class, 'removeUserFromAGroup'])
         ->whereUuid(['school', 'group', 'user']);
 
     // routes for the subjects of a school
-    Route::resource('schools.subjects', SubjectController::class)->scoped()->whereUuid(['school', 'subject']);
+    Route::resource('schools.subjects', SubjectController::class)->scoped()->whereUuid(['school', 'subject'])->names('subjects');
 
     // routes for the periods of a school
-    Route::resource('schools.periods', PeriodController::class)->scoped()->whereUuid(['school', 'period']);
+    Route::resource('schools.periods', PeriodController::class)->scoped()->whereUuid(['school', 'period'])->names('periods');
 
     // routes for the classrooms of a school
-
     Route::middleware(['ensureAnActivePeriodExists'])->group(function () {
-        Route::resource('schools.classrooms', ClassroomController::class)->scoped()->whereUuid(['school', 'classroom']);
+        Route::resource('schools.classrooms', ClassroomController::class)->scoped()->whereUuid(['school', 'classroom'])->names('classrooms');
         Route::resource('schools.classrooms.assignments', AssignmentController::class)->scoped()
             ->whereUuid(['school', 'classroom', 'assignment']);
+        // routes for the exams of a school
+        Route::resource('schools.exams', ExamController::class)->scoped()->whereUuid(['school', 'exam'])->names('exams');
     });
-
-    // routes for the exams of a school
-    Route::resource('schools.exams', ExamController::class)->scoped()->whereUuid(['school', 'exam']);
 
     // routes for the results of exam
     Route::get('schools/{school}/exams/{exam}/results', [ResultController::class, 'index'])->whereUuid(['school', 'exam']);
     Route::post('schools/{school}/exams/{exam}/results', [ResultController::class, 'store'])->whereUuid(['school', 'exam']);
 
     // route for the report
-    Route::get('schools/{school}/reports', [ReportController::class, 'report'])->whereUuid('school');
+    Route::get('schools/{school}/reports', [ReportController::class, 'reports'])->whereUuid('school')->name('reports');
 });

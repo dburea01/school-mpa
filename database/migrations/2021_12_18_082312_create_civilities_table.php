@@ -5,8 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -27,8 +26,8 @@ return new class extends Migration
             [
                 'id' => 'MR',
                 'short_name' => [
-                    'en' => 'Mr',
-                    'fr' => 'Monsieur',
+                    'en' => 'Mr.',
+                    'fr' => 'M.',
                 ],
                 'name' => [
                     'en' => 'Mister',
@@ -39,8 +38,8 @@ return new class extends Migration
             [
                 'id' => 'MISS',
                 'short_name' => [
-                    'en' => 'Ms',
-                    'fr' => 'Mde',
+                    'en' => 'Ms.',
+                    'fr' => 'Mme',
                 ],
                 'name' => [
                     'en' => 'Miss',

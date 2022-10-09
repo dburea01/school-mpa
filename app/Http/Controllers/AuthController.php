@@ -22,7 +22,7 @@ class AuthController extends Controller
         ], $request->has('remember_me'))) {
             $request->session()->regenerate();
 
-            return redirect('/home_connected');
+            return redirect('/dashboard');
         }
 
         return back()->with('error', 'Impossible de se connecter.')->withInput();
@@ -37,7 +37,7 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function homeConnected()
+    public function dashboard()
     {
         switch (Auth::user()->role_id) {
             case 'SUPERADMIN':

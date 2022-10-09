@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -31,6 +30,11 @@ class Period extends Model
     protected function getEndDateAttribute($value)
     {
         return $this->getStartDateAttribute($value);
+    }
+
+    public static function getCurrentPeriod(String $schoolId = null): ?Period
+    {
+        return Period::where('school_id', $schoolId)->where('current', true)->first();
     }
 
     public function school()

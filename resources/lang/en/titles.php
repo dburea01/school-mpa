@@ -11,4 +11,5 @@ return [
 
     'exams' => 'Exams list',
     'exam_edit' => 'Edit exam',
+    'dashboard' => 'My dashboard'
 ];

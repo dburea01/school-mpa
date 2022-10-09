@@ -8,6 +8,7 @@ return [
     'city' => 'City',
     'users' => 'Users',
     'max_users' => 'Max users',
+    'reports' => 'Reports',
     'add' => 'Add',
     'filter' => 'Filter',
     'filter_by_school_name' => 'Filter by school name',
@@ -16,6 +17,7 @@ return [
     'periods' => 'Periods',
     'subjects' => 'Subjects',
     'classrooms' => 'Classrooms',
+    'exams' => 'Exams',
 
     'school_created' => 'The school ":name" has been created.',
     'school_updated' => 'The school ":name" has been updated.',
