@@ -139,7 +139,8 @@ class UserController extends Controller
                 $this->processImage($user, $request->image_user, 'images_user');
             }
 
-            return redirect("schools/$school->id/users")->with('success', trans('user.user_updated', ['name' => $user->full_name]));
+            return redirect("schools/$school->id/users")
+            ->with('success', trans('user.user_updated', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

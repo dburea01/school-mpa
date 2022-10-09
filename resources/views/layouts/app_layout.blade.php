@@ -25,7 +25,7 @@
         <div class="section">
             <div class="top_navbar">
                 <div class="hamburger">
-                    <a href="#" aria-label="hamburger button"><i class="bi bi-list"></i></a>
+                    <a href="#" aria-label="hamburger button"><i class="bi bi-list" aria-hidden="true"></i></a>
                 </div>
                 <span class="text-truncate navbartitle">
                     {{ isset(Auth::user()->school) ? Auth::user()->school->name : 'no school' }} -
@@ -37,9 +37,9 @@
                     {{ $currentPeriod->name }}
                     @else
                     <span class="text-danger">
-                        <i class="bi bi-exclamation-triangle"></i>no current period
+                        <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>no current period
 
-                        <i class="bi bi-exclamation-triangle"></i>
+                        <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
                     </span>
                     @endif
 

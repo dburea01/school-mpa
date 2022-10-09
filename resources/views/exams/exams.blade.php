@@ -76,7 +76,7 @@
                     <td>{{ $exam->exam_status->short_name }}</td>
                     <td><a class="btn btn-sm btn-primary"
                             href="/schools/{{ $school->id }}/exams/{{ $exam->id }}/results">
-                            <i class="bi bi-123"></i></a>
+                            <i class="bi bi-123" aria-hidden="true"></i></a>
                     </td>
 
                 </tr>

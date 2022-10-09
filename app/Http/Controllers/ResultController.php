@@ -25,7 +25,7 @@ class ResultController extends Controller
     public function index(School $school, Exam $exam)
     {
         $students = $this->resultRepository->index($school, $exam);
-        // dd($results);
+
         return view('results.results', [
             'school' => $school,
             'exam' => $exam,
