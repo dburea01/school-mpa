@@ -1,9 +1,5 @@
 <div class="sidebar">
     <div class="profile">
-        <!--
-        <img src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg"
-            alt="profile_picture">
-        -->
         <i class="bi bi-person-circle profile-icon" aria-hidden="true"></i>
         <h1 class="text-truncate">{{ Auth::user()->full_name }}</h1>
         <p>{{ Auth::user()->role->name }}</p>

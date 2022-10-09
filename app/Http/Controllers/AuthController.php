@@ -41,28 +41,26 @@ class AuthController extends Controller
     {
         switch (Auth::user()->role_id) {
             case 'SUPERADMIN':
-                return view('dashboards.dashboardSuperAdmin');
+                $view = 'dashboardSuperAdmin';
                 break;
 
             case 'DIRECTOR':
-                return view('dashboards.dashboardDirector');
+                $view = 'dashboardDirector';
                 break;
 
             case 'TEACHER':
-                return view('dashboards.dashboardTeacher');
+                $view = 'dashboardTeacher';
                 break;
 
             case 'PARENT':
-                return view('dashboards.dashboardParent');
+                $view = 'dashboardParent';
                 break;
 
             case 'STUDENT':
-                return view('dashboards.dashboardStudent');
-                break;
-
-            default:
-                // code...
+                $view = 'dashboardStudent';
                 break;
         }
+
+        return view('dashboards.' . $view);
     }
 }
