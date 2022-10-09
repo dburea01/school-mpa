@@ -59,6 +59,10 @@ class AuthController extends Controller
             case 'STUDENT':
                 $view = 'dashboardStudent';
                 break;
+
+            default:
+                // code...
+                break;
         }
 
         return view('dashboards.' . $view);
