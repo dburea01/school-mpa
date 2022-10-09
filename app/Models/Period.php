@@ -32,7 +32,7 @@ class Period extends Model
         return $this->getStartDateAttribute($value);
     }
 
-    public static function getCurrentPeriod(String $schoolId): ?Period
+    public static function getCurrentPeriod(String $schoolId = null): ?Period
     {
         return Period::where('school_id', $schoolId)->where('current', true)->first();
     }

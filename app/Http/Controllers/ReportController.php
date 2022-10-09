@@ -20,6 +20,7 @@ class ReportController extends Controller
         return view('reports.report', [
             'summary_users_by_role' => $this->reportRepository->summaryUsersByRole($school),
             'summary_students_by_gender' => $this->reportRepository->summaryStudentsByGenre($school),
+            'school' => $school,
         ]);
     }
 }

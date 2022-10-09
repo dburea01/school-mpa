@@ -38,12 +38,14 @@
                 <th>@lang('schools.name')</th>
                 <th>@lang('schools.city')</th>
                 <th>@lang('schools.max_users')</th>
+                <th>@lang('schools.reports')</th>
                 <th>@lang('schools.users')</th>
                 <th>@lang('schools.groups')</th>
                 <th>@lang('schools.periods')</th>
                 <th>@lang('schools.subjects')</th>
                 <th>@lang('schools.classrooms')</th>
-                <th>&nbsp;</th>
+                <th>@lang('schools.exams')</th>
+
             </tr>
         </thead>
         <tbody>
@@ -71,6 +73,10 @@
                     </div>
                 </td>
                 <td>
+                    <a href="/schools/{{ $school->id }}/reports"><i class="bi bi-table" aria-hidden="true"
+                            title="reports"></i></a>
+                </td>
+                <td>
                     <a href="/schools/{{ $school->id }}/users">{{ $school->users_count }}</a>
                 </td>
                 <td>
@@ -87,9 +93,9 @@
                             aria-hidden="true"></i></a>
                 </td>
                 <td>
-                    <a href="/schools/{{ $school->id }}/reports"><i class="bi bi-table" aria-hidden="true"
-                            title="reports"></i></a>
+                    <a href="/schools/{{ $school->id }}/exams"><i class="bi bi-book" aria-hidden="true"></i></a>
                 </td>
+
             </tr>
             @endforeach
         </tbody>
