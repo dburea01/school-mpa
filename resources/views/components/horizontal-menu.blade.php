@@ -85,7 +85,6 @@
                         @default
                         <img src="{{ asset('img/flag_en.png') }}" alt="en" width="20" height="13">
                         @endswitch
-
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/change-locale/fr"><img src="{{ asset('img/flag_fr.png') }}"

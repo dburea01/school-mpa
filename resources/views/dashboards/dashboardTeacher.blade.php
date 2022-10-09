@@ -1,5 +1,5 @@
-@extends('layouts.app_layout_vertical_menu')
-
+@extends('layouts.app_layout')
+@section('title', __('titles.dashboard'))
 @section('content')
 
 <h1 class="text-center text-primary">{{ __('dashboard-teacher.title') }}</h1>
@@ -33,6 +33,20 @@
     sagittis. Aliquam at tempor orci. Nam vel volutpat metus. Quisque semper, enim at fermentum hendrerit, elit leo
     volutpat nunc, a sagittis nunc urna nec dolor. Praesent lobortis elit dapibus eros suscipit, ut semper lectus
     fermentum.
+</p>
+<p>
+    Curabitur sed mi sapien. Nullam ullamcorper laoreet dui, id fermentum nisl aliquam et. Proin iaculis magna fermentum
+    nisl rutrum cursus. Quisque vitae auctor sem. Pellentesque habitant morbi tristique senectus et netus et malesuada
+    fames ac turpis egestas. Phasellus aliquam, arcu commodo tristique suscipit, risus augue ullamcorper risus, in
+    dapibus libero lacus eu odio. Praesent rutrum suscipit luctus. Pellentesque id erat nibh. Integer vel orci
+    tristique, fermentum leo vitae, tincidunt urna. Suspendisse venenatis metus nisl, non tincidunt orci elementum ut.
+    Curabitur vitae luctus ligula. Nunc consequat eu justo a efficitur. Vivamus eu luctus urna, sit amet aliquam ligula.
+    Nulla euismod purus quis eros volutpat sollicitudin. Cras consequat convallis mi non vehicula.
+</p>
+<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem repudiandae, itaque maiores natus ipsa deleniti unde
+    aperiam doloremque voluptatem numquam magni culpa illum tempore soluta quisquam consectetur neque vitae ipsam!</p>
+<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam minus placeat adipisci fuga dignissimos dicta
+    dolorem, exercitationem odit autem atque quasi amet eligendi vel earum necessitatibus et minima maxime voluptatibus?
 </p>
 <p>
     Curabitur sed mi sapien. Nullam ullamcorper laoreet dui, id fermentum nisl aliquam et. Proin iaculis magna fermentum

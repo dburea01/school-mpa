@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\School;
@@ -14,7 +13,7 @@ class ReportController extends Controller
         $this->reportRepository = $reportRepository;
     }
 
-    public function report(School $school)
+    public function reports(School $school)
     {
         $this->authorize('view', [Report::class, $school]);
 

@@ -80,7 +80,7 @@ class User extends Authenticatable implements HasMedia
     public function getFullNameAttribute()
     {
         return $this->role_id !== 'STUDENT' ?
-        "{$this->civility->name} {$this->last_name} {$this->first_name}" :
+        "{$this->civility->short_name} {$this->last_name} {$this->first_name}" :
         "{$this->last_name} {$this->first_name}";
     }
 
