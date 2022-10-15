@@ -36,11 +36,15 @@
 
                 <input type="radio" class="btn-check" name="view" id="list" value="list" @if ($view==='list' ) checked
                     @endif onchange="this.form.submit() ">
-                <label class="btn btn-sm btn-outline-primary" for="list"><i class="bi bi-list"></i></label>
+                <label class="btn btn-sm btn-outline-primary" for="list">
+                    <i class="bi bi-list" aria-hidden="true"></i>
+                </label>
 
                 <input type="radio" class="btn-check" name="view" id="media" value="media" @if ($view==='media' )
                     checked @endif onchange="this.form.submit() ">
-                <label class="btn btn-sm btn-outline-primary" for="media"><i class="bi bi-list-stars"></i></label>
+                <label class="btn btn-sm btn-outline-primary" for="media">
+                    <i class="bi bi-list-stars" aria-hidden="true"></i>
+                </label>
             </div>
 
         </form>
