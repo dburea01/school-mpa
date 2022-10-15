@@ -24,6 +24,7 @@ class School extends Model
         'max_users',
         'comment',
         'status',
+        's3_container'
     ];
 
     public function setCountryIdAttribute($value)

@@ -244,15 +244,16 @@
             </div>
         </div>
 
+        {{-- image --}}
         <div class="row mb-3">
             <label for="image_user"
                 class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('user.image_user')
                 :</label>
 
             <div class="col-sm-10">
-                @if ($user->getFirstMedia('images_user'))
-                <img id="uploadPreview" style="width: 200px;" src="{{ $user->getFirstMedia('images_user')->getUrl() }}"
-                    alt="image not found">
+                @if ($user->user_image_url)
+                <img id="uploadPreview" style="width: 200px;"
+                    src="{{ Storage::disk('s3')->url($user->user_image_url) }}" alt="image not found">
                 @else
 
                 <img id="uploadPreview" style="width: 142px;height:142px" src="{{ asset('img/image_avatar.png') }}"

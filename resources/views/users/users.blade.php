@@ -101,8 +101,8 @@
         @foreach ($users as $user)
         <div class="row border mb-2">
             <div class="col-md-2 text-center">
-                @if($user->getFirstMedia('images_user'))
-                <img src="{{ $user->getFirstMedia('images_user')->getUrl() }}" alt="img not found" height="100">
+                @if($user->user_image_url)
+                <img src="{{ Storage::disk('s3')->url($user->user_image_url) }}" alt="img not found" height="100">
                 @else
                 <i class="bi bi-person-square" style="font-size: 4rem;" aria-hidden="true"></i>
                 @endif

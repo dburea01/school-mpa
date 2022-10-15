@@ -39,11 +39,18 @@ class UserRepository
             ->get();
     }
 
-    public function update(User $user, array $userData)
+    public function update(User $user, array $userData): User
     {
         $user->fill($userData);
         $user->save();
 
+        return $user;
+    }
+
+    public function updateUserImage(User $user, string $path): User
+    {
+        $user->user_image_url = $path;
+        $user->save();
         return $user;
     }
 

@@ -7,7 +7,9 @@ use App\Models\School;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Illuminate\Http\File;
 
 class UserController extends Controller
 {
@@ -95,7 +97,9 @@ class UserController extends Controller
         try {
             $user = $this->userRepository->insert($school->id, $request->all());
             if ($request->has('image_user')) {
-                $this->processImage($user, $request->image_user, 'images_user');
+                // $this->processImage($user, $request->image_user, 'images_user');
+                $pathImage = $this->uploadMedia($school, $user, $request->image_user);
+                $this->userRepository->updateUserImage($user, $pathImage);
             }
 
             return redirect("/schools/$school->id/users?user_name=$user->last_name")
@@ -105,10 +109,22 @@ class UserController extends Controller
         }
     }
 
-    public function processImage(User $user, $imageUser, string $collection)
+    public function uploadMedia(School $school, User $user, $image)
     {
-        $user->clearMediaCollection($collection);
-        $user->addMedia($imageUser)->toMediaCollection($collection);
+        Image::make($image)->resize(config('params.image_width_redim'), null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save('resizedFile');
+
+        $path = Storage::disk('s3')->put("/{$school->s3_container}/users", new File('resizedFile'));
+
+        return $path;
+    }
+
+    public function deleteMedia(User $user)
+    {
+        if ($user->user_image_url != null && Storage::disk('s3')->exists($user->user_image_url)) {
+            Storage::disk('s3')->delete($user->user_image_url);
+        }
     }
 
     /**
@@ -148,7 +164,9 @@ class UserController extends Controller
         try {
             $user = $this->userRepository->update($user, $request->all());
             if ($request->has('image_user')) {
-                $this->processImage($user, $request->image_user, 'images_user');
+                $this->deleteMedia($user);
+                $pathImage = $this->uploadMedia($school, $user, $request->image_user);
+                $this->userRepository->updateUserImage($user, $pathImage);
             }
 
             return redirect("schools/$school->id/users")
@@ -168,7 +186,7 @@ class UserController extends Controller
     {
         try {
             $this->userRepository->destroy($user);
-
+            $this->deleteMedia($user);
             return redirect("/schools/$school->id/users")
             ->with('success', trans('user.user_deleted', ['name' => $user->full_name]));
         } catch (\Throwable $th) {

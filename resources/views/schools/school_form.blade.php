@@ -136,6 +136,20 @@
                 @endif
             </div>
         </div>
+
+        <div class="row mb-3">
+            <label for="s3_container" class="col-sm-2 col-form-label col-form-label-sm text-truncate">S3 container :
+                *</label>
+
+            <div class="col-sm-2">
+                <input type="text" class="form-control form-control-sm @error('s3_container') is-invalid @enderror"
+                    required name="s3_container" id="s3_container"
+                    value="{{ old('s3_container', $school->s3_container) }}">
+                @if ($errors->has('s3_container'))
+                <span class="text-danger">{{ $errors->first('s3_container') }}</span>
+                @endif
+            </div>
+        </div>
         @endif
 
         <div class="row mb-3">

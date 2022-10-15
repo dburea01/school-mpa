@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Factories;
 
 use App\Models\School;
@@ -21,8 +20,10 @@ class SchoolFactory extends Factory
      */
     public function definition()
     {
+        $schoolName = $this->faker->word;
+
         return [
-            'name' => 'Ecole '.$this->faker->word,
+            'name' => 'Ecole ' . $schoolName,
             'address1' => $this->faker->streetAddress(),
             'zip_code' => $this->faker->postcode,
             'city' => $this->faker->city,
@@ -32,6 +33,7 @@ class SchoolFactory extends Factory
             //'school_status' => 'ACTIVE',
             'max_users' => random_int(100, 200),
             'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
+            's3_container' => $schoolName,
             'created_by' => 'factory',
         ];
     }

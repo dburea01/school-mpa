@@ -8,9 +8,10 @@
         "php": "^8.0.2",
         "fakerphp/faker": "^1.20",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
         "laravel/tinker": "^2.7",
-        "spatie/laravel-medialibrary": "^10.0.0",
+        "league/flysystem-aws-s3-v3": "^3.0",
         "spatie/laravel-translatable": "^6.0"
     },
     "require-dev": {

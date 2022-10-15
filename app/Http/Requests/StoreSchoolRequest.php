@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -42,6 +41,7 @@ class StoreSchoolRequest extends FormRequest
                 Rule::requiredIf($request->user()->isSuperAdmin()),
                 'in:ACTIVE,INACTIVE',
             ],
+            's3_container' => 'required',
         ];
     }
 

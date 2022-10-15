@@ -6,14 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable implements HasMedia
+class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasUuid, HasCreatedUpdatedBy;
-    use InteractsWithMedia;
 
     public $incrementing = false;
 
@@ -37,7 +33,8 @@ class User extends Authenticatable implements HasMedia
         'zip_code',
         'city',
         'country_id',
-        'phone_number'
+        'phone_number',
+        'user_image_url'
     ];
 
     public function registerMediaConversions(Media $media = null): void

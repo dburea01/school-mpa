@@ -27,10 +27,13 @@ class CreateSchoolsTable extends Migration
             //$table->string('school_type_id', 10);
             //$table->string('school_status', 10);
             $table->integer('max_users');
+            $table->string('s3_container');
             $table->timestamps();
             $table->string('created_by');
             $table->string('updated_by')->nullable();
             $table->primary('id');
+
+            $table->unique(['s3_container']);
         });
     }
 
