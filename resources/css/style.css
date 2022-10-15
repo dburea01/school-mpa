@@ -107,7 +107,7 @@ body{
 
 .wrapper .section .bottom_navbar{
   background: rgb(7, 105, 185);
-  height: 50px;
+  height: 40px;
   display: flex;
   align-items: center;
   padding: 0 30px;
@@ -137,6 +137,7 @@ body{
 
 .wrapper .section .container{
   padding: 20px;
+  padding-bottom: 30px;
   margin-bottom: 30px;
 }
 

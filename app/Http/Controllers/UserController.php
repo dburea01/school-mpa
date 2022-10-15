@@ -7,6 +7,7 @@ use App\Models\School;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
@@ -27,12 +28,23 @@ class UserController extends Controller
     {
         $users = $this->userRepository->all($school->id, $request->all());
 
+        if ($request->has('view')) {
+            $view = $request->query('view');
+        } elseif ($request->session()->has('view')) {
+            $view = $request->session()->get('view');
+        } else {
+            $view = 'list';
+        }
+
+        session(['view' => $view]);
+
         return view('users.users', [
             'school' => $school,
             'users' => $users,
             'user_name' => $request->query('user_name', ''),
             'role_id' => $request->query('role_id', ''),
             'status' => $request->query('status', ''),
+            'view' => $view,
         ]);
     }
 

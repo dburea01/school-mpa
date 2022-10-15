@@ -26,10 +26,21 @@
                 <x-select-user-status name="status" id="status" required="{{ false }}" :status="$status" />
             </div>
 
-            <div class="col-md-3 col-sm-12 d-grid gap-2 d-md-block">
+            <div class="col-md-2 col-sm-12 d-grid gap-2 d-md-block">
                 <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel"
                         aria-hidden="true"></i>
                     @lang('users.filter')</button>
+            </div>
+
+            <div class="col-md-1 btn-group" role="group" aria-label="wiew style">
+
+                <input type="radio" class="btn-check" name="view" id="list" value="list" @if ($view==='list' ) checked
+                    @endif onchange="this.form.submit() ">
+                <label class="btn btn-sm btn-outline-primary" for="list"><i class="bi bi-list"></i></label>
+
+                <input type="radio" class="btn-check" name="view" id="media" value="media" @if ($view==='media' )
+                    checked @endif onchange="this.form.submit() ">
+                <label class="btn btn-sm btn-outline-primary" for="media"><i class="bi bi-list-stars"></i></label>
             </div>
 
         </form>
@@ -38,12 +49,15 @@
     </div>
 </div>
 
+
+
 <div class="row">
     <div class="col">
+
+        @if ($view === 'list')
         <table class="table table-sm table-striped table-bordered table-hover" aria-label="users list">
             <thead>
                 <tr>
-                    <th>&nbsp;</th>
                     <th>@lang('users.name')</th>
                     <th>@lang('users.email')</th>
                     <th>@lang('users.role')</th>
@@ -53,18 +67,8 @@
             <tbody>
                 @foreach ($users as $user)
                 <tr class="align-middle">
-                    <td class="text-center">
-                        <a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">
-                            @if($user->getFirstMedia('images_user'))
-                            <img src="{{ $user->getFirstMedia('images_user')->getUrl('thumb') }}" alt="thumb not found"
-                                height="50" />
-                            @else
-                            <i class="bi bi-person-square" style="font-size: 2rem;" aria-hidden="true"></i>
-                            @endif
-                        </a>
-                    </td>
                     <td>
-                        <a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{ $user->full_name }}</a>
+                        <a href=" /schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{ $user->full_name }}</a>
 
                         @if ($user->status === 'INACTIVE')
                         <x-alert-user-inactive />
@@ -87,7 +91,38 @@
             </tbody>
 
         </table>
+        @endif
 
+        @if ($view === 'media')
+        @foreach ($users as $user)
+        <div class="row border mb-2">
+            <div class="col-md-2 text-center">
+                @if($user->getFirstMedia('images_user'))
+                <img src="{{ $user->getFirstMedia('images_user')->getUrl() }}" alt="img not found" height="100">
+                @else
+                <i class="bi bi-person-square" style="font-size: 4rem;" aria-hidden="true"></i>
+                @endif
+            </div>
+
+            <div class="col-md-10 ps-5">
+                <h3><a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{ $user->full_name }}</a> ({{
+                    $user->role->name }})</h3>
+                <h6>{{ $user->email }}</h6>
+                @if ($user->status === 'INACTIVE')
+                <x-alert-user-inactive />
+                @endif
+                @foreach($user->user_groups as $user_group)
+                @php $group = \App\Models\Group::find($user_group->group_id) @endphp
+                <span class="badge bg-info"><a
+                        href="/schools/{{ $school->id }}/groups/{{ $user_group->group_id }}/users">{{
+                        $group->name }}</a></span>
+
+                @endforeach
+            </div>
+
+        </div>
+        @endforeach
+        @endif
 
         @if($users->hasPages())
         <div class="d-flex justify-content-center">
