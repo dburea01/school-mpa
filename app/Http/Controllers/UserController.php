@@ -97,7 +97,6 @@ class UserController extends Controller
         try {
             $user = $this->userRepository->insert($school->id, $request->all());
             if ($request->has('image_user')) {
-                // $this->processImage($user, $request->image_user, 'images_user');
                 $pathImage = $this->uploadMedia($school, $user, $request->image_user);
                 $this->userRepository->updateUserImage($user, $pathImage);
             }
@@ -115,9 +114,7 @@ class UserController extends Controller
             $constraint->aspectRatio();
         })->save('resizedFile');
 
-        $path = Storage::disk('s3')->put("/{$school->s3_container}/users", new File('resizedFile'));
-
-        return $path;
+        return Storage::disk('s3')->put("/{$school->s3_container}/users", new File('resizedFile'));
     }
 
     public function deleteMedia(User $user)
