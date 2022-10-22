@@ -18,7 +18,7 @@ class CreateSubjectsTable extends Migration
             $table->uuid('school_id');
             $table->string('short_name', 10);
             $table->json('name');
-            // $table->boolean('option');
+            $table->integer('position');
             $table->string('status')->comment('ACTIVE / INACTIVE');
             $table->text('comment')->nullable();
             $table->timestamps();

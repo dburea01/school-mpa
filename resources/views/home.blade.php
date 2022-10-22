@@ -11,8 +11,7 @@
     accusantium?</p>
 
 @auth
-<a href="/home_connected">Your Home</a>
-
+<a href="/dashboard">Your Home</a>
 @else
 <a href="/login">Connection</a>
 @endauth

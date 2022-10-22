@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSchoolRequest;
@@ -53,6 +52,7 @@ class SchoolController extends Controller
     {
         try {
             $school = $this->schoolRepository->insert($request->all());
+            $this->schoolRepository->initSubjects($school);
 
             return redirect('/schools')->with('success', trans('schools.school_created', ['name' => $school->name]));
         } catch (\Throwable $th) {

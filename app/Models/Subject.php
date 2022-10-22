@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,7 +7,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Subject extends Model
 {
-    use HasFactory, HasUuid, HasTranslations;
+    use HasFactory, HasUuid, HasTranslations, HasCreatedUpdatedBy;
 
     public $incrementing = false;
 

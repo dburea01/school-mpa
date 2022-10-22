@@ -1,9 +1,8 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\School;
-use App\Models\Subject;
+use App\Repositories\SchoolRepository;
 use Illuminate\Database\Seeder;
 
 class SubjectSeeder extends Seeder
@@ -17,15 +16,10 @@ class SubjectSeeder extends Seeder
     {
         $schools = School::all();
 
+        $schoolRepository = new SchoolRepository();
+
         foreach ($schools as $school) {
-            try {
-                Subject::factory()->count(random_int(5, 10))->create([
-                    'school_id' => $school->id,
-                ]);
-            } catch (\Throwable $th) {
-                echo $th->getMessage();
-                echo 'on continue ....';
-            }
+            $schoolRepository->initSubjects($school);
         }
     }
 }

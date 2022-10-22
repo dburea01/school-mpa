@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -14,7 +13,7 @@ class HomeController extends Controller
 
     public function changeLocale(string $locale)
     {
-        if (! in_array($locale, ['en', 'fr'])) {
+        if (!in_array($locale, ['en', 'fr'])) {
             $locale = 'en';
         }
 
