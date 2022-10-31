@@ -28,13 +28,6 @@ class SchoolFactory extends Factory
             'zip_code' => $this->faker->postcode,
             'city' => $this->faker->city,
             'country_id' => 'FR',
-            'comment' => $this->faker->sentence(),
-            //'school_type_id' => 'LYCEE',
-            //'school_status' => 'ACTIVE',
-            'max_users' => random_int(100, 200),
-            'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
-            's3_container' => $schoolName,
-            'created_by' => 'factory',
         ];
     }
 }

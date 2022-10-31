@@ -5,14 +5,13 @@
 @include('errors.session-values')
 
 
-<h1 class="text-center">@lang('users.title') ({{ $users->total() }})&nbsp;<a
-        href="/schools/{{ $school->id }}/users/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"
-            aria-hidden="true"></i>
+<h1 class="text-center">@lang('users.title') ({{ $users->total() }})&nbsp;<a href="/users/create"
+        class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
         @lang('users.add')</a></h1>
 
 <div class="row mt-3 mb-3 d-flex justify-content-center">
     <div class="col-md-10">
-        <form class="row" action="/schools/{{ $school->id }}/users">
+        <form class="row" action="/users">
             <div class="col-md-3 col-sm-12">
                 <input type="text" class="form-control form-control-sm mr-sm-2" name="user_name" id="user_name"
                     placeholder="@lang('users.filter_by_user_name')" value="{{ $user_name }}">
@@ -72,7 +71,7 @@
                 @foreach ($users as $user)
                 <tr class="align-middle">
                     <td>
-                        <a href=" /schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{ $user->full_name }}</a>
+                        <a href="/users/{{ $user->id }}/edit">{{ $user->full_name }}</a>
 
                         @if ($user->status === 'INACTIVE')
                         <x-alert-user-inactive />
@@ -83,8 +82,7 @@
                     <td>
                         @foreach($user->user_groups as $user_group)
                         @php $group = \App\Models\Group::find($user_group->group_id) @endphp
-                        <span class="badge bg-info"><a
-                                href="/schools/{{ $school->id }}/groups/{{ $user_group->group_id }}/users">{{
+                        <span class="badge bg-info"><a href="/groups/{{ $user_group->group_id }}/users">{{
                                 $group->name }}</a></span>
 
                         @endforeach
@@ -102,14 +100,14 @@
         <div class="row border mb-2">
             <div class="col-md-2 text-center">
                 @if($user->user_image_url)
-                <img src="{{ Storage::disk('s3')->url($user->user_image_url) }}" alt="img not found" height="100">
+                <img src="{{ Storage::disk('public')->url($user->user_image_url) }}" alt="img not found" height="100">
                 @else
                 <i class="bi bi-person-square" style="font-size: 4rem;" aria-hidden="true"></i>
                 @endif
             </div>
 
             <div class="col-md-10 ps-5">
-                <h3><a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{ $user->full_name }}</a> ({{
+                <h3><a href="/users/{{ $user->id }}/edit">{{ $user->full_name }}</a> ({{
                     $user->role->name }})</h3>
                 <h6>{{ $user->email }}</h6>
                 @if ($user->status === 'INACTIVE')
@@ -117,8 +115,7 @@
                 @endif
                 @foreach($user->user_groups as $user_group)
                 @php $group = \App\Models\Group::find($user_group->group_id) @endphp
-                <span class="badge bg-info"><a
-                        href="/schools/{{ $school->id }}/groups/{{ $user_group->group_id }}/users">{{
+                <span class="badge bg-info"><a href="/groups/{{ $user_group->group_id }}/users">{{
                         $group->name }}</a></span>
 
                 @endforeach

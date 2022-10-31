@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Period;
@@ -15,12 +14,18 @@ class PeriodSeeder extends Seeder
      */
     public function run()
     {
-        $schools = School::all();
+        Period::factory()->create([
+            'name' => 'Année scolaire 2021-2022',
+            'start_date' => '2021-09-01',
+            'end_date' => '2022-06-30',
+            'current' => true
+        ]);
 
-        foreach ($schools as $school) {
-            Period::factory()->count(2)->create([
-                'school_id' => $school->id,
-            ]);
-        }
+        Period::factory()->create([
+            'name' => 'Année scolaire 2022-2023',
+            'start_date' => '2022-09-01',
+            'end_date' => '2023-06-30',
+            'current' => false
+        ]);
     }
 }

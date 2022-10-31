@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use App\Models\User;
@@ -9,13 +8,6 @@ use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
-    protected $school;
-
-    public function __construct(Request $request)
-    {
-        $this->school = $request->school;
-    }
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -43,9 +35,7 @@ class StoreUserRequest extends FormRequest
                 'email',
                 'nullable',
                 'required_unless:role_id,STUDENT',
-                Rule::unique('users', 'email')->where(function ($query) use ($request) {
-                    return $query->where('school_id', $request->school_id);
-                })->ignore($this->user),
+                Rule::unique('users', 'email')->ignore($this->user),
             ],
             'status' => 'required|in:ACTIVE,INACTIVE',
             'gender_id' => 'required_if:role_id,STUDENT|in:1,2',

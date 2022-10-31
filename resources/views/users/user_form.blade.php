@@ -13,10 +13,10 @@
 
 
 @if ($user->id)
-<form action="/schools/{{ $school->id }}/users/{{ $user->id }}" method="POST" enctype="multipart/form-data">
+<form action="/users/{{ $user->id }}" method="POST" enctype="multipart/form-data">
     @method('PUT')
     @else
-    <form action="/schools/{{ $school->id }}/users" method="POST" enctype="multipart/form-data">
+    <form action="/users" method="POST" enctype="multipart/form-data">
         @endif
 
 
@@ -253,7 +253,7 @@
             <div class="col-sm-10">
                 @if ($user->user_image_url)
                 <img id="uploadPreview" style="width: 200px;"
-                    src="{{ Storage::disk('s3')->url($user->user_image_url) }}" alt="image not found">
+                    src="{{ Storage::disk('public')->url($user->user_image_url) }}" alt="image not found">
                 @else
 
                 <img id="uploadPreview" style="width: 142px;height:142px" src="{{ asset('img/image_avatar.png') }}"
@@ -297,7 +297,7 @@
                     <p>@lang('user.warning_no_possible_rollback')</p>
                 </div>
                 <div class="modal-footer">
-                    <form class="form-inline" method="POST" action="/schools/{{ $school->id }}/users/{{ $user->id }}">
+                    <form class="form-inline" method="POST" action="/users/{{ $user->id }}">
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i

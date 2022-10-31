@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,11 +7,7 @@ use Spatie\Translatable\HasTranslations;
 
 class ExamType extends Model
 {
-    use HasTranslations, HasFactory, HasUuid, HasCreatedUpdatedBy;
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
+    use HasTranslations, HasFactory, HasCreatedUpdatedBy;
 
     public $translatable = ['short_name', 'name'];
 
@@ -21,8 +16,6 @@ class ExamType extends Model
     ];
 
     protected $fillable = [
-        'id',
-        'school_id',
         'position',
         'short_name',
         'name',

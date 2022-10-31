@@ -46,7 +46,7 @@
     <a href="password-lost">@lang('auth.password_lost')</a><br><br>
 
     <p>
-        SuperAdmin : {{ App\Models\User::where('role_id', 'SUPERADMIN')->first()->email }}
+        Admin : {{ App\Models\User::where('role_id', 'ADMIN')->first()->email }}
     </p>
     <p>
         Director : {{ App\Models\User::where('role_id', 'DIRECTOR')->where('status', 'ACTIVE')->first()->email }}<br>
@@ -54,15 +54,6 @@
         Teacher : {{ App\Models\User::where('role_id', 'TEACHER')->where('status', 'ACTIVE')->first()->email }}<br>
         Student : {{ App\Models\User::where('role_id', 'STUDENT')->where('status', 'ACTIVE')->first()->email }}<br>
     </p>
-
-    <p>
-        Director : {{ App\Models\User::where('role_id', 'DIRECTOR')->where('status', 'ACTIVE')->get()[1]->email }}<br>
-        Parent : {{ App\Models\User::where('role_id', 'PARENT')->where('status', 'ACTIVE')->get()[1]->email }}<br>
-        Teacher : {{ App\Models\User::where('role_id', 'TEACHER')->where('status', 'ACTIVE')->get()[1]->email }}<br>
-        Student : {{ App\Models\User::where('role_id', 'STUDENT')->where('status', 'ACTIVE')->get()[1]->email }}<br>
-    </p>
-
-
 
 </div>
 

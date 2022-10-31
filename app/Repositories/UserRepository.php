@@ -8,9 +8,9 @@ use App\Models\UserGroup;
 
 class UserRepository
 {
-    public function all($schoolId, $request)
+    public function all(array $request)
     {
-        $usersQuery = User::where('school_id', $schoolId)->with('role')->with('user_groups')->orderBy('last_name');
+        $usersQuery = User::with('role')->with('user_groups')->orderBy('last_name');
 
         if (array_key_exists('user_name', $request) && $request['user_name'] !== null) {
             $usersQuery->where(function ($query) use ($request) {

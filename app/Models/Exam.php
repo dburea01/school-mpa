@@ -11,15 +11,10 @@ class Exam extends Model
 {
     const FORMAT_DATE_DISPLAY = 'd/m/Y H:i';
 
-    use HasFactory, HasUuid, HasCreatedUpdatedBy;
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
+    use HasFactory, HasCreatedUpdatedBy;
 
     protected $fillable = [
         'id',
-        'school_id',
         'exam_type_id',
         'subject_id',
         'classroom_id',

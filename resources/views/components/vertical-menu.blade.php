@@ -24,7 +24,7 @@
             </a>
         </li>
 
-        @if (Auth::user()->isSuperAdmin())
+        @if (Auth::user()->isAdmin())
         <li>
             <a href="/schools" @class( ['active'=>
                 in_array(Route::currentRouteName(), [
@@ -38,7 +38,7 @@
         @if (Auth::user()->isDirector())
 
         <li>
-            <a href="/schools/{{ Auth::user()->school_id }}/edit" @class( ['active'=>
+            <a href="/schools/edit" @class( ['active'=>
                 in_array(Route::currentRouteName(), [
                 'schools.edit'])])>
                 <span class="icon"><i class="bi bi-building" aria-hidden="true"></i></span>
@@ -47,7 +47,7 @@
         </li>
 
         <li>
-            <a href="/schools/{{ Auth::user()->school_id }}/users" @class( ['active'=>
+            <a href="/users" @class( ['active'=>
                 in_array(Route::currentRouteName(), [
                 'users.index', 'users.edit'])])>
                 <span class="icon"><i class="bi bi-people" aria-hidden="true"></i></span>

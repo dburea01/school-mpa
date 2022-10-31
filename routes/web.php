@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('schools', SchoolController::class)->whereUuid('school');
 
     // routes for the users
-    Route::resource('schools.users', UserController::class)->scoped()->whereUuid(['school', 'user'])->names('users');
+    Route::resource('users', UserController::class)->whereUuid(['user'])->names('users');
     Route::get('schools/{school}/users/autocomplete', [UserController::class, 'autocomplete'])->whereUuid('school');
 
     // routes for the potential duplicated users

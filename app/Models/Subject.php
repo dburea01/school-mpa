@@ -7,17 +7,12 @@ use Spatie\Translatable\HasTranslations;
 
 class Subject extends Model
 {
-    use HasFactory, HasUuid, HasTranslations, HasCreatedUpdatedBy;
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
+    use HasFactory, HasTranslations, HasCreatedUpdatedBy;
 
     protected $fillable = [
-        'school_id',
         'short_name',
         'name',
-        'option',
+        'position',
         'status',
         'comment',
     ];
@@ -29,10 +24,5 @@ class Subject extends Model
     public function setShortNameAttribute($value): void
     {
         $this->attributes['short_name'] = strtoupper($value);
-    }
-
-    public function school()
-    {
-        return $this->belongsTo(School::class);
     }
 }

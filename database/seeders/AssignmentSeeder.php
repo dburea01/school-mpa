@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Assignment;
@@ -22,15 +21,13 @@ class AssignmentSeeder extends Seeder
 
         foreach ($classrooms as $classroom) {
             // get some students + teachers  of the school of this classrooms
-            $students = User::where('school_id', $classroom->school_id)
-            ->where('role_id', 'STUDENT')
+            $students = User::where('role_id', 'STUDENT')
             ->limit(random_int(1, 10))
             ->get();
 
             $this->insertAssignments($classroom, $students);
 
-            $teachers = User::where('school_id', $classroom->school_id)
-            ->where('role_id', 'TEACHER')
+            $teachers = User::where('role_id', 'TEACHER')
             ->limit(random_int(1, 2))
             ->get();
 
@@ -42,10 +39,9 @@ class AssignmentSeeder extends Seeder
     {
         foreach ($users as $user) {
             Assignment::factory()->create([
-                'school_id' => $classroom->school_id,
                 'classroom_id' => $classroom->id,
                 'user_id' => $user->id,
-                'comment' => $user->full_name." ($user->role_id)",
+                'comment' => $user->full_name . " ($user->role_id)",
             ]);
         }
     }

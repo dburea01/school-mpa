@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Classroom;
@@ -16,21 +15,11 @@ class ClassroomSeeder extends Seeder
      */
     public function run()
     {
-        $schools = School::all();
-
-        foreach ($schools as $school) {
-            $this->createClassrooms($school);
-        }
-    }
-
-    private function createClassrooms(School $school)
-    {
-        $periods = Period::where('school_id', $school->id)->get();
+        $periods = Period::all();
 
         foreach ($periods as $period) {
             try {
-                Classroom::factory()->count(random_int(2, 5))->create([
-                    'school_id' => $school->id,
+                Classroom::factory()->count(random_int(5, 10))->create([
                     'period_id' => $period->id,
                 ]);
             } catch (\Throwable $th) {
