@@ -10,15 +10,14 @@
 <h2 class="text-center mb-3">@if ($group->id) @lang('group.modify_group', ['group_name' => $group->name]) @else
     @lang('group.create_group') @endif</h2>
 
-<x-group-tabs activeTab="address" schoolId="{{ $school->id }}" groupId="{{ $group->id }}"
-    newGroup="{{ $group->id ? false : true }}" />
+<x-group-tabs activeTab="address" groupId="{{ $group->id }}" newGroup="{{ $group->id ? false : true }}" />
 
 
 @if ($group->id)
-<form action=" /schools/{{ $school->id }}/groups/{{ $group->id }}" method="POST">
+<form action="/groups/{{ $group->id }}" method="POST">
     @method('PUT')
     @else
-    <form action="/schools/{{ $school->id }}/groups" method="POST">
+    <form action="/groups" method="POST">
         @endif
 
         @csrf
@@ -165,7 +164,7 @@
                     <p>@lang('group.modal_warning_no_possible_rollback', ['name' => $group->name])</p>
                 </div>
                 <div class="modal-footer">
-                    <form class="form-inline" method="POST" action="/schools/{{$school->id}}/groups/{{ $group->id }}">
+                    <form class="form-inline" method="POST" action="/groups/{{ $group->id }}">
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Policies;
 
 use App\Models\Group;
@@ -10,44 +9,37 @@ class GroupPolicy
 {
     use HandlesAuthorization;
 
-    protected $school;
-
     protected $group;
 
     public function __construct()
     {
-        $this->school = request()->route()->parameter('school');
         $this->group = request()->route()->parameter('group');
     }
 
     public function before(User $user)
     {
-        if ($user->isSuperAdmin()) {
+        if ($user->isAdmin()) {
             return true;
         }
     }
 
     public function viewAny(User $user)
     {
-        return $user->isDirector() && $user->school_id === $this->school->id;
+        return $user->isDirector();
     }
 
     public function create(User $user)
     {
-        return $user->isDirector() && $user->school_id === $this->school->id;
+        return $user->isDirector();
     }
 
-    public function update(User $user, Group $group)
+    public function update(User $user)
     {
-        return $user->isDirector() &&
-            $user->school_id === $this->school->id &&
-            $this->school->id === $group->school_id;
+        return $user->isDirector();
     }
 
-    public function delete(User $user, Group $group)
+    public function delete(User $user)
     {
-        return $user->isDirector() &&
-            $user->school_id === $this->school->id &&
-            $this->school->id === $group->school_id;
+        return $user->isDirector();
     }
 }

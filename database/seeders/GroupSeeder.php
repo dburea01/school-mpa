@@ -14,6 +14,6 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        Group::factory()->count(random_int(5, 20))->create();
+        Group::factory()->count(100)->create();
     }
 }

@@ -55,7 +55,7 @@
             </a>
         </li>
         <li>
-            <a href="/schools/{{ Auth::user()->school_id }}/groups" @class( ['active'=>
+            <a href="/groups" @class( ['active'=>
                 in_array(Route::currentRouteName(), [
                 'groups.index', 'groups.edit', 'users_group'])])>
                 <span class="icon"><i class="bi bi-person-lines-fill" aria-hidden="true"></i></span>

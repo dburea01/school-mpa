@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGroupRequest;
@@ -25,12 +24,11 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, School $school)
+    public function index(Request $request)
     {
-        $groups = $this->groupRepository->all($school->id, $request->all());
+        $groups = $this->groupRepository->all($request->all());
 
         return view('groups.groups', [
-            'school' => $school,
             'groups' => $groups,
             'group_name' => $request->query('group_name', ''),
             'group_city' => $request->query('group_city'),
@@ -42,13 +40,12 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(School $school)
+    public function create()
     {
         $group = new Group();
         $group->status = 'INACTIVE';
 
         return view('groups.group_form', [
-            'school' => $school,
             'group' => $group,
         ]);
     }
@@ -59,12 +56,12 @@ class GroupController extends Controller
      * @param  \App\Http\Requests\StoreGroupRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreGroupRequest $request, School $school)
+    public function store(StoreGroupRequest $request)
     {
         try {
-            $group = $this->groupRepository->insert($school->id, $request->all());
+            $group = $this->groupRepository->insert($request->all());
 
-            return redirect("schools/$school->id/groups/$group->id/users")
+            return redirect("/groups/$group->id/users")
             ->with('success', trans('group.group_created', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -88,10 +85,9 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function edit(School $school, Group $group)
+    public function edit(Group $group)
     {
         return view('groups.group_form', [
-            'school' => $school,
             'group' => $group,
         ]);
     }
@@ -108,7 +104,7 @@ class GroupController extends Controller
         try {
             $group = $this->groupRepository->update($group, $request->all());
 
-            return redirect("schools/$school->id/groups")
+            return redirect('/groups')
             ->with('success', trans('group.group_updated', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -121,12 +117,12 @@ class GroupController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function destroy(School $school, Group $group)
+    public function destroy(Group $group)
     {
         try {
             $this->groupRepository->destroy($group);
 
-            return redirect("schools/$school->id/groups")
+            return redirect('groups')
             ->with('success', trans('group.group_deleted', ['name' => $group->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());

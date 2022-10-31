@@ -31,10 +31,9 @@ class UserRepository
         return $usersQuery->paginate();
     }
 
-    public function getExistingUsers(string $schoolId, string $lastName, string $firstName)
+    public function getExistingUsers(string $lastName, string $firstName)
     {
-        return User::where('school_id', $schoolId)
-            ->where('last_name', 'ilike', $lastName)
+        return User::where('last_name', 'ilike', $lastName)
             ->where('first_name', 'ilike', $firstName)
             ->get();
     }
@@ -59,10 +58,9 @@ class UserRepository
         $user->delete();
     }
 
-    public function insert($schoolId, $userData)
+    public function insert(array $userData)
     {
         $user = new User();
-        $user->school_id = $schoolId;
         $user->fill($userData);
         $user->save();
 

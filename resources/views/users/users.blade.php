@@ -34,13 +34,13 @@
             <div class="col-md-1 btn-group" role="group" aria-label="wiew style">
 
                 <input type="radio" class="btn-check" name="view" id="list" value="list" @if ($view==='list' ) checked
-                    @endif onchange="this.form.submit() ">
+                    @endif onchange="this.form.submit()" aria-label="users without media">
                 <label class="btn btn-sm btn-outline-primary" for="list">
                     <i class="bi bi-list" aria-hidden="true"></i>
                 </label>
 
                 <input type="radio" class="btn-check" name="view" id="media" value="media" @if ($view==='media' )
-                    checked @endif onchange="this.form.submit() ">
+                    checked @endif onchange="this.form.submit()" aria-label="users with media">
                 <label class="btn btn-sm btn-outline-primary" for="media">
                     <i class="bi bi-list-stars" aria-hidden="true"></i>
                 </label>

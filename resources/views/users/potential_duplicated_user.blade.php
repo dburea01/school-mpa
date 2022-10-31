@@ -13,7 +13,7 @@
         <div class="card">
             <div class="card-header">@lang('potential_duplicated_user.user_to_create')</div>
             <div class="card-body">
-                <form action="/schools/{{ $school->id }}/users/potential-duplicated-user" method="POST">
+                <form action="/users/potential-duplicated-user" method="POST">
                     @csrf
                     <div class="mb-3 row">
                         <label for="role_id" class="col-sm-4 col-form-label">@lang('user.role') :</label>

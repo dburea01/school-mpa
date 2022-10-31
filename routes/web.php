@@ -43,19 +43,14 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the users
     Route::resource('users', UserController::class)->whereUuid(['user'])->names('users');
-    Route::get('schools/{school}/users/autocomplete', [UserController::class, 'autocomplete'])->whereUuid('school');
+    Route::get('/users/autocomplete', [UserController::class, 'autocomplete']);
 
     // routes for the potential duplicated users
-    Route::get('schools/{school}/users/potential-duplicated-user', [UserController::class, 'potentialDuplicatedUser'])
-        ->whereUuid('school');
-    Route::post(
-        'schools/{school}/users/potential-duplicated-user',
-        [UserController::class, 'savePotentialDuplicatedUser']
-    )->whereUuid('school');
+    Route::get('users/potential-duplicated-user', [UserController::class, 'potentialDuplicatedUser']);
+    Route::post('/users/potential-duplicated-user', [UserController::class, 'savePotentialDuplicatedUser']);
 
     // routes for the groups
-    Route::resource('schools.groups', GroupController::class)->scoped()->whereUuid(['school', 'group'])
-    ->names('groups');
+    Route::resource('groups', GroupController::class)->whereUuid(['group'])->names('groups');
 
     // routes for the users of a group
     Route::get('schools/{school}/groups/{group}/users', [UserController::class, 'usersOfAGroup'])

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -34,7 +33,7 @@ class StoreGroupRequest extends FormRequest
             'country_id' => 'required|size:2',
             'zip_code' => 'required|max:10',
             'status' => [
-                Rule::requiredIf($request->user()->isSuperAdmin()),
+                Rule::requiredIf($request->user()->isAdmin()),
                 'in:ACTIVE,INACTIVE',
             ],
         ];
