@@ -1,5 +1,4 @@
 <?php
-
 namespace App\View\Components;
 
 use App\Models\School;
@@ -25,9 +24,9 @@ class SelectSubject extends Component
      *
      * @return void
      */
-    public function __construct(School $school, $name, $id, $required, $value, $placeholder = '')
+    public function __construct($name, $id, $required, $value, $placeholder = '')
     {
-        $this->subjects = Subject::where('school_id', $school->id)->orderBy('short_name')->get();
+        $this->subjects = Subject::orderBy('short_name')->get();
         $this->name = $name;
         $this->id = $id;
         $this->required = $required;

@@ -253,7 +253,7 @@
             <div class="col-sm-10">
                 @if ($user->user_image_url)
                 <img id="uploadPreview" style="width: 200px;"
-                    src="{{ Storage::disk('public')->url($user->user_image_url) }}" alt="image not found">
+                    src="{{ Storage::disk('s3')->url($user->user_image_url) }}" alt="image not found">
                 @else
 
                 <img id="uploadPreview" style="width: 142px;height:142px" src="{{ asset('img/image_avatar.png') }}"

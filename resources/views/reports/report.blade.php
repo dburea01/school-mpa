@@ -24,18 +24,7 @@
                     <th>@lang('report.user_total')</th>
                     <td><strong>{{ $summary_users_by_role->sum('user_count') }}</strong></td>
                 </tr>
-                <tr class="table-info">
-                    <th colspan="2">
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-label="Example with label"
-                                style="width:{{ 100*$summary_users_by_role->sum('user_count') / $school->max_users }}%;"
-                                aria-valuenow="{{ 100*$summary_users_by_role->sum('user_count') / $school->max_users }}"
-                                aria-valuemin="0" aria-valuemax="100">{{
-                                round(100*$summary_users_by_role->sum('user_count') /
-                                $school->max_users) }} %</div>
-                        </div>
-                    </th>
-                </tr>
+
             </tbody>
         </table>
 

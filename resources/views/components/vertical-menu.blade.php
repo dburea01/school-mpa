@@ -24,18 +24,9 @@
             </a>
         </li>
 
-        @if (Auth::user()->isAdmin())
-        <li>
-            <a href="/schools" @class( ['active'=>
-                in_array(Route::currentRouteName(), [
-                'schools.index', 'schools.edit'])])>
-                <span class="icon"><i class="bi bi-building" aria-hidden="true"></i></span>
-                <span class="item">@lang('menu.schools')</span>
-            </a>
-        </li>
-        @endif
 
-        @if (Auth::user()->isDirector())
+
+        @if (Auth::user()->isAdmin())
 
         <li>
             <a href="/schools/edit" @class( ['active'=>
@@ -63,7 +54,7 @@
             </a>
         </li>
         <li>
-            <a href="/schools/{{ Auth::user()->school_id }}/subjects" @class( ['active'=>
+            <a href="/subjects" @class( ['active'=>
                 in_array(Route::currentRouteName(), [
                 'subjects.index', 'subjects.edit'])])>
                 <span class="icon"><i class="bi bi-boxes" aria-hidden="true"></i></span>
@@ -71,7 +62,7 @@
             </a>
         </li>
         <li>
-            <a href="/schools/{{ Auth::user()->school_id }}/periods" @class( ['active'=>
+            <a href="/periods" @class( ['active'=>
                 in_array(Route::currentRouteName(), [
                 'periods.index', 'periods.edit'])])>
                 <span class="icon"><i class="bi bi-calendar3" aria-hidden="true"></i></span>
@@ -79,7 +70,7 @@
             </a>
         </li>
         <li>
-            <a href="/schools/{{ Auth::user()->school_id }}/classrooms" @class( ['active'=>
+            <a href="/classrooms" @class( ['active'=>
                 in_array(Route::currentRouteName(), [
                 'classrooms.index', 'classrooms.edit'])])>
                 <span class="icon"><i class="bi bi-square" aria-hidden="true"></i></span>
@@ -87,7 +78,7 @@
             </a>
         </li>
         <li>
-            <a href="/schools/{{ Auth::user()->school_id }}/reports" @class( ['active'=>
+            <a href="/reports" @class( ['active'=>
                 in_array(Route::currentRouteName(), [
                 'reports'])])>
                 <span class="icon"><i class="bi bi-speedometer2" aria-hidden="true"></i></span>
@@ -96,9 +87,9 @@
         </li>
         @endif
 
-        @if (Auth::user()->isDirector() || Auth::user()->isTeacher())
+        @if (Auth::user()->isAdmin() || Auth::user()->isDirector() || Auth::user()->isTeacher())
         <li>
-            <a href="/schools/{{ Auth::user()->school_id }}/exams" @class( ['active'=>
+            <a href="/exams" @class( ['active'=>
                 in_array(Route::currentRouteName(), [
                 'exams.index', 'exams.edit'])])>
                 <span class="icon"><i class="bi bi-book" aria-hidden="true"></i></span>

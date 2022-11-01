@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -26,6 +25,7 @@ class StoreClassroomRequest extends FormRequest
         return [
             'name' => 'required|max:60',
             'status' => 'required|in:ACTIVE,INACTIVE',
+            'period_id' => 'required|exists:periods,id'
         ];
     }
 }

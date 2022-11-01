@@ -11,10 +11,10 @@
 </h2>
 
 @if ($exam->id)
-<form action="/schools/{{ $school->id }}/exams/{{ $exam->id }}" method="POST">
+<form action="/exams/{{ $exam->id }}" method="POST">
     @method('PUT')
     @else
-    <form action="/schools/{{ $school->id }}/exams" method="POST">
+    <form action="/exams" method="POST">
         @endif
 
         @csrf
@@ -38,8 +38,8 @@
                 *</label>
 
             <div class="col-sm-4">
-                <x-select-classroom name="classroom_id" id="classroom_id" required="true" :school="$school"
-                    :placeholder="__('exams.select_a_classroom')" :value="old('classroom_id',$exam->classroom_id)" />
+                <x-select-classroom name="classroom_id" id="classroom_id" required="true"
+                    :placeholder="__('exam.classroom')" :value="old('classroom_id',$exam->classroom_id)" />
                 @if ($errors->has('classroom_id'))
                 <span class="text-danger">{{ $errors->first('classroom_id') }}</span>
                 @endif
@@ -52,8 +52,8 @@
                 *</label>
 
             <div class="col-sm-4">
-                <x-select-exam-type name="exam_type_id" id="exam_type_id" required="true" :school="$school"
-                    :placeholder="__('exam.select_an_exam_type')" :value="old('exam_type_id',$exam->exam_type_id)" />
+                <x-select-exam-type name="exam_type_id" id="exam_type_id" required="true"
+                    :placeholder="__('exam.exam_type')" :value="old('exam_type_id',$exam->exam_type_id)" />
                 @if ($errors->has('exam_type_id'))
                 <span class="text-danger">{{ $errors->first('exam_type_id') }}</span>
                 @endif
@@ -66,8 +66,8 @@
                 *</label>
 
             <div class="col-sm-4">
-                <x-select-subject name="subject_id" id="subject_id" required="true" :school="$school"
-                    :placeholder="__('exam.select_a_subject')" :value="old('subject_id',$exam->subject_id)" />
+                <x-select-subject name="subject_id" id="subject_id" required="true" :placeholder="__('exam.subject')"
+                    :value="old('subject_id',$exam->subject_id)" />
                 @if ($errors->has('subject_id'))
                 <span class="text-danger">{{ $errors->first('subject_id') }}</span>
                 @endif
@@ -175,7 +175,7 @@
                     <p>@lang('exam.p_warning_delete_exam')</p>
                 </div>
                 <div class="modal-footer">
-                    <form class="form-inline" method="POST" action="/schools/{{$school->id}}/exams/{{$exam->id}}">
+                    <form class="form-inline" method="POST" action="/exams/{{$exam->id}}">
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">

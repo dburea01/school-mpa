@@ -5,10 +5,10 @@
 @include('errors.session-values')
 
 
-<h1 class="text-center">@lang('subjects.title') ({{$subjects->count()}})&nbsp;<a
-        href="/schools/{{ $school->id }}/subjects/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"
-            aria-hidden="true"></i>
-        @lang('subjects.add')</a></h1>
+<h1 class="text-center">@lang('subjects.title') ({{$subjects->count()}})&nbsp;
+    <a href="/subjects/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
+        @lang('subjects.add')</a>
+</h1>
 
 
 <div class="row">
@@ -24,15 +24,19 @@
                 @foreach ($subjects as $subject)
                 <tr>
                     <td>
-                        <a href="/schools/{{ $school->id }}/subjects/{{ $subject->id }}/edit">{{
+                        <a href="/subjects/{{ $subject->id }}/edit">{{
                             $subject->short_name }}</a>
                         @if ($subject->status === 'INACTIVE')
                         <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"
                             title="@lang('subjects.subject_inactive')"></i>
                         @endif
+
+                        @if($subject->comment)
+                        <i class="bi bi-card-text" aria-hidden="true" data-bs-toggle="tooltip" data-bs-placement="right"
+                            data-bs-title="{{ $subject->comment }}"></i>
+                        @endif
                     </td>
                     <td>{{ $subject->name }}</td>
-                    <td>{{ $subject->comment }}</td>
                 </tr>
                 @endforeach
             </tbody>

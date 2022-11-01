@@ -9,38 +9,9 @@ use App\Models\Subject;
 
 class SchoolRepository
 {
-    public function all($request)
+    public function update(array $schoolData): School
     {
-        $query = School::orderBy('name')->withCount(['users', 'groups', 'subjects', 'periods']);
-
-        if (\array_key_exists('school_name', $request)) {
-            $query->where('name', 'ilike', '%' . $request['school_name'] . '%');
-        }
-
-        if (\array_key_exists('city', $request)) {
-            $query->where('city', 'ilike', '%' . $request['city'] . '%');
-        }
-
-        return $query->paginate(10);
-    }
-
-    public function update($schoolId, array $schoolData)
-    {
-        $school = School::find($schoolId);
-        $school->fill($schoolData);
-        $school->save();
-
-        return $school;
-    }
-
-    public function destroy($schoolId): void
-    {
-        School::destroy($schoolId);
-    }
-
-    public function insert($schoolData)
-    {
-        $school = new School();
+        $school = School::first();
         $school->fill($schoolData);
         $school->save();
 

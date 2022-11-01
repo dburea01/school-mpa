@@ -22,12 +22,11 @@ class ExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(School $school, Request $request)
+    public function index(Request $request)
     {
-        $exams = $this->examRepository->all($school, $request->all());
+        $exams = $this->examRepository->all($request->all());
 
         return view('exams.exams', [
-            'school' => $school,
             'exams' => $exams,
             'filter_by_title' => $request->query('filter_by_title', ''),
             'filter_by_classroom_id' => $request->query('filter_by_classroom_id', ''),
@@ -42,29 +41,22 @@ class ExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(School $school)
+    public function create()
     {
         $exam = new Exam();
         $exam->exam_status_id = '10'; // draft
 
         return view('exams.exam_form', [
-            'school' => $school,
             'exam' => $exam,
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreExamRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(School $school, StoreExamRequest $request)
+    public function store(StoreExamRequest $request)
     {
         try {
-            $exam = $this->examRepository->insert($school, $request->all());
+            $exam = $this->examRepository->insert($request->all());
 
-            return redirect("schools/$school->id/exams?filter_by_title=$exam->title")
+            return redirect("exams?filter_by_title=$exam->title")
             ->with('success', trans('exams.exam_created', ['title' => $exam->title]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -88,10 +80,9 @@ class ExamController extends Controller
      * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function edit(School $school, Exam $exam)
+    public function edit(Exam $exam)
     {
         return view('exams.exam_form', [
-            'school' => $school,
             'exam' => $exam,
         ]);
     }
@@ -103,12 +94,12 @@ class ExamController extends Controller
      * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function update(School $school, StoreExamRequest $request, Exam $exam)
+    public function update(StoreExamRequest $request, Exam $exam)
     {
         try {
             $examUpdated = $this->examRepository->update($exam, $request->all());
 
-            return redirect("schools/$school->id/exams?filter_by_title=$examUpdated->title")->with(
+            return redirect("exams?filter_by_title=$examUpdated->title")->with(
                 'success',
                 trans(
                     'exams.exam_updated',
@@ -126,12 +117,12 @@ class ExamController extends Controller
      * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function destroy(School $school, Exam $exam)
+    public function destroy(Exam $exam)
     {
         try {
             $this->examRepository->destroy($exam);
 
-            return redirect("schools/$school->id/exams")->with(
+            return redirect('exams')->with(
                 'success',
                 trans(
                     'exams.exam_deleted',

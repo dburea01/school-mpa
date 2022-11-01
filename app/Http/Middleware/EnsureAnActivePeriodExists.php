@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use App\Models\Period;
@@ -17,7 +16,7 @@ class EnsureAnActivePeriodExists
      */
     public function handle(Request $request, Closure $next)
     {
-        $period = Period::where('school_id', $request->school->id)->where('current', true)->first();
+        $period = Period::where('current', true)->first();
         if ($period) {
             return $next($request);
         } else {

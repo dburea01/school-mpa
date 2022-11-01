@@ -67,12 +67,11 @@ class UserRepository
         return $user;
     }
 
-    public function usersOfAGroup(string $schoolId, string $groupId)
+    public function usersOfAGroup(string $groupId)
     {
         $users = UserGroup::where('group_id', $groupId)->pluck('user_id');
 
-        return User::where('school_id', $schoolId)
-            ->whereIn('id', $users)->get();
+        return User::whereIn('id', $users)->get();
     }
 
     public function addUserForAGroup(string $groupId, string $userId): UserGroup

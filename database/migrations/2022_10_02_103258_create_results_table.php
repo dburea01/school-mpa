@@ -23,8 +23,8 @@ return new class extends Migration {
             $table->string('created_by');
             $table->string('updated_by')->nullable();
 
-            $table->foreign('exam_id')->references('id')->on('exams')->nullOnDelete();
-            $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('exam_id')->references('id')->on('exams')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
 
             $table->unique(['exam_id', 'user_id']);
         });

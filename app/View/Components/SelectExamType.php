@@ -1,5 +1,4 @@
 <?php
-
 namespace App\View\Components;
 
 use App\Models\ExamType;
@@ -25,9 +24,9 @@ class SelectExamType extends Component
      *
      * @return void
      */
-    public function __construct(School $school, $name, $id, $required, $value, $placeholder = '')
+    public function __construct($name, $id, $required, $value, $placeholder = '')
     {
-        $this->examTypes = ExamType::where('school_id', $school->id)->orderBy('position')->get();
+        $this->examTypes = ExamType::orderBy('position')->get();
         $this->name = $name;
         $this->id = $id;
         $this->required = $required;

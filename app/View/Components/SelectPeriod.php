@@ -1,15 +1,11 @@
 <?php
-
 namespace App\View\Components;
 
 use App\Models\Period;
-use App\Models\School;
 use Illuminate\View\Component;
 
 class SelectPeriod extends Component
 {
-    public $school;
-
     public $periods;
 
     public $value;
@@ -25,9 +21,9 @@ class SelectPeriod extends Component
      *
      * @return void
      */
-    public function __construct(School $school, string $name, string $id, string $value = null, string $onchange = null)
+    public function __construct(string $name, string $id, int $value = null, string $onchange = null)
     {
-        $this->periods = Period::where('school_id', $school->id)->orderBy('start_date')->get();
+        $this->periods = Period::orderBy('start_date')->get();
         $this->value = $value;
         $this->name = $name;
         $this->id = $id;

@@ -54,14 +54,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(School $school)
+    public function create()
     {
         $user = new User();
         $user->status = 'ACTIVE';
         $user->role_id = 'STUDENT';
 
         return view('users.user_form', [
-            'school' => $school,
             'user' => $user,
         ]);
     }
@@ -111,7 +110,7 @@ class UserController extends Controller
             $constraint->aspectRatio();
         })->save('resizedFile');
 
-        return Storage::disk('public')->put('/users', new File('resizedFile'));
+        return Storage::disk('s3')->put('/users', new File('resizedFile'));
     }
 
     public function deleteMedia(User $user)
@@ -210,15 +209,14 @@ class UserController extends Controller
         }
     }
 
-    public function usersOfAGroup(Request $request, School $school, Group $group)
+    public function usersOfAGroup(Request $request, Group $group)
     {
-        $usersOfAGroup = $this->userRepository->usersOfAGroup($school->id, $group->id);
+        $usersOfAGroup = $this->userRepository->usersOfAGroup($group->id);
         $usersFiltered = $request->has('user_name') && $request->user_name !== '' ?
-            $this->userRepository->all($school->id, $request->all())
+            $this->userRepository->all($request->all())
             : [];
 
         return view('users.users_of_a_group', [
-            'school' => $school,
             'group' => $group,
             'usersOfAGroup' => $usersOfAGroup,
             'usersFiltered' => $usersFiltered,
@@ -226,21 +224,21 @@ class UserController extends Controller
         ]);
     }
 
-    public function addUserForAGroup(Request $request, School $school, Group $group)
+    public function addUserForAGroup(Request $request, Group $group)
     {
         $this->authorize('create', Group::class);
         try {
             $this->userRepository->addUserForAGroup($group->id, $request->user_id);
             $user = User::find($request->user_id);
 
-            return redirect("/schools/$school->id/groups/$group->id/users?user_name=$request->user_name")
+            return redirect("/groups/$group->id/users?user_name=$request->user_name")
             ->with('success', trans('user.user_added_to_family', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', 'an error occured.');
         }
     }
 
-    public function removeUserFromAGroup(School $school, Group $group, User $user)
+    public function removeUserFromAGroup(Group $group, User $user)
     {
         $this->authorize('delete', [Group::class, $group]);
 

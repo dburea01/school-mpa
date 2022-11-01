@@ -13,7 +13,7 @@
 <div class="row mt-3">
     <div class="col-md-8 mx-auto">
         <form class="row row-cols-lg-auto g-3 align-items-center mb-3"
-            action="/schools/{{$school->id}}/classrooms/{{$classroom->id}}/assignments" method="POST">
+            action="/classrooms/{{$classroom->id}}/assignments" method="POST">
             @csrf
             <div class="col-md-4">
                 <label class="visually-hidden" for="userName">@lang('assignments.search_user')</label>
@@ -47,7 +47,7 @@
                 @foreach ($assignments as $assignment)
                 <tr>
                     <td>
-                        <a href="/schools/{{ $school->id }}/users/{{ $assignment->user->id }}/edit">{{
+                        <a href="/users/{{ $assignment->user->id }}/edit">{{
                             $assignment->user->fullName }}</a>
                         @if ($assignment->user->status === 'INACTIVE')
                         <x-alert-user-inactive />
@@ -74,8 +74,8 @@
                     </td>
 
                     <td>
-                        <form @php $action="/schools/$school->id/classrooms/$classroom->id/assignments/$assignment->id"
-                            @endphp action={{ $action }} method="POST">
+                        <form @php $action="/classrooms/$classroom->id/assignments/$assignment->id" @endphp action={{
+                            $action }} method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger" aria-label="add"
@@ -132,7 +132,7 @@
         source: function(request, response) {
             
             $.ajax({
-                url: "/schools/{{$school->id}}/users/autocomplete",
+                url: "/users/autocomplete",
                 data: {
                     search : request.term
                 },

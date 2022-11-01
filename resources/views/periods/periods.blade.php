@@ -5,9 +5,8 @@
 @include('errors.session-values')
 
 
-<h1 class="text-center">@lang('periods.title') ({{$periods->count()}})&nbsp;<a
-        href="/schools/{{ $school->id }}/periods/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"
-            aria-hidden="true"></i>
+<h1 class="text-center">@lang('periods.title') ({{$periods->count()}})&nbsp;<a href="/periods/create"
+        class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
         @lang('periods.add')</a></h1>
 
 @if (count($currentPeriod) === 0)
@@ -36,8 +35,7 @@
                 @foreach ($periods as $period)
                 <tr>
                     <td>
-                        <a href="/schools/{{ $school->id }}/periods/{{ $period->id }}/edit">{{
-                            $period->name }}</a>
+                        <a href="/periods/{{ $period->id }}/edit">{{ $period->name }}</a>
                         @if ($period->current)
                         <i class="bi bi-check-circle-fill text-success" aria-hidden="true"
                             title="@lang('periods.current_period')"></i>

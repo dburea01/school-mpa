@@ -12,7 +12,6 @@ class Subject extends Model
     protected $fillable = [
         'short_name',
         'name',
-        'position',
         'status',
         'comment',
     ];

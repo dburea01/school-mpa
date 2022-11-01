@@ -9,12 +9,12 @@ use Illuminate\Support\Str;
 
 class ExamRepository
 {
-    public function all(School $school, $request)
+    public function all($request)
     {
         $periodRepository = new PeriodRepository();
-        $currentPeriod = $periodRepository->getCurrentPeriod($school);
+        $currentPeriod = $periodRepository->getCurrentPeriod();
 
-        $query = Exam::where('exams.school_id', $school->id)->orderBy('start_date')
+        $query = Exam::orderBy('start_date')
         ->join('classrooms', function ($join) use ($currentPeriod) {
             $join->on('classrooms.id', 'exams.classroom_id')
             ->where('classrooms.period_id', $currentPeriod->id);
@@ -29,18 +29,15 @@ class ExamRepository
             });
         }
 
-        if (\array_key_exists('filter_by_classroom_id', $request)
-        && Str::of($request['filter_by_classroom_id'])->isUuid()) {
+        if (\array_key_exists('filter_by_classroom_id', $request) && $request['filter_by_classroom_id'] != '') {
             $query->where('classroom_id', $request['filter_by_classroom_id']);
         }
 
-        if (\array_key_exists('filter_by_subject_id', $request)
-        && Str::of($request['filter_by_subject_id'])->isUuid()) {
+        if (\array_key_exists('filter_by_subject_id', $request) && $request['filter_by_subject_id'] != '') {
             $query->where('subject_id', $request['filter_by_subject_id']);
         }
 
-        if (\array_key_exists('filter_by_exam_type_id', $request)
-        && Str::of($request['filter_by_exam_type_id'])->isUuid()) {
+        if (\array_key_exists('filter_by_exam_type_id', $request) && $request['filter_by_exam_type_id'] != '') {
             $query->where('exam_type_id', $request['filter_by_exam_type_id']);
         }
 
@@ -66,11 +63,10 @@ class ExamRepository
         $exam->delete();
     }
 
-    public function insert(School $school, array $data)
+    public function insert(array $data)
     {
         $exam = new Exam;
         $exam->fill($data);
-        $exam->school_id = $school->id;
         $exam->save();
 
         return $exam;

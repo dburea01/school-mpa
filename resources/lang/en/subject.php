@@ -3,7 +3,8 @@
 return [
     'create_subject' => 'Create a subject',
     'short_name' => 'Short name',
-    'name' => 'Name',
+    'name_fr' => 'Name (french)',
+    'name_en' => 'Name (english)',
     'status' => 'Status',
     'comment' => 'Comment',
 

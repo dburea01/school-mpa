@@ -6,7 +6,7 @@
 <h2 class="text-center mb-3">@if ($group->id) @lang('group.modify_group', ['group_name' => $group->name]) @else
     @lang('group.create_group') @endif</h2>
 
-<x-group-tabs activeTab="users" schoolId="{{ $school->id }}" groupId="{{ $group->id }}" newGroup="{{ false }}" />
+<x-group-tabs activeTab="users" groupId="{{ $group->id }}" newGroup="{{ false }}" />
 
 <div class="row">
     <div class="col">
@@ -60,11 +60,10 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-md-10">
-                        <form class="row" action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users"
-                            aria-label="search">
+                        <form class="row" action="/groups/{{ $group->id }}/users" aria-label="search">
                             <div class="col-md-6 col-sm-12">
                                 <input type="text" class="form-control form-control-sm" name="user_name"
-                                    value="{{ $user_name }}" />
+                                    value="{{ $user_name }}">
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi bi-funnel"
@@ -101,10 +100,10 @@
                                 }))
 
 
-                                <form action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users" method="POST">
+                                <form action="/groups/{{ $group->id }}/users" method="POST">
                                     @csrf
-                                    <input type="hidden" name="user_id" value="{{ $userFiltered->id }}" />
-                                    <input type="hidden" name="user_name" value="{{ $user_name }}" />
+                                    <input type="hidden" name="user_id" value="{{ $userFiltered->id }}">
+                                    <input type="hidden" name="user_name" value="{{ $user_name }}">
                                     <button type="submit" class="btn btn-sm btn-success" aria-label="add"
                                         title="@lang('user.add_user_to_group')">
                                         <i class="bi bi-person-plus" aria-hidden="true"></i> </button>
@@ -146,8 +145,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <form class="form-inline" method="POST"
-                    action="/schools/{{ $school->id }}/groups/{{ $group->id }}/users/{{ $userOfAGroup->id }}">
+                <form class="form-inline" method="POST" action="/groups/{{ $group->id }}/users/{{ $userOfAGroup->id }}">
                     @csrf
                     @method('DELETE')
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal"><i

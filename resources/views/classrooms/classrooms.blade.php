@@ -7,14 +7,14 @@
     </div>
 </div>
 
-<h1 class="text-center">@lang('classrooms.title') <a href="/schools/{{ $school->id }}/classrooms/create"
-        class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
+<h1 class="text-center">@lang('classrooms.title') <a href="/classrooms/create" class="btn btn-primary btn-sm"><i
+            class="bi bi-plus-circle" aria-hidden="true"></i>
         @lang('classrooms.add')</a></h1>
 
 <div class="row mt-3 mb-3">
-    <form class="row col-md-4 mx-auto" action="/schools/{{ $school->id }}/groups">
+    <form class="row col-md-4 mx-auto" action="/groups">
 
-        <x-select-period :school="$school" name="select-period" id="select_period" :value="$periodIdToDisplay"
+        <x-select-period name="select-period" id="select_period" :value="$periodIdToDisplay"
             onchange="window.location.assign('{{ url()->current().'?period_id=' }}'+this.value)" />
 
     </form>
@@ -33,16 +33,15 @@
                 @foreach ($classrooms as $classroom)
                 <tr>
                     <td>
-                        <a href="/schools/{{ $school->id }}/classrooms/{{ $classroom->id }}/edit">{{ $classroom->name
-                            }}</a>
+                        <a href="/classrooms/{{ $classroom->id }}/edit">{{ $classroom->name }}</a>
                         @if ($classroom->status === 'INACTIVE')
                         <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"
                             title="@lang('classrooms.classroom_inactive')"></i>
                         @endif
                     </td>
 
-                    <td><a href="/schools/{{ $school->id }}/classrooms/{{ $classroom->id }}/assignments">{{
-                            $classroom->assignments->count() }}</a>
+                    <td>
+                        <a href="/classrooms/{{ $classroom->id }}/assignments">{{$classroom->assignments->count() }}</a>
                     </td>
                 </tr>
                 @endforeach

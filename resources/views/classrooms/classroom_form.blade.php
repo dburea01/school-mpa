@@ -11,10 +11,10 @@
     $classroom->name]) @else @lang('classroom.create_classroom') @endif</h2>
 
 @if ($classroom->id)
-<form action=" /schools/{{ $school->id }}/classrooms/{{ $classroom->id }}" method="POST">
+<form action=" /classrooms/{{ $classroom->id }}" method="POST">
     @method('PUT')
     @else
-    <form action="/schools/{{ $school->id }}/classrooms" method="POST">
+    <form action="/classrooms" method="POST">
         @endif
 
         @csrf
@@ -25,7 +25,7 @@
             </label>
 
             <div class="col-sm-10">
-                <x-select-period :school="$school" :value="$classroom->period_id" name="period_id" id="period_id" />
+                <x-select-period :value="$classroom->period_id" name="period_id" id="period_id" />
                 @if ($errors->has('period_id'))
                 <span class="text-danger">{{ $errors->first('period_id') }}</span>
                 @endif
@@ -39,7 +39,7 @@
 
             <div class="col-sm-10">
                 <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" required
-                    name="name" id="name" maxlength="60" value="{{ old('name', $classroom->name) }}" />
+                    name="name" id="name" maxlength="60" value="{{ old('name', $classroom->name) }}">
                 @if ($errors->has('name'))
                 <span class="text-danger">{{ $errors->first('name') }}</span>
                 @endif
@@ -97,8 +97,7 @@
                     <p>@lang('classroom.modal_warning_no_possible_rollback', ['name' => $classroom->name])</p>
                 </div>
                 <div class="modal-footer">
-                    <form class="form-inline" method="POST"
-                        action="/schools/{{$school->id}}/classrooms/{{ $classroom->id }}">
+                    <form class="form-inline" method="POST" action="/classrooms/{{ $classroom->id }}">
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">
