@@ -20,7 +20,7 @@
         <li>
             <a href="/logout">
                 <span class="icon"><i class="bi bi-box-arrow-left" aria-hidden="true"></i></span>
-                <span class="item">Logout</span>
+                <span class="item">@lang('menu.logout')</span>
             </a>
         </li>
 

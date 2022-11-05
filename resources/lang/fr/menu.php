@@ -1,15 +1,18 @@
 <?php
 
 return [
-    'logout' => 'Quitter',
+    'logout' => 'Se déconnecter',
     'home' => 'Accueil',
-    'schools' => 'Ecoles',
+    'schools' => 'Schools',
     'myoptions' => 'Mes options',
     'myschool' => 'Mon école',
+    'reports' => 'Reporting',
     'users' => 'Utilisateurs',
-    'periods' => 'Périodes',
+    'groups' => 'Familles',
+    'periods' => 'Periodes',
     'subjects' => 'Matières',
-    'periods' => 'Années scolaires',
+    'periods' => 'Périodes',
+    'classrooms' => 'Classes',
     'assignments' => 'Affectations',
-
+    'exams' => 'Examens',
 ];
