@@ -51,7 +51,7 @@
         <div id="sortable">
             @foreach ($appreciations as $appreciation)
             <div class="row ui-state-default p-3" id="shortname_{{ $appreciation->id }}">
-                <span><i class="bi bi-arrow-down-up"></i>&nbsp;
+                <span><i class="bi bi-arrow-down-up" aria-hidden="true"></i>&nbsp;
                     {{$appreciation->short_name}} - {{ $appreciation->name }}</span>
             </div>
             @endforeach

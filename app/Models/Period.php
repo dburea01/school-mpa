@@ -27,6 +27,16 @@ class Period extends Model
         return $this->getStartDateAttribute($value);
     }
 
+    protected function setStartDateAttribute($value)
+    {
+        $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }
+
+    protected function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+    }
+
     public static function getCurrentPeriod(): ?Period
     {
         return Period::where('current', true)->first();
