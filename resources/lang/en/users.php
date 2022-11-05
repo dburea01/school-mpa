@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'Users list',
+    'title' => 'The users',
     'add' => 'Create user',
     'filter' => 'Filter',
     'filter_by_user_name' => 'Filter by first, last name, email ...',

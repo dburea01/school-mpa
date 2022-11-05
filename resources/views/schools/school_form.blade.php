@@ -44,7 +44,8 @@
     <div class="row">
         <div class="col-sm-10 offset-sm-2">
             <input type="text" class="form-control form-control-sm @error('address2') is-invalid @enderror"
-                name="address2" id="address2" maxlength="60" value="{{ old('address2', $school->address2) }}">
+                name="address2" aria-label="address2" id="address2" maxlength="60"
+                value="{{ old('address2', $school->address2) }}">
             @if ($errors->has('address2'))
             <span class="text-danger">{{ $errors->first('address2') }}</span>
             @endif
@@ -54,7 +55,8 @@
     <div class="row mb-3">
         <div class="col-sm-10 offset-sm-2">
             <input type="text" class="form-control form-control-sm @error('address3') is-invalid @enderror"
-                name="address3" id="address3" maxlength="60" value="{{ old('address3', $school->address3) }}">
+                name="address3" aria-label="address3" id="address3" maxlength="60"
+                value="{{ old('address3', $school->address3) }}">
             @if ($errors->has('address3'))
             <span class="text-danger">{{ $errors->first('address3') }}</span>
             @endif

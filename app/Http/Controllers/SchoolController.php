@@ -46,7 +46,7 @@ class SchoolController extends Controller
         try {
             $school = $this->schoolRepository->update($request->all());
 
-            return redirect()->back()->with('success', trans('schools.school_updated', ['name' => $school->name]));
+            return redirect()->back()->with('success', trans('school.school_updated', ['name' => $school->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

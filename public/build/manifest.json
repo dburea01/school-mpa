@@ -5,8 +5,13 @@
     "isEntry": true
   },
   "resources/css/app.css": {
-    "file": "assets/app.f913bcc3.css",
+    "file": "assets/app.f4a7b4ba.css",
     "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/style.css": {
+    "file": "assets/style.5d918897.css",
+    "src": "resources/css/style.css",
     "isEntry": true
   }
 }

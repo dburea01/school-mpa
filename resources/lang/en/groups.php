@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'Families list',
+    'title' => 'The families',
     'add' => 'Create',
     'filter_by_group_name' => 'Filter by family name',
     'filter_by_group_city' => 'Filter by city',

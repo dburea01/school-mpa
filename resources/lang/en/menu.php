@@ -11,6 +11,7 @@ return [
     'groups' => 'Families',
     'periods' => 'Periods',
     'subjects' => 'Subjects',
+    'appreciations' => 'Appreciations',
     'periods' => 'Periods',
     'classrooms' => 'Classrooms',
     'assignments' => 'Assignments',

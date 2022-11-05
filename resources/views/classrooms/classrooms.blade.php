@@ -7,8 +7,8 @@
     </div>
 </div>
 
-<h1 class="text-center">@lang('classrooms.title') <a href="/classrooms/create" class="btn btn-primary btn-sm"><i
-            class="bi bi-plus-circle" aria-hidden="true"></i>
+<h1 class="text-center">@lang('classrooms.title') ({{$classrooms->count()}}) <a href="/classrooms/create"
+        class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
         @lang('classrooms.add')</a></h1>
 
 <div class="row mt-3 mb-3">

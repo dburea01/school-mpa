@@ -3,7 +3,6 @@ namespace Database\Seeders;
 
 use App\Models\Assignment;
 use App\Models\Classroom;
-use App\Models\School;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
