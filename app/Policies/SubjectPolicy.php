@@ -1,7 +1,6 @@
 <?php
 namespace App\Policies;
 
-use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -21,7 +20,7 @@ class SubjectPolicy
         return $user->isDirector();
     }
 
-    public function view(User $user, Subject $subject)
+    public function view(User $user)
     {
         return $user->isDirector();
     }
@@ -31,12 +30,12 @@ class SubjectPolicy
         return $user->isDirector();
     }
 
-    public function update(User $user, Subject $subject)
+    public function update(User $user)
     {
         return $user->isDirector();
     }
 
-    public function delete(User $user, Subject $subject)
+    public function delete(User $user)
     {
         return $user->isDirector();
     }

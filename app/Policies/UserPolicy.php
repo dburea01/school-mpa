@@ -20,7 +20,7 @@ class UserPolicy
         return $user->isDirector();
     }
 
-    public function view(User $user, User $model)
+    public function view(User $user)
     {
         return $user->isDirector();
     }
@@ -30,12 +30,12 @@ class UserPolicy
         return $user->isDirector();
     }
 
-    public function update(User $user, User $model)
+    public function update(User $user)
     {
         return $user->isDirector();
     }
 
-    public function delete(User $user, User $model)
+    public function delete(User $user)
     {
         return $user->isDirector();
     }

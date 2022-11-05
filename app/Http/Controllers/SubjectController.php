@@ -49,11 +49,6 @@ class SubjectController extends Controller
         }
     }
 
-    public function show(Subject $subject)
-    {
-        //
-    }
-
     public function edit(Subject $subject)
     {
         return view('subjects.subject_form', [

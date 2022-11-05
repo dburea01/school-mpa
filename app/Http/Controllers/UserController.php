@@ -14,6 +14,7 @@ use Illuminate\Http\File;
 class UserController extends Controller
 {
     private $userRepository;
+    const REDIRECT_TO = '/users';
 
     public function __construct(UserRepository $userRepository)
     {
@@ -161,7 +162,7 @@ class UserController extends Controller
                 $this->userRepository->updateUserImage($user, $pathImage);
             }
 
-            return redirect('/users')
+            return redirect(self::REDIRECT_TO)
             ->with('success', trans('user.user_updated', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -179,7 +180,7 @@ class UserController extends Controller
         try {
             $this->userRepository->destroy($user);
             $this->deleteMedia($user);
-            return redirect('/users')
+            return redirect(self::REDIRECT_TO)
             ->with('success', trans('user.user_deleted', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -202,7 +203,7 @@ class UserController extends Controller
         try {
             $user = $this->userRepository->insert($request->all());
 
-            return redirect('/users')
+            return redirect(self::REDIRECT_TO)
             ->with('success', 'User ' . $user->full_name . ' created.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
