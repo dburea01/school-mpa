@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,11 +33,6 @@ class Group extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper($value);
-    }
-
-    public function school()
-    {
-        return $this->belongsTo(School::class);
     }
 
     public function user_groups()

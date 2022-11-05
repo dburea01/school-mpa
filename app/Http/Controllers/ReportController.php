@@ -13,14 +13,13 @@ class ReportController extends Controller
         $this->reportRepository = $reportRepository;
     }
 
-    public function reports(School $school)
+    public function reports()
     {
-        $this->authorize('view', [Report::class, $school]);
+        $this->authorize('view', Report::class);
 
         return view('reports.report', [
-            'summary_users_by_role' => $this->reportRepository->summaryUsersByRole($school),
-            'summary_students_by_gender' => $this->reportRepository->summaryStudentsByGenre($school),
-            'school' => $school,
+            'summary_users_by_role' => $this->reportRepository->summaryUsersByRole(),
+            'summary_students_by_gender' => $this->reportRepository->summaryStudentsByGenre(),
         ]);
     }
 }

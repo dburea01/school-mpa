@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -7,24 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
-    use HasFactory, HasUuid, HasCreatedUpdatedBy;
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
+    use HasFactory, HasCreatedUpdatedBy;
 
     protected $fillable = [
-        'school_id',
         'period_id',
         'name',
         'comment',
         'status',
     ];
-
-    public function school()
-    {
-        return $this->belongsTo(School::class);
-    }
 
     public function period()
     {

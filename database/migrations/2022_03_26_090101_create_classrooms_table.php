@@ -14,9 +14,8 @@ class CreateClassroomsTable extends Migration
     public function up()
     {
         Schema::create('classrooms', function (Blueprint $table): void {
-            $table->uuid('id')->primary();
-            $table->uuid('school_id');
-            $table->uuid('period_id');
+            $table->id();
+            $table->integer('period_id');
             $table->string('name');
             $table->string('comment')->nullable();
             $table->string('status');
@@ -26,7 +25,6 @@ class CreateClassroomsTable extends Migration
             $table->unique(['period_id', 'name']);
 
             $table->foreign('period_id')->references('id')->on('periods')->onDelete('cascade');
-            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
         });
     }
 

@@ -8,9 +8,9 @@ use App\Models\UserGroup;
 
 class UserRepository
 {
-    public function all($schoolId, $request)
+    public function all(array $request)
     {
-        $usersQuery = User::where('school_id', $schoolId)->with('role')->with('user_groups')->orderBy('last_name');
+        $usersQuery = User::with('role')->with('user_groups')->orderBy('last_name');
 
         if (array_key_exists('user_name', $request) && $request['user_name'] !== null) {
             $usersQuery->where(function ($query) use ($request) {
@@ -31,10 +31,9 @@ class UserRepository
         return $usersQuery->paginate();
     }
 
-    public function getExistingUsers(string $schoolId, string $lastName, string $firstName)
+    public function getExistingUsers(string $lastName, string $firstName)
     {
-        return User::where('school_id', $schoolId)
-            ->where('last_name', 'ilike', $lastName)
+        return User::where('last_name', 'ilike', $lastName)
             ->where('first_name', 'ilike', $firstName)
             ->get();
     }
@@ -59,22 +58,20 @@ class UserRepository
         $user->delete();
     }
 
-    public function insert($schoolId, $userData)
+    public function insert(array $userData)
     {
         $user = new User();
-        $user->school_id = $schoolId;
         $user->fill($userData);
         $user->save();
 
         return $user;
     }
 
-    public function usersOfAGroup(string $schoolId, string $groupId)
+    public function usersOfAGroup(string $groupId)
     {
         $users = UserGroup::where('group_id', $groupId)->pluck('user_id');
 
-        return User::where('school_id', $schoolId)
-            ->whereIn('id', $users)->get();
+        return User::whereIn('id', $users)->get();
     }
 
     public function addUserForAGroup(string $groupId, string $userId): UserGroup

@@ -23,29 +23,26 @@ class ResultSeeder extends Seeder
             // find the students of this exam
             $students = DB::table('users')
             ->join('assignments', 'users.id', 'assignments.user_id')
-            ->where('users.school_id', $exam->school_id)
             ->where('users.role_id', 'STUDENT')
             ->where('assignments.classroom_id', $exam->classroom->id)
             ->select('users.id')
             ->get();
 
-            // all the results are made
+            // for the exams in status 60 (totally corrected)
             if ($exam->exam_status_id === 60) {
                 foreach ($students as $student) {
                     Result::Factory()->create([
-                        'school_id' => $exam->school_id,
                         'exam_id' => $exam->id,
                         'user_id' => $student->id
                     ]);
                 }
             }
 
-            // all the results are NOT made
+            // for the exams in status 50 (not totally corrected)
             if ($exam->exam_status_id === 50) {
                 $qtyStudents = $students->count();
                 for ($i = 0; $i < $qtyStudents / 2 ; $i++) {
                     Result::Factory()->create([
-                        'school_id' => $exam->school_id,
                         'exam_id' => $exam->id,
                         'user_id' => $students[$i]->id
                     ]);

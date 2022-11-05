@@ -1,8 +1,6 @@
 <?php
-
 namespace App\Policies;
 
-use App\Models\School;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -22,13 +20,13 @@ class ReportPolicy
 
     public function before(User $user)
     {
-        if ($user->isSuperAdmin()) {
+        if ($user->isAdmin()) {
             return true;
         }
     }
 
-    public function view(User $user, School $school)
+    public function view(User $user)
     {
-        return $user->isDirector() && $user->school_id === $school->id;
+        return $user->isDirector();
     }
 }

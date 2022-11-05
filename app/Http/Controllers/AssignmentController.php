@@ -1,11 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAssignmentRequest;
 use App\Models\Assignment;
 use App\Models\Classroom;
-use App\Models\School;
 use App\Models\User;
 use App\Repositories\AssignmentRepository;
 
@@ -23,10 +21,10 @@ class AssignmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(School $school, Classroom $classroom)
+    public function index(Classroom $classroom)
     {
         //@todo : permissions
-        $assignments = $this->assignmentRepository->index($school, $classroom);
+        $assignments = $this->assignmentRepository->index($classroom);
 
         $qtyBoys = $assignments->filter(function ($assignment) {
             return $assignment->user->gender_id === '1';
@@ -37,7 +35,6 @@ class AssignmentController extends Controller
         })->count();
 
         return view('assignments.assignments', [
-            'school' => $school,
             'classroom' => $classroom,
             'assignments' => $assignments,
             'qtyBoys' => $qtyBoys,
@@ -61,12 +58,12 @@ class AssignmentController extends Controller
      * @param  \App\Http\Requests\StoreAssignmentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(School $school, Classroom $classroom, StoreAssignmentRequest $request)
+    public function store(Classroom $classroom, StoreAssignmentRequest $request)
     {
         // todo : permission
         try {
             $user = User::find($request->userIdToAssign);
-            $this->assignmentRepository->insert($school, $classroom, $user);
+            $this->assignmentRepository->insert($classroom, $user);
 
             return back()->with('success', trans('assignments.user_assigned', ['user' => $user->full_name]));
         } catch (\Throwable $th) {
@@ -80,7 +77,7 @@ class AssignmentController extends Controller
      * @param  \App\Models\Assignment  $assignment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(School $school, Classroom $classroom, Assignment $assignment)
+    public function destroy(Classroom $classroom, Assignment $assignment)
     {
         // todo : permission
         try {

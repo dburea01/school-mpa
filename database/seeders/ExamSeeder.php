@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Classroom;
@@ -19,23 +18,19 @@ class ExamSeeder extends Seeder
      */
     public function run()
     {
-        $schools = School::all();
         $ExamStatus = ExamStatus::all();
 
-        foreach ($schools as $school) {
-            $classrooms = Classroom::where('school_id', $school->id)->get();
-            $subjects = Subject::where('school_id', $school->id)->get();
-            $examTypes = ExamType::where('school_id', $school->id)->get();
+        $classrooms = Classroom::all();
+        $subjects = Subject::all();
+        $examTypes = ExamType::all();
 
-            for ($i = 0; $i < 100; $i++) {
-                Exam::factory()->create([
-                    'school_id' => $school->id,
-                    'exam_type_id' => $examTypes->random()->id,
-                    'subject_id' => $subjects->random()->id,
-                    'classroom_id' => $classrooms->random()->id,
-                    'exam_status_id' => $ExamStatus->random()->id,
-                ]);
-            }
+        for ($i = 0; $i < 100; $i++) {
+            Exam::factory()->create([
+                'exam_type_id' => $examTypes->random()->id,
+                'subject_id' => $subjects->random()->id,
+                'classroom_id' => $classrooms->random()->id,
+                'exam_status_id' => $ExamStatus->random()->id,
+            ]);
         }
     }
 }

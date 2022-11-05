@@ -54,9 +54,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function isSuperAdmin()
+    public function isAdmin()
     {
-        return $this->role_id === 'SUPERADMIN';
+        return $this->role_id === 'ADMIN';
     }
 
     public function isDirector()

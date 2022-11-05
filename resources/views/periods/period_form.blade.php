@@ -8,10 +8,10 @@
 <h2 class="text-center">@if ($period->id) @lang('period.modify_period') @else @lang('period.create_period') @endif</h2>
 
 @if ($period->id)
-<form action="/schools/{{ $school->id }}/periods/{{ $period->id }}" method="POST">
+<form action="/periods/{{ $period->id }}" method="POST">
     @method('PUT')
     @else
-    <form action="/schools/{{ $school->id }}/periods" method="POST">
+    <form action="/periods" method="POST">
         @endif
 
         @csrf
@@ -21,7 +21,7 @@
                 *</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" required
-                    name="name" id="name" maxlength="30" value="{{ old('name', $period->name) }}" />
+                    name="name" id="name" maxlength="30" value="{{ old('name', $period->name) }}">
                 @if ($errors->has('name'))
                 <span class="text-danger">{{ $errors->first('name') }}</span>
                 @endif
@@ -34,7 +34,7 @@
             <div class="col-sm-2">
                 <input type="text" class="form-control form-control-sm @error('start_date') is-invalid @enderror"
                     required name="start_date" id="start_date" maxlength="10"
-                    value="{{ old('start_date', $period->start_date) }}" />
+                    value="{{ old('start_date', $period->start_date) }}">
                 @if ($errors->has('start_date'))
                 <span class="text-danger">{{ $errors->first('start_date') }}</span>
                 @endif
@@ -49,7 +49,7 @@
                 class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('period.end_date') : *</label>
             <div class="col-sm-2">
                 <input type="text" class="form-control form-control-sm @error('end_date') is-invalid @enderror" required
-                    name="end_date" id="end_date" maxlength="10" value="{{ old('end_date', $period->end_date) }}" />
+                    name="end_date" id="end_date" maxlength="10" value="{{ old('end_date', $period->end_date) }}">
                 @if ($errors->has('end_date'))
                 <span class="text-danger">{{ $errors->first('end_date') }}</span>
                 @endif
@@ -64,7 +64,7 @@
 
             <div class="col-sm-2">
                 <input type="checkbox" class="form-check-input" @if ($period->current) checked @endif name="current"
-                id="current"/>
+                id="current" >
                 @if ($errors->has('current'))
                 <span class="text-danger">{{ $errors->first('current') }}</span>
                 @endif
@@ -113,7 +113,7 @@
                     <p>@lang('period.p_warning_delete_period')</p>
                 </div>
                 <div class="modal-footer">
-                    <form class="form-inline" method="POST" action="/schools/{{$school->id}}/periods/{{$period->id}}">
+                    <form class="form-inline" method="POST" action="/periods/{{$period->id}}">
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">

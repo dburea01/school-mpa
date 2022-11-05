@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use App\Models\Assignment;
@@ -29,9 +28,7 @@ class StoreAssignmentRequest extends FormRequest
         return [
             'userIdToAssign' => [
                 'required',
-                Rule::exists('users', 'id')->where(function ($query) {
-                    return $query->where('school_id', $this->school->id);
-                }),
+                Rule::exists('users', 'id'),
             ],
         ];
     }
@@ -41,7 +38,6 @@ class StoreAssignmentRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             $assignment = Assignment::where('user_id', $this->userIdToAssign)
-            ->where('school_id', $this->route('school')->id)
             ->where('classroom_id', $this->route('classroom')->id)
             ->first();
 

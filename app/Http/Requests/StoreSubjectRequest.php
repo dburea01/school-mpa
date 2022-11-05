@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -26,13 +25,12 @@ class StoreSubjectRequest extends FormRequest
     public function rules(Request $request)
     {
         return [
-            'name' => 'required|max:30',
+            'name_fr' => 'required|max:30',
+            'name_en' => 'max:30',
             'short_name' => [
                 'required',
                 'min:2',
-                Rule::unique('subjects', 'short_name')->ignore($this->subject)->where(function ($query) use ($request) {
-                    return $query->where('school_id', $request->school->id);
-                }),
+                Rule::unique('subjects', 'short_name')->ignore($this->subject),
             ],
             'status' => 'required|in:ACTIVE,INACTIVE',
         ];

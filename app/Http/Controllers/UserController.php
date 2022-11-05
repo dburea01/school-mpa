@@ -26,9 +26,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(School $school, Request $request)
+    public function index(Request $request)
     {
-        $users = $this->userRepository->all($school->id, $request->all());
+        $users = $this->userRepository->all($request->all());
 
         if ($request->has('view')) {
             $view = $request->query('view');
@@ -41,7 +41,6 @@ class UserController extends Controller
         session(['view' => $view]);
 
         return view('users.users', [
-            'school' => $school,
             'users' => $users,
             'user_name' => $request->query('user_name', ''),
             'role_id' => $request->query('role_id', ''),
@@ -55,14 +54,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(School $school)
+    public function create()
     {
         $user = new User();
         $user->status = 'ACTIVE';
         $user->role_id = 'STUDENT';
 
         return view('users.user_form', [
-            'school' => $school,
             'user' => $user,
         ]);
     }
@@ -73,11 +71,10 @@ class UserController extends Controller
      * @param  \App\Http\Requests\StoreUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request, School $school)
+    public function store(StoreUserRequest $request)
     {
         // check if the user to create is a potential duplicated user.
         $existingUsers = $this->userRepository->getExistingUsers(
-            $school->id,
             $request->last_name,
             $request->first_name,
             $request->birth_date
@@ -85,36 +82,35 @@ class UserController extends Controller
 
         if ($existingUsers->count() !== 0) {
             $userToCreate = new User();
-            $userToCreate->school_id = $school->id;
             $userToCreate->fill($request->all());
 
-            return redirect("/schools/$school->id/users/potential-duplicated-user")->with([
+            return redirect('/users/potential-duplicated-user')->with([
                 'existingUsers' => $existingUsers,
                 'userToCreate' => $userToCreate,
             ]);
         }
 
         try {
-            $user = $this->userRepository->insert($school->id, $request->all());
+            $user = $this->userRepository->insert($request->all());
             if ($request->has('image_user')) {
-                $pathImage = $this->uploadMedia($school, $user, $request->image_user);
+                $pathImage = $this->uploadMedia($user, $request->image_user);
                 $this->userRepository->updateUserImage($user, $pathImage);
             }
 
-            return redirect("/schools/$school->id/users?user_name=$user->last_name")
+            return redirect("/users?user_name=$user->last_name")
             ->with('success', trans('user.user_created', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
     }
 
-    public function uploadMedia(School $school, User $user, $image)
+    public function uploadMedia(User $user, $image)
     {
         Image::make($image)->resize(config('params.image_width_redim'), null, function ($constraint) {
             $constraint->aspectRatio();
         })->save('resizedFile');
 
-        return Storage::disk('s3')->put("/{$school->s3_container}/users", new File('resizedFile'));
+        return Storage::disk('s3')->put('/users', new File('resizedFile'));
     }
 
     public function deleteMedia(User $user)
@@ -141,10 +137,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(School $school, User $user)
+    public function edit(User $user)
     {
         return view('users.user_form', [
-            'school' => $school,
             'user' => $user,
         ]);
     }
@@ -156,17 +151,17 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUserRequest $request, School $school, User $user)
+    public function update(StoreUserRequest $request, User $user)
     {
         try {
             $user = $this->userRepository->update($user, $request->all());
             if ($request->has('image_user')) {
                 $this->deleteMedia($user);
-                $pathImage = $this->uploadMedia($school, $user, $request->image_user);
+                $pathImage = $this->uploadMedia($user, $request->image_user);
                 $this->userRepository->updateUserImage($user, $pathImage);
             }
 
-            return redirect("schools/$school->id/users")
+            return redirect('/users')
             ->with('success', trans('user.user_updated', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -179,22 +174,21 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(School $school, User $user)
+    public function destroy(User $user)
     {
         try {
             $this->userRepository->destroy($user);
             $this->deleteMedia($user);
-            return redirect("/schools/$school->id/users")
+            return redirect('/users')
             ->with('success', trans('user.user_deleted', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
     }
 
-    public function potentialDuplicatedUser(School $school)
+    public function potentialDuplicatedUser()
     {
         return view('users.potential_duplicated_user', [
-            'school' => $school,
             'userToCreate' => session('userToCreate'),
             'existingUsers' => session('existingUsers'),
         ]);
@@ -203,27 +197,26 @@ class UserController extends Controller
     /**
      * todo : security
      */
-    public function savePotentialDuplicatedUser(School $school, Request $request)
+    public function savePotentialDuplicatedUser(Request $request)
     {
         try {
-            $user = $this->userRepository->insert($school->id, $request->all());
+            $user = $this->userRepository->insert($request->all());
 
-            return redirect('/schools/' . $school->id . '/users')
+            return redirect('/users')
             ->with('success', 'User ' . $user->full_name . ' created.');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
     }
 
-    public function usersOfAGroup(Request $request, School $school, Group $group)
+    public function usersOfAGroup(Request $request, Group $group)
     {
-        $usersOfAGroup = $this->userRepository->usersOfAGroup($school->id, $group->id);
+        $usersOfAGroup = $this->userRepository->usersOfAGroup($group->id);
         $usersFiltered = $request->has('user_name') && $request->user_name !== '' ?
-            $this->userRepository->all($school->id, $request->all())
+            $this->userRepository->all($request->all())
             : [];
 
         return view('users.users_of_a_group', [
-            'school' => $school,
             'group' => $group,
             'usersOfAGroup' => $usersOfAGroup,
             'usersFiltered' => $usersFiltered,
@@ -231,21 +224,21 @@ class UserController extends Controller
         ]);
     }
 
-    public function addUserForAGroup(Request $request, School $school, Group $group)
+    public function addUserForAGroup(Request $request, Group $group)
     {
         $this->authorize('create', Group::class);
         try {
             $this->userRepository->addUserForAGroup($group->id, $request->user_id);
             $user = User::find($request->user_id);
 
-            return redirect("/schools/$school->id/groups/$group->id/users?user_name=$request->user_name")
+            return redirect("/groups/$group->id/users?user_name=$request->user_name")
             ->with('success', trans('user.user_added_to_family', ['name' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', 'an error occured.');
         }
     }
 
-    public function removeUserFromAGroup(School $school, Group $group, User $user)
+    public function removeUserFromAGroup(Group $group, User $user)
     {
         $this->authorize('delete', [Group::class, $group]);
 
@@ -258,10 +251,9 @@ class UserController extends Controller
         }
     }
 
-    public function autocomplete(School $school, Request $request)
+    public function autocomplete(Request $request)
     {
-        return User::where('school_id', $school->id)
-        ->where(function ($query) use ($request) {
+        return User::where(function ($query) use ($request) {
             $query->where('last_name', 'ilike', '%' . $request->search . '%')
             ->orWhere('first_name', 'ilike', '%' . $request->search . '%');
         })

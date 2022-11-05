@@ -16,7 +16,7 @@
                 {{ $student->last_name.' '.$student->first_name }}
             </div>
             <div class="col-md-8">
-                <form class="row" action="/schools/{{ $school->id }}/exams/{{ $exam->id }}/results" method="POST">
+                <form class="row" action="/exams/{{ $exam->id }}/results" method="POST">
                     @csrf
                     <input type="text" name="user_id" value="{{ $student->id }}">
                     <div class="col-3">

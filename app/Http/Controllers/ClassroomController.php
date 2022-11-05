@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClassroomRequest;
@@ -29,52 +28,38 @@ class ClassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, School $school)
+    public function index(Request $request)
     {
-        $currentPeriod = $this->periodRepository->getCurrentPeriod($school);
+        $currentPeriod = $this->periodRepository->getCurrentPeriod();
         $periodIdToDisplay = $request->query('period_id', $currentPeriod->id);
 
-        $classrooms = $this->classroomRepository->all($school, $periodIdToDisplay);
+        $classrooms = $this->classroomRepository->all($periodIdToDisplay);
 
         return view('classrooms.classrooms', [
-            'school' => $school,
             'classrooms' => $classrooms,
             'currentPeriod' => $currentPeriod,
             'periodIdToDisplay' => $periodIdToDisplay,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(School $school)
+    public function create()
     {
         $classroom = new Classroom();
         $classroom->status = 'ACTIVE';
-        $classroom->school_id = $school->id;
-        $classroom->period_id = $this->periodRepository->getCurrentPeriod($school)->id;
+        $classroom->period_id = $this->periodRepository->getCurrentPeriod()->id;
 
         return view('classrooms.classroom_form', [
-            'school' => $school,
             'classroom' => $classroom,
-            'periods' => $this->periodRepository->all($school),
+            'periods' => $this->periodRepository->all(),
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreClassroomRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(School $school, StoreClassroomRequest $request)
+    public function store(StoreClassroomRequest $request)
     {
         try {
-            $classroom = $this->classroomRepository->insert($school, $request->all());
+            $classroom = $this->classroomRepository->insert($request->all());
 
-            return redirect("schools/$school->id/classrooms?period_id=$classroom->period_id")
+            return redirect("/classrooms?period_id=$classroom->period_id")
             ->with('success', trans('classroom.classroom_created', ['name' => $classroom->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
@@ -98,12 +83,11 @@ class ClassroomController extends Controller
      * @param  \App\Models\Classroom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function edit(School $school, Classroom $classroom)
+    public function edit(Classroom $classroom)
     {
         return view('classrooms.classroom_form', [
-            'school' => $school,
             'classroom' => $classroom,
-            'periods' => $this->periodRepository->all($school),
+            'periods' => $this->periodRepository->all(),
         ]);
     }
 
@@ -114,30 +98,24 @@ class ClassroomController extends Controller
      * @param  \App\Models\Classroom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreClassroomRequest $request, School $school, Classroom $classroom)
+    public function update(StoreClassroomRequest $request, Classroom $classroom)
     {
         try {
             $classroomUpdated = $this->classroomRepository->update($classroom, $request->all());
 
-            return redirect("schools/$school->id/classrooms?period_id=$classroomUpdated->period_id")
+            return redirect("classrooms?period_id=$classroomUpdated->period_id")
             ->with('success', trans('classroom.classroom_updated', ['name' => $classroomUpdated->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Classroom  $classroom
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(School $school, Classroom $classroom)
+    public function destroy(Classroom $classroom)
     {
         try {
             $this->classroomRepository->destroy($classroom);
 
-            return redirect("schools/$school->id/classrooms?period_id=$classroom->period_id")
+            return redirect("classrooms?period_id=$classroom->period_id")
             ->with('success', trans('classroom.classroom_deleted', ['name' => $classroom->name]));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());

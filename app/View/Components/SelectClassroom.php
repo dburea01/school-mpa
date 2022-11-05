@@ -25,13 +25,12 @@ class SelectClassroom extends Component
      *
      * @return void
      */
-    public function __construct(School $school, $name, $id, $required, $value, $placeholder = '')
+    public function __construct($name, $id, $required, $value, $placeholder = '')
     {
         $periodRepository = new PeriodRepository();
-        $currentPeriod = $periodRepository->getCurrentPeriod($school);
+        $currentPeriod = $periodRepository->getCurrentPeriod();
 
-        $this->classrooms = Classroom::where('school_id', $school->id)
-        ->where('period_id', $currentPeriod->id)->orderBy('name')->get();
+        $this->classrooms = Classroom::where('period_id', $currentPeriod->id)->orderBy('name')->get();
         $this->name = $name;
         $this->id = $id;
         $this->required = $required;

@@ -1,32 +1,27 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repositories;
 
 use App\Models\Period;
 use App\Models\School;
+use Illuminate\Support\Facades\DB;
 
 class PeriodRepository
 {
-    public function all(School $school)
+    public function all()
     {
-        return Period::where('school_id', $school->id)->orderBy('start_date', 'desc')->get();
+        return Period::orderBy('start_date', 'desc')->get();
     }
 
-    public function getPeriod(School $school, string $periodId)
-    {
-        return Period::where('school_id', $school->id)->where('id', $periodId)->first();
-    }
-
-    public function update(Period $period, array $data)
+    public function update(Period $period, array $data): Period
     {
         $period->fill($data);
         $period->current = array_key_exists('current', $data) ? true : false;
         $period->save();
 
         if (array_key_exists('current', $data)) {
-            $this->setCurrentPeriod($period->school_id, $period->id);
+            $this->setCurrentPeriod($period->id);
         }
 
         return $period;
@@ -37,35 +32,32 @@ class PeriodRepository
         $period->delete();
     }
 
-    public function insert(School $school, array $data)
+    public function insert(array $data): Period
     {
         $period = new Period();
-        $period->school_id = $school->id;
         $period->fill($data);
         $period->save();
 
         if (array_key_exists('current', $data)) {
-            $this->setCurrentPeriod($school->id, $period->id);
+            $this->setCurrentPeriod($period->id);
         }
 
         return $period;
     }
 
-    public function setCurrentPeriod(string $schoolId, string $periodId): Period
+    public function setCurrentPeriod(int $periodId): Period
     {
-        Period::where('school_id', $schoolId)->update(['current' => false]);
+        DB::table('periods')->update(['current' => false]);
 
-        $newCurrentPeriod = Period::where('school_id', $schoolId)->where('id', $periodId)->first();
+        $newCurrentPeriod = Period::find($periodId);
         $newCurrentPeriod->current = true;
         $newCurrentPeriod->save();
 
         return $newCurrentPeriod;
     }
 
-    public function getCurrentPeriod(School $school): ?Period
+    public function getCurrentPeriod(): ?Period
     {
-        return Period::where('school_id', $school->id)
-        ->where('current', true)
-        ->first();
+        return Period::where('current', true)->first();
     }
 }

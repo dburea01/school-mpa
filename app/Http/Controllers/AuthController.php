@@ -40,8 +40,8 @@ class AuthController extends Controller
     public function dashboard()
     {
         switch (Auth::user()->role_id) {
-            case 'SUPERADMIN':
-                $view = 'dashboardSuperAdmin';
+            case 'ADMIN':
+                $view = 'dashboardAdmin';
                 break;
 
             case 'DIRECTOR':

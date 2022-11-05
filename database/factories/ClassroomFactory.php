@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -14,7 +13,8 @@ class ClassroomFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Classroom '.strtoupper($this->faker->randomLetter()).rand(1, 9),
+            'name' => 'Classroom ' . strtoupper($this->faker->randomLetter())
+            . strtoupper($this->faker->randomLetter()) . rand(1, 9),
             'comment' => $this->faker->sentence(),
             'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
         ];

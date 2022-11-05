@@ -1,7 +1,5 @@
 @extends('layouts.app_layout')
-
-@section('title', 'school')
-
+@section('title', __('titles.subjects'))
 @section('content')
 
 @include('errors.session-values')
@@ -11,25 +9,13 @@
 </h2>
 
 @if ($subject->id)
-<form action="/schools/{{ $school->id }}/subjects/{{ $subject->id }}" method="POST">
+<form action="/subjects/{{ $subject->id }}" method="POST">
     @method('PUT')
     @else
-    <form action="/schools/{{ $school->id }}/subjects" method="POST">
+    <form action="/subjects" method="POST">
         @endif
 
         @csrf
-
-        <div class="row mb-3">
-            <label for="name" class="col-sm-2 col-form-label col-form-label-sm text-truncate">@lang('subject.name') :
-                *</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" required
-                    name="name" id="name" maxlength="30" value="{{ old('name', $subject->name) }}" />
-                @if ($errors->has('name'))
-                <span class="text-danger">{{ $errors->first('name') }}</span>
-                @endif
-            </div>
-        </div>
 
         <div class="row mb-3">
             <label for="short_name"
@@ -44,6 +30,36 @@
                 @endif
             </div>
         </div>
+
+        <div class="row mb-3">
+            <label for="name_fr" class="col-sm-2 col-form-label col-form-label-sm text-truncate">
+                @lang('subject.name_fr') :
+                *</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control form-control-sm @error('name_fr') is-invalid @enderror" required
+                    name="name_fr" id="name_fr" maxlength="30"
+                    value="{{ old('name_fr', $subject->getTranslation('name', 'fr')) }}">
+                @if ($errors->has('name_fr'))
+                <span class="text-danger">{{ $errors->first('name_fr') }}</span>
+                @endif
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="name_en" class="col-sm-2 col-form-label col-form-label-sm text-truncate">
+                @lang('subject.name_en') :
+            </label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control form-control-sm @error('name_en') is-invalid @enderror"
+                    name="name_en" id="name_en" maxlength="30"
+                    value="{{ old('name_en', $subject->getTranslation('name','en')) }}">
+                @if ($errors->has('name_en'))
+                <span class="text-danger">{{ $errors->first('name_en') }}</span>
+                @endif
+            </div>
+        </div>
+
+
 
         <div class="row mb-3">
             <label for="status" class="col-sm-2 col-form-label col-form-label-sm">@lang('subject.status') : *</label>
@@ -99,7 +115,7 @@
                     <p>@lang('subject.p_warning_delete_subject')</p>
                 </div>
                 <div class="modal-footer">
-                    <form class="form-inline" method="POST" action="/schools/{{$school->id}}/subjects/{{$subject->id}}">
+                    <form class="form-inline" method="POST" action="/subjects/{{$subject->id}}">
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">

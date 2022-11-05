@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Policies;
 
 use App\Models\School;
@@ -12,7 +11,7 @@ class SchoolPolicy
 
     public function before(User $user)
     {
-        if ($user->isSuperAdmin()) {
+        if ($user->isAdmin()) {
             return true;
         }
     }
@@ -32,12 +31,11 @@ class SchoolPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\School  $school
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, School $school)
+    public function view(User $user)
     {
-        return $user->school_id === $school->id && $user->isDirector();
+        return $user->isDirector();
     }
 
     /**
@@ -55,19 +53,17 @@ class SchoolPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\School  $school
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, School $school)
+    public function update(User $user)
     {
-        return $user->school_id === $school->id && $user->isDirector();
+        return $user->isDirector();
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\School  $school
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete()

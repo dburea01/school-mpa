@@ -14,9 +14,8 @@ class CreateAssignmentsTable extends Migration
     public function up()
     {
         Schema::create('assignments', function (Blueprint $table): void {
-            $table->uuid('id')->primary();
-            $table->uuid('school_id');
-            $table->uuid('classroom_id');
+            $table->id();
+            $table->integer('classroom_id');
             $table->uuid('user_id');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
@@ -24,9 +23,8 @@ class CreateAssignmentsTable extends Migration
             $table->timestamps();
             $table->string('created_by');
             $table->string('updated_by')->nullable();
-            $table->unique(['school_id', 'classroom_id', 'user_id']);
+            $table->unique(['classroom_id', 'user_id']);
 
-            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
         });

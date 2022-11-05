@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repositories;
 
 use App\Models\Assignment;
@@ -9,10 +8,9 @@ use App\Models\User;
 
 class AssignmentRepository
 {
-    public function index(School $school, Classroom $classroom)
+    public function index(Classroom $classroom)
     {
-        $assignments = Assignment::where('school_id', $school->id)
-        ->where('classroom_id', $classroom->id)
+        $assignments = Assignment::where('classroom_id', $classroom->id)
         ->with('user')
         ->get();
 
@@ -27,10 +25,9 @@ class AssignmentRepository
         $assignment->delete();
     }
 
-    public function insert(School $school, Classroom $classroom, User $userToAssign): Assignment
+    public function insert(Classroom $classroom, User $userToAssign): Assignment
     {
         return Assignment::create([
-            'school_id' => $school->id,
             'classroom_id' => $classroom->id,
             'user_id' => $userToAssign->id,
         ]);

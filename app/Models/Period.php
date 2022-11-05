@@ -7,14 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Period extends Model
 {
-    use HasFactory, HasUuid, HasCreatedUpdatedBy;
-
-    public $incrementing = false;
-
-    protected $keyType = 'string';
+    use HasFactory, HasCreatedUpdatedBy;
 
     protected $fillable = [
-        'school_id',
         'name',
         'start_date',
         'end_date',
@@ -32,14 +27,9 @@ class Period extends Model
         return $this->getStartDateAttribute($value);
     }
 
-    public static function getCurrentPeriod(String $schoolId = null): ?Period
+    public static function getCurrentPeriod(): ?Period
     {
-        return Period::where('school_id', $schoolId)->where('current', true)->first();
-    }
-
-    public function school()
-    {
-        return $this->belongsTo(School::class);
+        return Period::where('current', true)->first();
     }
 
     public function classrooms()

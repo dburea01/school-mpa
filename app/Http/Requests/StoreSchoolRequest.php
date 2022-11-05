@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Requests;
 
+use App\Models\School;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -14,7 +15,7 @@ class StoreSchoolRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can('update', School::class);
     }
 
     /**
@@ -32,16 +33,6 @@ class StoreSchoolRequest extends FormRequest
             'city' => $this->requiredAndMax(),
             'country_id' => 'required|size:2',
             'zip_code' => 'required|max:10',
-            'max_users' => [
-                Rule::requiredIf($request->user()->isSuperAdmin()),
-                'int',
-                'gt:0',
-            ],
-            'status' => [
-                Rule::requiredIf($request->user()->isSuperAdmin()),
-                'in:ACTIVE,INACTIVE',
-            ],
-            's3_container' => 'required',
         ];
     }
 

@@ -5,7 +5,7 @@ return [
     'name' => 'Name',
     'start_date' => 'Start date',
     'end_date' => 'End date',
-    'current' => 'Current period ?',
+    'current' => 'Current period',
     'comment' => 'Comment',
     'date_format' => 'dd/mm/yyyy',
     'save' => 'Save',

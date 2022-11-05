@@ -1,22 +1,23 @@
 <?php
-
-declare(strict_types=1);
-
 namespace App\Repositories;
 
-use App\Models\School;
 use App\Models\Subject;
 
 class SubjectRepository
 {
-    public function all($school)
+    public function all()
     {
-        return Subject::where('school_id', $school->id)->orderBy('name->App::getLocale()')->get();
+        return Subject::orderBy('short_name')->get();
     }
 
-    public function update(Subject $subject, array $data)
+    public function update(Subject $subject, array $data): Subject
     {
         $subject->fill($data);
+
+        $subject->name = [
+            'fr' => $data['name_fr'],
+            'en' => $data['name_en']
+        ];
         $subject->save();
 
         return $subject;
@@ -27,11 +28,14 @@ class SubjectRepository
         $subject->delete();
     }
 
-    public function insert(School $school, array $data)
+    public function insert(array $data): Subject
     {
         $subject = new Subject();
-        $subject->school_id = $school->id;
         $subject->fill($data);
+        $subject->name = [
+            'fr' => $data['name_fr'],
+            'en' => $data['name_en']
+        ];
         $subject->save();
 
         return $subject;

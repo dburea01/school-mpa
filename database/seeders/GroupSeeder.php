@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Group;
@@ -15,13 +14,6 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        $schools = School::all();
-
-        // create some groups for each school
-        foreach ($schools as $school) {
-            Group::factory()->count(random_int(5, 20))->create([
-                'school_id' => $school->id,
-            ]);
-        }
+        Group::factory()->count(100)->create();
     }
 }

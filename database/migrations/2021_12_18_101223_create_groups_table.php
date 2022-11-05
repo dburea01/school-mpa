@@ -15,7 +15,6 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('school_id');
             $table->string('name');
             $table->text('comment')->nullable();
             $table->text('address1')->nullable();
@@ -28,8 +27,6 @@ class CreateGroupsTable extends Migration
             $table->string('created_by');
             $table->string('updated_by')->nullable();
             $table->timestamps();
-
-            $table->foreign('school_id')->references('id')->on('schools')->cascadeOnDelete();
         });
     }
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\View\Components;
 
 use Illuminate\View\Component;
@@ -7,8 +6,6 @@ use Illuminate\View\Component;
 class GroupTabs extends Component
 {
     public $activeTab;
-
-    public $schoolId;
 
     public $groupId;
 
@@ -19,10 +16,9 @@ class GroupTabs extends Component
      *
      * @return void
      */
-    public function __construct($activeTab, $schoolId, $groupId, $newGroup)
+    public function __construct($activeTab, $groupId, $newGroup)
     {
         $this->activeTab = $activeTab;
-        $this->schoolId = $schoolId;
         $this->groupId = $groupId;
         $this->newGroup = $newGroup;
     }

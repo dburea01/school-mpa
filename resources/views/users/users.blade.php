@@ -5,14 +5,13 @@
 @include('errors.session-values')
 
 
-<h1 class="text-center">@lang('users.title') ({{ $users->total() }})&nbsp;<a
-        href="/schools/{{ $school->id }}/users/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"
-            aria-hidden="true"></i>
+<h1 class="text-center">@lang('users.title') ({{ $users->total() }})&nbsp;<a href="/users/create"
+        class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
         @lang('users.add')</a></h1>
 
 <div class="row mt-3 mb-3 d-flex justify-content-center">
     <div class="col-md-10">
-        <form class="row" action="/schools/{{ $school->id }}/users">
+        <form class="row" action="/users">
             <div class="col-md-3 col-sm-12">
                 <input type="text" class="form-control form-control-sm mr-sm-2" name="user_name" id="user_name"
                     placeholder="@lang('users.filter_by_user_name')" value="{{ $user_name }}">
@@ -35,13 +34,13 @@
             <div class="col-md-1 btn-group" role="group" aria-label="wiew style">
 
                 <input type="radio" class="btn-check" name="view" id="list" value="list" @if ($view==='list' ) checked
-                    @endif onchange="this.form.submit() ">
+                    @endif onchange="this.form.submit()" aria-label="users without media">
                 <label class="btn btn-sm btn-outline-primary" for="list">
                     <i class="bi bi-list" aria-hidden="true"></i>
                 </label>
 
                 <input type="radio" class="btn-check" name="view" id="media" value="media" @if ($view==='media' )
-                    checked @endif onchange="this.form.submit() ">
+                    checked @endif onchange="this.form.submit()" aria-label="users with media">
                 <label class="btn btn-sm btn-outline-primary" for="media">
                     <i class="bi bi-list-stars" aria-hidden="true"></i>
                 </label>
@@ -72,7 +71,7 @@
                 @foreach ($users as $user)
                 <tr class="align-middle">
                     <td>
-                        <a href=" /schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{ $user->full_name }}</a>
+                        <a href="/users/{{ $user->id }}/edit">{{ $user->full_name }}</a>
 
                         @if ($user->status === 'INACTIVE')
                         <x-alert-user-inactive />
@@ -83,8 +82,7 @@
                     <td>
                         @foreach($user->user_groups as $user_group)
                         @php $group = \App\Models\Group::find($user_group->group_id) @endphp
-                        <span class="badge bg-info"><a
-                                href="/schools/{{ $school->id }}/groups/{{ $user_group->group_id }}/users">{{
+                        <span class="badge bg-info"><a href="/groups/{{ $user_group->group_id }}/users">{{
                                 $group->name }}</a></span>
 
                         @endforeach
@@ -109,7 +107,7 @@
             </div>
 
             <div class="col-md-10 ps-5">
-                <h3><a href="/schools/{{ $school->id }}/users/{{ $user->id }}/edit">{{ $user->full_name }}</a> ({{
+                <h3><a href="/users/{{ $user->id }}/edit">{{ $user->full_name }}</a> ({{
                     $user->role->name }})</h3>
                 <h6>{{ $user->email }}</h6>
                 @if ($user->status === 'INACTIVE')
@@ -117,8 +115,7 @@
                 @endif
                 @foreach($user->user_groups as $user_group)
                 @php $group = \App\Models\Group::find($user_group->group_id) @endphp
-                <span class="badge bg-info"><a
-                        href="/schools/{{ $school->id }}/groups/{{ $user_group->group_id }}/users">{{
+                <span class="badge bg-info"><a href="/groups/{{ $user_group->group_id }}/users">{{
                         $group->name }}</a></span>
 
                 @endforeach

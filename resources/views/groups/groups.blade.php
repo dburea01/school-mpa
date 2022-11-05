@@ -7,13 +7,12 @@
     </div>
 </div>
 
-<h1 class="text-center">@lang('groups.title') ({{$groups->total()}})&nbsp;<a
-        href="/schools/{{ $school->id }}/groups/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle"
-            aria-hidden="true"></i>
+<h1 class="text-center">@lang('groups.title') ({{$groups->total()}})&nbsp;<a href="/groups/create"
+        class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
         @lang('groups.add')</a></h1>
 
 <div class="row mt-3 mb-3">
-    <form class="row col-md-8 mx-auto" action="/schools/{{ $school->id }}/groups">
+    <form class="row col-md-8 mx-auto" action="/groups">
         <div class="col-md-3 col-sm-12">
             <input type="text" class="form-control form-control-sm mr-sm-2" name="group_name" id="group_name"
                 placeholder="@lang('groups.filter_by_group_name')" value="{{ $group_name }}">
@@ -46,14 +45,14 @@
                 @foreach ($groups as $group)
                 <tr>
                     <td>
-                        <a href="/schools/{{ $school->id }}/groups/{{ $group->id }}/edit">{{ $group->name }}</a>
+                        <a href="/groups/{{ $group->id }}/edit">{{ $group->name }}</a>
                         @if ($group->status === 'INACTIVE')
                         <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"
                             title="@lang('groups.group_inactive')"></i>
                         @endif
                     </td>
                     <td>{{ $group->city }}</td>
-                    <td><a href="/schools/{{ $school->id }}/groups/{{ $group->id }}/users">{{ $group->user_groups_count
+                    <td><a href="/groups/{{ $group->id }}/users">{{ $group->user_groups_count
                             }}</a>
                     </td>
                 </tr>

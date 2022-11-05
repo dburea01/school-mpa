@@ -48,9 +48,9 @@ class CreateRolesTable extends Migration
                 'displayable' => true,
             ],
             [
-                'id' => 'SUPERADMIN',
+                'id' => 'ADMIN',
                 'position' => 50,
-                'name' => ['en' => 'Super Administrator', 'fr' => 'Super Administrateur'],
+                'name' => ['en' => 'Administrator', 'fr' => 'Administrateur'],
                 'displayable' => false,
             ],
 

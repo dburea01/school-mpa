@@ -28,9 +28,8 @@
                     <a href="#" aria-label="hamburger button"><i class="bi bi-list" aria-hidden="true"></i></a>
                 </div>
                 <span class="text-truncate navbartitle">
-                    {{ isset(Auth::user()->school) ? Auth::user()->school->name : 'no school' }} -
                     @php
-                    $currentPeriod = App\Models\Period::getCurrentPeriod(Auth::user()->school_id);
+                    $currentPeriod = App\Models\Period::getCurrentPeriod();
                     @endphp
 
                     @if (null !== $currentPeriod)

@@ -22,12 +22,11 @@ class ResultController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(School $school, Exam $exam)
+    public function index(Exam $exam)
     {
-        $students = $this->resultRepository->index($school, $exam);
+        $students = $this->resultRepository->index($exam);
 
         return view('results.results', [
-            'school' => $school,
             'exam' => $exam,
             'students' => $students
         ]);
@@ -49,12 +48,12 @@ class ResultController extends Controller
      * @param  \App\Http\Requests\StoreResultRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(School $school, Exam $exam, StoreResultRequest $request)
+    public function store(Exam $exam, StoreResultRequest $request)
     {
         try {
-            $this->resultRepository->delete($school, $exam, $request->user_id);
-            $this->resultRepository->insert($school, $exam, $request->all());
-            return redirect("schools/$school->id/exams/$exam->id/results")->with(
+            $this->resultRepository->delete($exam, $request->user_id);
+            $this->resultRepository->insert($exam, $request->all());
+            return redirect("exams/$exam->id/results")->with(
                 'success',
                 trans('results.result_saved')
             );
