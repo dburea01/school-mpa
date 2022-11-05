@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'List of periods',
+    'title' => 'The periods',
     'add' => 'Create a period',
     'name' => 'Name',
     'start_date' => 'Start_date',

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppreciationController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassroomController;
@@ -63,6 +64,9 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the subjects of the school
     Route::resource('subjects', SubjectController::class)->names('subjects');
+
+    // routes for the appreciations of the school
+    Route::resource('appreciations', AppreciationController::class)->names('appreciations');
 
     // routes for the periods of a school
     Route::resource('periods', PeriodController::class)->names('periods');

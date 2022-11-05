@@ -1,107 +1,82 @@
-<div class="sidebar">
-    <div class="profile">
-        <i class="bi bi-person-circle profile-icon" aria-hidden="true"></i>
-        <h1 class="text-truncate">{{ Auth::user()->full_name }}</h1>
-        <p>{{ Auth::user()->role->name }}</p>
+<nav class="navbar navbar-expand-md">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">LaraSchool</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">LaraSchool</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Tony BANKS
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Menu 2
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Menu 3
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="img/flag_en.png" alt="en" />
+
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/change-locale/fr"><img src="img/flag_fr.png" alt="fr" />
+                                    Français</a></li>
+                            <li><a class="dropdown-item" href="/change-locale/en"><img src="img/flag_en.png" alt="en" />
+                                    English</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+                <span class="navbar-text text-truncate"> Ecole Sainte Marie (Année scolaire
+                    2021-2022)
+                </span>
+
+            </div>
+        </div>
     </div>
-    <ul>
-        <li>
-            <a href="/dashboard" @class(['active'=> Route::currentRouteName() === 'dashboard'])>
-                <span class="icon"><i class="bi bi-house" aria-hidden="true"></i></span>
-                <span class="item">Home</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="icon"><i class="bi bi-person-circle" aria-hidden="true"></i></span>
-                <span class="item">My profil (todo)</span>
-            </a>
-        </li>
-        <li>
-            <a href="/logout">
-                <span class="icon"><i class="bi bi-box-arrow-left" aria-hidden="true"></i></span>
-                <span class="item">@lang('menu.logout')</span>
-            </a>
-        </li>
-
-
-
-        @if (Auth::user()->isAdmin())
-
-        <li>
-            <a href="/schools/edit" @class( ['active'=>
-                in_array(Route::currentRouteName(), [
-                'schools.edit'])])>
-                <span class="icon"><i class="bi bi-building" aria-hidden="true"></i></span>
-                <span class="item">@lang('menu.myschool')</span>
-            </a>
-        </li>
-
-        <li>
-            <a href="/users" @class( ['active'=>
-                in_array(Route::currentRouteName(), [
-                'users.index', 'users.edit'])])>
-                <span class="icon"><i class="bi bi-people" aria-hidden="true"></i></span>
-                <span class="item">@lang('menu.users')</span>
-            </a>
-        </li>
-        <li>
-            <a href="/groups" @class( ['active'=>
-                in_array(Route::currentRouteName(), [
-                'groups.index', 'groups.edit', 'users_group'])])>
-                <span class="icon"><i class="bi bi-person-lines-fill" aria-hidden="true"></i></span>
-                <span class="item">@lang('menu.groups')</span>
-            </a>
-        </li>
-        <li>
-            <a href="/subjects" @class( ['active'=>
-                in_array(Route::currentRouteName(), [
-                'subjects.index', 'subjects.edit'])])>
-                <span class="icon"><i class="bi bi-boxes" aria-hidden="true"></i></span>
-                <span class="item">@lang('menu.subjects')</span>
-            </a>
-        </li>
-        <li>
-            <a href="/periods" @class( ['active'=>
-                in_array(Route::currentRouteName(), [
-                'periods.index', 'periods.edit'])])>
-                <span class="icon"><i class="bi bi-calendar3" aria-hidden="true"></i></span>
-                <span class="item">@lang('menu.periods')</span>
-            </a>
-        </li>
-        <li>
-            <a href="/classrooms" @class( ['active'=>
-                in_array(Route::currentRouteName(), [
-                'classrooms.index', 'classrooms.edit'])])>
-                <span class="icon"><i class="bi bi-square" aria-hidden="true"></i></span>
-                <span class="item">@lang('menu.classrooms')</span>
-            </a>
-        </li>
-        <li>
-            <a href="/reports" @class( ['active'=>
-                in_array(Route::currentRouteName(), [
-                'reports'])])>
-                <span class="icon"><i class="bi bi-speedometer2" aria-hidden="true"></i></span>
-                <span class="item">@lang('menu.reports')</span>
-            </a>
-        </li>
-        @endif
-
-        @if (Auth::user()->isAdmin() || Auth::user()->isDirector() || Auth::user()->isTeacher())
-        <li>
-            <a href="/exams" @class( ['active'=>
-                in_array(Route::currentRouteName(), [
-                'exams.index', 'exams.edit'])])>
-                <span class="icon"><i class="bi bi-book" aria-hidden="true"></i></span>
-                <span class="item">@lang('menu.exams')</span>
-            </a>
-        </li>
-        @endif
-
-
-
-
-
-
-    </ul>
-</div>
+</nav>

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'List of subjects',
+    'title' => 'The subjects',
     'add' => 'Create a subject',
     'short_name' => 'Short name',
     'name' => 'Name',
