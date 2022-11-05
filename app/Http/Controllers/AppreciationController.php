@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAppreciationRequest;
 use App\Models\Appreciation;
 use App\Repositories\AppreciationRepository;
+use Illuminate\Http\Request;
 
 class AppreciationController extends Controller
 {
@@ -77,6 +78,19 @@ class AppreciationController extends Controller
             ->with('success', trans('appreciation.appreciation_deleted', ['name' => $appreciation->name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function sortAppreciations(Request $request)
+    {
+        // order contains
+        // 'order' => 'shortname[]=1&shortname[]=2&shortname[]=4&shortname[]=5&shortname[]=3'
+
+        $order = str_replace('shortname[]=', '', $request->order);
+        $orders = explode('&', $order);
+        foreach ($orders as $key => $value) {
+            Appreciation::where('id', $value)
+                ->update(['position' => $key]);
         }
     }
 }

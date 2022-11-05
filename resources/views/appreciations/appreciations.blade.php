@@ -4,6 +4,9 @@
 
 @include('errors.session-values')
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+
 
 <h1 class="text-center">@lang('appreciations.title') ({{$appreciations->count()}})&nbsp;
     <a href="/appreciations/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
@@ -45,10 +48,57 @@
 
         </table>
 
+        <div id="sortable">
+            @foreach ($appreciations as $appreciation)
+            <div class="row ui-state-default p-3" id="shortname_{{ $appreciation->id }}">
+                <span><i class="bi bi-arrow-down-up"></i>&nbsp;
+                    {{$appreciation->short_name}} - {{ $appreciation->name }}</span>
+            </div>
+            @endforeach
+        </div>
+
     </div>
 
 </div>
 
 
+
+@endsection
+
+
+
+
+
+
+@section('extra_js')
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function(){
+
+        $( "#sortable" ).sortable({
+            update: function( event, ui ) {
+                let order = $(this).sortable('serialize');
+                
+                $.ajax({
+                url: "/appreciations/sort",
+                method: "POST",
+                data: {order : order},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                dataType: "json",
+                statusCode: {
+                    200: function() {
+                        alert( "appreciations sorted." );
+                    }
+                }
+            });
+            }
+        });
+    });
+</script>
 
 @endsection

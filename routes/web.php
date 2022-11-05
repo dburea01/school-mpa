@@ -67,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the appreciations of the school
     Route::resource('appreciations', AppreciationController::class)->names('appreciations');
+    Route::post('appreciations/sort', [AppreciationController::class, 'sortAppreciations']);
 
     // routes for the periods of a school
     Route::resource('periods', PeriodController::class)->names('periods');
