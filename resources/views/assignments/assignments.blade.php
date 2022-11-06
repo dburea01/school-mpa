@@ -32,19 +32,19 @@
 </div>
 
 <div class="row">
-    <div class="col-md-8 mx-auto">
+    <div class="col-md-6">
         <table class="table table-sm table-striped table-bordered table-hover" aria-label="List of assignments">
 
             <thead>
                 <tr>
-                    <th colspan="2">@lang('assignments.assigned_users')</th>
+                    <th colspan="2">@lang('assignments.assigned_students')</th>
                     <th colspan="2">@lang('assignments.birthdates')</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach ($assignments as $assignment)
+                @foreach ($assignmentStudents as $assignment)
                 <tr>
                     <td>
                         <a href="/users/{{ $assignment->user->id }}/edit">{{
@@ -92,22 +92,71 @@
 
     </div>
 
-    <div class="col-md-2 mx-auto">
+    <div class="col-md-6">
+        <table class="table table-sm table-striped table-bordered table-hover" aria-label="List of assignments">
+
+            <thead>
+                <tr>
+                    <th>@lang('assignments.assigned_teachers')</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach ($assignmentTeachers as $assignment)
+                <tr>
+                    <td>
+                        <a href="/users/{{ $assignment->user->id }}/edit">{{
+                            $assignment->user->fullName }}</a>
+                        @if ($assignment->user->status === 'INACTIVE')
+                        <x-alert-user-inactive />
+                        @endif
+                    </td>
+
+
+
+                    <td>
+                        <form @php $action="/classrooms/$classroom->id/assignments/$assignment->id" @endphp action={{
+                            $action }} method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" aria-label="add"
+                                title="@lang('assignments.delete_assignment')">
+                                <i class="bi bi-trash" aria-hidden="true"></i> </button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+
+        </table>
+
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-2">
 
 
 
         <table class="table table-sm table-bordered table-hover" aria-label="List of assignments">
             <tr>
                 <th>@lang('assignments.students_male')</th>
-                <td>{{ $qtyBoys }}</td>
+                <td>{{ $assignmentStudents->filter(function ($assignment) {
+                    return $assignment->user->gender_id === '1';
+                    })->count() }}</td>
             </tr>
             <tr>
                 <th>@lang('assignments.students_female')</th>
-                <td>{{ $qtyGirls }}</td>
+                <td>{{ $assignmentStudents->filter(function ($assignment) {
+                    return $assignment->user->gender_id === '2';
+                    })->count() }}</td>
             </tr>
             <tr>
                 <th>@lang('assignments.students_total')</th>
-                <td>{{$assignments->count() }}</td>
+                <td>{{$assignmentStudents->count() }}</td>
             </tr>
 
         </table>
@@ -115,6 +164,7 @@
 
 
 </div>
+
 
 
 
@@ -147,7 +197,7 @@
                     var resp = $.map(data,function(user){
                         
                         return {
-                            value:user.last_name+' '+user.first_name,
+                            value:user.last_name+' '+user.first_name+' ('+user.role.name.en+')',
                             id:user.id
                         }
                     })

@@ -26,19 +26,25 @@ class AssignmentController extends Controller
         //@todo : permissions
         $assignments = $this->assignmentRepository->index($classroom);
 
+        /*
         $qtyBoys = $assignments->filter(function ($assignment) {
-            return $assignment->user->gender_id === '1';
+            return $assignment->user->gender_id === '1' && $assignment->user->role_id = 'STUDENT';
         })->count();
 
         $qtyGirls = $assignments->filter(function ($assignment) {
-            return $assignment->user->gender_id === '2';
+            return $assignment->user->gender_id === '2' && $assignment->user->role_id = 'STUDENT';
         })->count();
-
+*/
+        $assignmentStudents = $assignments->filter(function ($assignment) {
+            return $assignment->user->role_id == 'STUDENT';
+        });
+        $assignmentTeachers = $assignments->filter(function ($assignment) {
+            return $assignment->user->role_id == 'TEACHER';
+        });
         return view('assignments.assignments', [
             'classroom' => $classroom,
-            'assignments' => $assignments,
-            'qtyBoys' => $qtyBoys,
-            'qtyGirls' => $qtyGirls,
+            'assignmentStudents' => $assignmentStudents,
+            'assignmentTeachers' => $assignmentTeachers,
         ]);
     }
 

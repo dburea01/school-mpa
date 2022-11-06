@@ -6,10 +6,11 @@ return [
     'students_male' => 'Boys',
     'students_female' => 'Girls',
     'students_total' => 'Total',
-    'search_user' => 'Search student',
+    'search_user' => 'Search student/teacher',
     'assign' => 'Assign',
 
-    'assigned_users' => 'Assigned users',
+    'assigned_students' => 'Assigned students',
+    'assigned_teachers' => 'Assigned teachers',
     'birthdates' => 'Birthdates | Ages',
     'user_already_assigned' => ':user is already assigned to this classroom.',
     'user_assigned' => ':user has been assigned to this classroom.',

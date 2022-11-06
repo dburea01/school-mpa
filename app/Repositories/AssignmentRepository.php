@@ -14,6 +14,8 @@ class AssignmentRepository
         ->with('user')
         ->get();
 
+        return $assignments->sortBy('user.last_name');
+
         return $assignments->filter(function ($assignment) {
             return $assignment->user->role_id === 'STUDENT';
         })

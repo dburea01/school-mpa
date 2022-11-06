@@ -1,6 +1,7 @@
 @if(Session::has('success'))
 
-<div class="toast align-items-center bg-success text-white" role=" alert" aria-live="assertive" aria-atomic="true">
+<div class="toast toast-session-values align-items-center bg-success text-white" role="alert" aria-live="assertive"
+    aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             {!! Session::get('success') !!}
@@ -15,7 +16,8 @@ Session::forget('success');
 @endif
 
 @if(Session::has('error'))
-<div class="toast align-items-center bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="toast toast-session-values align-items-center bg-danger text-white" role="alert" aria-live="assertive"
+    aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             {!! Session::get('error') !!}
@@ -30,7 +32,8 @@ Session::forget('error');
 @endif
 
 @if(Session::has('warning'))
-<div class="toast align-items-center bg-warning text-white" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="toast toast-session-values align-items-center bg-warning text-white" role="alert" aria-live="assertive"
+    aria-atomic="true">
     <div class="d-flex">
         <div class="toast-body">
             {!! Session::get('warning') !!}
@@ -45,7 +48,7 @@ Session::forget('warning');
 @endif
 
 @if ($errors->any())
-<div class="toast align-items-center bg-danger text-white">
+<div class="toast toast-session-values align-items-center bg-danger text-white">
     <div class="d-flex">
         <div class="toast-body">
             <ul>

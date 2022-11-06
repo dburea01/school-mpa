@@ -1,5 +1,5 @@
 // toast
-const toastElList = [].slice.call(document.querySelectorAll('.toast'))
+const toastElList = [].slice.call(document.querySelectorAll('.toast-session-values'))
 const toastList = toastElList.map(function (toastEl) {
     return new bootstrap.Toast(toastEl) // No need for options; use the default options
 });

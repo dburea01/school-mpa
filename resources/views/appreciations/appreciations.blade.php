@@ -16,6 +16,8 @@
 
 <div class="row">
     <div class="col">
+
+        {{--
         <table class="table table-sm table-striped table-bordered table-hover" aria-label="List of the appreciations">
             <thead>
                 <tr>
@@ -47,21 +49,39 @@
             </tbody>
 
         </table>
+        --}}
 
         <div id="sortable">
             @foreach ($appreciations as $appreciation)
             <div class="row ui-state-default p-3" id="shortname_{{ $appreciation->id }}">
                 <span><i class="bi bi-arrow-down-up" aria-hidden="true"></i>&nbsp;
-                    {{$appreciation->short_name}} - {{ $appreciation->name }}</span>
+                    <a href="/appreciations/{{ $appreciation->id }}/edit" class="btn btn-sm">{{
+                        $appreciation->name }}</a>
+                    @if ($appreciation->status === 'INACTIVE')
+                    <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"
+                        title="@lang('appreciations.appreciation_inactive')"></i>
+                    @endif
+
+                    @if($appreciation->comment)
+                    <i class="bi bi-card-text" aria-hidden="true" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-title="{{ $appreciation->comment }}"></i>
+                    @endif
+                </span>
             </div>
             @endforeach
         </div>
+
+
 
     </div>
 
 </div>
 
-
+<div class="toast bg-success text-white" id="myToast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+        @lang('appreciations.sorted_successfully')
+    </div>
+</div>
 
 @endsection
 
@@ -92,7 +112,10 @@
                 dataType: "json",
                 statusCode: {
                     200: function() {
-                        alert( "appreciations sorted." );
+                        // alert( "appreciations sorted." );
+                        var myAlert =document.getElementById('myToast');//select id of toast
+          var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+          bsAlert.show();//show it
                     }
                 }
             });
