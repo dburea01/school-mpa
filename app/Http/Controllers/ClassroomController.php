@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClassroomRequest;
 use App\Models\Classroom;
-use App\Models\School;
 use App\Repositories\ClassroomRepository;
 use App\Repositories\PeriodRepository;
 use Illuminate\Http\Request;

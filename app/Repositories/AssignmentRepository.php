@@ -8,14 +8,14 @@ use App\Models\User;
 
 class AssignmentRepository
 {
-    public function index(Classroom $classroom)
+    public function index(Classroom $classroom, string $roleId)
     {
         $assignments = Assignment::where('classroom_id', $classroom->id)
         ->with('user')
         ->get();
 
-        return $assignments->filter(function ($assignment) {
-            return $assignment->user->role_id === 'STUDENT';
+        return $assignments->filter(function ($assignment) use ($roleId) {
+            return $assignment->user->role_id === $roleId;
         })
         ->sortBy('user.last_name');
     }

@@ -80,7 +80,12 @@ Route::middleware(['auth'])->group(function () {
     // routes for the classrooms of a school
     Route::middleware(['ensureAnActivePeriodExists'])->group(function () {
         Route::resource('classrooms', ClassroomController::class)->names('classrooms');
-        Route::resource('classrooms.assignments', AssignmentController::class)->scoped();
+        // Route::resource('classrooms.assignments', AssignmentController::class)->scoped();
+        Route::get('classrooms/{classroom}/assignment-students', [AssignmentController::class, 'indexStudent']);
+        Route::post('classrooms/{classroom}/assignments', [AssignmentController::class, 'store']);
+        Route::delete('classrooms/{classroom}/assignments/{assignment}', [AssignmentController::class, 'destroy']);
+
+        Route::get('classrooms/{classroom}/assignment-teachers', [AssignmentController::class, 'indexTeacher']);
         // routes for the exams of a school
         Route::resource('exams', ExamController::class)->names('exams');
     });

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'title' => 'The assignments',
+    'title' => 'The students assignments',
     'class_name' => 'Classroom',
     'summary' => 'Summary',
     'students_male' => 'Boys',
@@ -11,7 +11,6 @@ return [
     'assign' => 'Assign',
 
     'assigned_students' => 'Assigned students',
-    'assigned_teachers' => 'Assigned teachers',
     'birthdates' => 'Birthdates',
     'ages' => 'Ages',
     'user_already_assigned' => ':user is already assigned to this classroom.',

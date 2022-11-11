@@ -3,7 +3,8 @@
 return [
     'title' => 'The classrooms',
     'name' => 'Classroom',
-    'users' => 'Assignments',
+    'assignment_students' => 'Students',
+    'assignment_teachers' => 'Teachers',
     'add' => 'Create a classroom',
     'classroom_inactive' => 'Inactive classroom',
 

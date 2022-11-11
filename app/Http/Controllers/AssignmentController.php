@@ -6,47 +6,41 @@ use App\Models\Assignment;
 use App\Models\Classroom;
 use App\Models\User;
 use App\Repositories\AssignmentRepository;
+use App\Repositories\SubjectRepository;
 
 class AssignmentController extends Controller
 {
     public $assignmentRepository;
+    public $subjectRepository;
 
-    public function __construct(AssignmentRepository $assignmentRepository)
-    {
+    public function __construct(
+        AssignmentRepository $assignmentRepository,
+        SubjectRepository $subjectRepository
+    ) {
         $this->assignmentRepository = $assignmentRepository;
+        $this->subjectRepository = $subjectRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Classroom $classroom)
+    public function indexStudent(Classroom $classroom)
     {
         //@todo : permissions
-        $assignments = $this->assignmentRepository->index($classroom);
+        $assignments = $this->assignmentRepository->index($classroom, 'STUDENT');
 
-        $assignmentStudents = $assignments->filter(function ($assignment) {
-            return $assignment->user->role_id == 'STUDENT';
-        });
-        $assignmentTeachers = $assignments->filter(function ($assignment) {
-            return $assignment->user->role_id == 'TEACHER';
-        });
-        return view('assignments.assignments', [
+        return view('assignments.assignment-students', [
             'classroom' => $classroom,
-            'assignmentStudents' => $assignmentStudents,
-            'assignmentTeachers' => $assignmentTeachers,
+            'assignments' => $assignments
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function indexTeacher(Classroom $classroom)
     {
-        //
+        //@todo : permissions
+
+        return view('assignments.assignment-teachers', [
+            'classroom' => $classroom,
+            'assignments' => $this->assignmentRepository->index($classroom, 'TEACHER'),
+            'subjects' => $this->subjectRepository->all()
+        ]);
     }
 
     /**

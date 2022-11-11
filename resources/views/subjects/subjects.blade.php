@@ -50,7 +50,10 @@
 
                     <td>
                         @foreach ($userSubjectsFiltered as $userSubjectFiltered)
-                        <span class="badge text-bg-info">{{ $userSubjectFiltered->user->full_name }} </span>
+                        <span class="badge text-bg-info"><a
+                                href="/users/{{$userSubjectFiltered->user->id }}/user-subjects">{{
+                                $userSubjectFiltered->user->full_name }}
+                            </a></span>
                         @endforeach
 
 

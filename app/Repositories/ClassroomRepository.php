@@ -15,12 +15,11 @@ class ClassroomRepository
 
     public function all(string $periodId)
     {
-        $classrooms = Classroom::where('period_id', $periodId)
-        ->orderBy('name')
-        ->get();
+        $classrooms = Classroom::where('period_id', $periodId)->orderBy('name')->get();
 
         foreach ($classrooms as $classroom) {
-            $classroom->assignments = $this->assignmentRepository->index($classroom);
+            $classroom->assignmentsTeachers = $this->assignmentRepository->index($classroom, 'TEACHER');
+            $classroom->assignmentsStudents = $this->assignmentRepository->index($classroom, 'STUDENT');
         }
 
         return $classrooms;
