@@ -1,25 +1,15 @@
 body {
   background: rgb(240, 240, 253);
-  color: darkblue;
+  color: rgb(55, 55, 55);
 }
 
 .navbar, footer, .offcanvas {
-  background-color: blue;
+  background-color: rgb(202, 202, 237);
 }
 
 main > .container {
   padding: 30px 15px 0;
 }
-
-.navbar-text, .nav-link, .navbar-brand, .navbar-toggler, footer {
-  color: white;
-}
-
-/*
-a.nav-link:hover, a.navbar-brand:hover {
-  color: lightgray;
-}
-*/
 
 .toast {
   position: absolute;

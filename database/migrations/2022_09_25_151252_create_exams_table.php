@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->string('updated_by')->nullable();
 
             $table->foreign('exam_type_id')->references('id')->on('exam_types')->nullOnDelete();
-            $table->foreign('subject_id')->references('id')->on('subjects')->nullOnDelete();
+            $table->foreign('subject_id')->references('id')->on('subjects')->cascadeOnDelete();
             $table->foreign('classroom_id')->references('id')->on('classrooms')->cascadeOnDelete();
             $table->foreign('exam_status_id')->references('id')->on('exam_status')->nullOnDelete();
         });

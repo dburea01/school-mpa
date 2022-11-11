@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Models\Subject;
 use App\Repositories\SubjectRepository;
+use App\Repositories\UserSubjectRepository;
 
 class SubjectController extends Controller
 {
     private $subjectRepository;
+    private $userSubjectRepository;
 
-    public function __construct(SubjectRepository $subjectRepository)
+    public function __construct(SubjectRepository $subjectRepository, UserSubjectRepository $userSubjectRepository)
     {
         $this->authorizeResource(Subject::class);
         $this->subjectRepository = $subjectRepository;
+        $this->userSubjectRepository = $userSubjectRepository;
     }
 
     /**
@@ -24,6 +27,7 @@ class SubjectController extends Controller
     {
         return view('subjects.subjects', [
             'subjects' => $this->subjectRepository->all(),
+            'userSubjects' => $this->userSubjectRepository->all()
         ]);
     }
 

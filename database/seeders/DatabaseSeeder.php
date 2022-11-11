@@ -2,6 +2,7 @@
 namespace Database\Seeders;
 
 use App\Models\School;
+use App\Models\UserSubject;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,7 +22,7 @@ class DatabaseSeeder extends Seeder
             PeriodSeeder::class,
             ClassroomSeeder::class,
             AssignmentSeeder::class,
-
+            UserSubjectSeeder::class,
             ExamSeeder::class,
             ResultSeeder::class,
         ]);

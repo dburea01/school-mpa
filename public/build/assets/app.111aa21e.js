@@ -1,1 +1,0 @@
-const o=[].slice.call(document.querySelectorAll(".toast")),s=o.map(function(t){return new bootstrap.Toast(t)});s.forEach(t=>t.show());const e=document.querySelectorAll('[data-bs-toggle="tooltip"]');[...e].map(t=>new bootstrap.Tooltip(t));

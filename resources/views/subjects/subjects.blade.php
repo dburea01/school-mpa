@@ -18,6 +18,7 @@
                 <tr>
                     <th>@lang('subjects.short_name')</th>
                     <th>@lang('subjects.name')</th>
+                    <th>@lang('subjects.teachers')</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +38,23 @@
                         @endif
                     </td>
                     <td>{{ $subject->name }}</td>
+
+                    @php
+                    $userSubjectsFiltered = $userSubjects->filter(function($userSubject) use($subject){
+
+                    return $userSubject->subject->id == $subject->id;
+                    })
+
+
+                    @endphp
+
+                    <td>
+                        @foreach ($userSubjectsFiltered as $userSubjectFiltered)
+                        <span class="badge text-bg-info">{{ $userSubjectFiltered->user->full_name }} </span>
+                        @endforeach
+
+
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

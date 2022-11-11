@@ -64,7 +64,6 @@
                     <th>@lang('users.name')</th>
                     <th>@lang('users.email')</th>
                     <th>@lang('users.role')</th>
-                    <th>@lang('users.in_group')</th>
                 </tr>
             </thead>
             <tbody>
@@ -78,15 +77,25 @@
                         @endif
                     </td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->role->name }}</td>
-                    <td>
+                    <td>{{ $user->role->name }}
+
+                        @foreach($user->user_subjects as $user_subject)
+                        @php $subject = \App\Models\Subject::find($user_subject->subject_id) @endphp
+                        <span class="badge bg-warning" title="{{ $subject->name }}"><a
+                                href="/users/{{ $user->id }}/user-subjects">{{
+                                $subject->short_name }}</a></span>
+
+                        @endforeach
+
                         @foreach($user->user_groups as $user_group)
                         @php $group = \App\Models\Group::find($user_group->group_id) @endphp
                         <span class="badge bg-info"><a href="/groups/{{ $user_group->group_id }}/users">{{
                                 $group->name }}</a></span>
 
                         @endforeach
+
                     </td>
+
 
                 </tr>
                 @endforeach
@@ -117,6 +126,13 @@
                 @php $group = \App\Models\Group::find($user_group->group_id) @endphp
                 <span class="badge bg-info"><a href="/groups/{{ $user_group->group_id }}/users">{{
                         $group->name }}</a></span>
+
+                @endforeach
+
+                @foreach($user->user_subjects as $user_subject)
+                @php $subject = \App\Models\Subject::find($user_subject->subject_id) @endphp
+                <span class="badge bg-info"><a href="/todo/{{ $user->id }}/user_subjects">{{
+                        $subject->name }}</a></span>
 
                 @endforeach
             </div>
