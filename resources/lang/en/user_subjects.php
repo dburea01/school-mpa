@@ -5,5 +5,5 @@ return [
 
     'save' => 'Save',
     'modification_done' => 'Modification done successfully',
-    'warning' => 'This teacher has no subjects. He can\'t create, correct any exam'
+    'warning' => 'This teacher has no subjects. He can\'t manage any exams.'
 ];

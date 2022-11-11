@@ -25,7 +25,6 @@ class StoreAssignmentRequest extends FormRequest
      */
     public function rules()
     {
-        // todo : affectations pour des STUDENTS et TEACHER only
         return [
             'userIdToAssign' => [
                 'required',

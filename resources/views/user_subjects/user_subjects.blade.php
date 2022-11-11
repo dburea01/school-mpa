@@ -16,7 +16,7 @@
 
         @if($userSubjects->count() === 0)
         <div class="alert alert-danger" role="alert">
-            <i class="bi bi-exclamation-triangle"></i> @lang('user_subjects.warning')
+            <i class="bi bi-exclamation-triangle" aria-hidden="true"></i> @lang('user_subjects.warning')
         </div>
         @endif
 

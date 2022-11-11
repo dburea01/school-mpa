@@ -10,7 +10,9 @@ class UserRepository
 {
     public function all(array $request)
     {
-        $usersQuery = User::with('role')->with(['user_groups', 'user_subjects'])->orderBy('last_name')->orderBy('first_name');
+        $usersQuery = User::with('role')
+        ->with(['user_groups', 'user_subjects'])
+        ->orderBy('last_name')->orderBy('first_name');
 
         if (array_key_exists('user_name', $request) && $request['user_name'] !== null) {
             $usersQuery->where(function ($query) use ($request) {

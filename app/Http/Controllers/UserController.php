@@ -258,9 +258,7 @@ class UserController extends Controller
             $query->where('last_name', 'ilike', '%' . $request->search . '%')
             ->orWhere('first_name', 'ilike', '%' . $request->search . '%');
         })
-        ->whereIn('role_id', ['STUDENT', 'TEACHER'])
-        ->with('role')
-        // todo : limiter les infos remontés
+        ->where('role_id', $request->role_id)
         ->get();
     }
 }

@@ -10,15 +10,15 @@
 <h1 class="text-center">@lang('assignments.title') <span class="text-primary">{{ $classroom->name }}</span></h1>
 
 
-<div class="row mt-3">
-    <div class="col-md-8 mx-auto">
+<div class="row mt-5">
+    <div class="col">
         <form class="row row-cols-lg-auto g-3 align-items-center mb-3"
             action="/classrooms/{{$classroom->id}}/assignments" method="POST">
             @csrf
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <label class="visually-hidden" for="userName">@lang('assignments.search_user')</label>
                 <input class="form-control form-control-sm" id="userName" name="userName" value="" type="text"
-                    placeholder="@lang('assignments.search_user')">
+                    placeholder="@lang('assignments.search_student')">
                 <input type="hidden" id="userIdToAssign" name="userIdToAssign" value="">
                 @if ($errors->has('userIdToAssign'))
                 <span class="text-danger">{{ $errors->first('userIdToAssign') }}</span>
@@ -32,13 +32,14 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <table class="table table-sm table-striped table-bordered table-hover" aria-label="List of assignments">
 
             <thead>
                 <tr>
                     <th colspan="2">@lang('assignments.assigned_students')</th>
-                    <th colspan="2">@lang('assignments.birthdates')</th>
+                    <th>@lang('assignments.birthdates')</th>
+                    <th>@lang('assignments.ages')</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -92,56 +93,11 @@
 
     </div>
 
-    <div class="col-md-6">
-        <table class="table table-sm table-striped table-bordered table-hover" aria-label="List of assignments">
-
-            <thead>
-                <tr>
-                    <th>@lang('assignments.assigned_teachers')</th>
-                    <th>&nbsp;</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach ($assignmentTeachers as $assignment)
-                <tr>
-                    <td>
-                        <a href="/users/{{ $assignment->user->id }}/edit">{{
-                            $assignment->user->fullName }}</a>
-                        @if ($assignment->user->status === 'INACTIVE')
-                        <x-alert-user-inactive />
-                        @endif
-                    </td>
-
-
-
-                    <td>
-                        <form @php $action="/classrooms/$classroom->id/assignments/$assignment->id" @endphp action={{
-                            $action }} method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" aria-label="add"
-                                title="@lang('assignments.delete_assignment')">
-                                <i class="bi bi-trash" aria-hidden="true"></i> </button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-
-        </table>
-
-
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-md-2">
-
-
-
+    <div class="col-md-4">
         <table class="table table-sm table-bordered table-hover" aria-label="List of assignments">
+            <tr class="text-center">
+                <th colspan="2">@lang('assignments.summary')</th>
+            </tr>
             <tr>
                 <th>@lang('assignments.students_male')</th>
                 <td>{{ $assignmentStudents->filter(function ($assignment) {
@@ -161,10 +117,7 @@
 
         </table>
     </div>
-
-
 </div>
-
 
 
 
@@ -182,7 +135,7 @@
         source: function(request, response) {
             
             $.ajax({
-                url: "/users/autocomplete",
+                url: "/users/autocomplete?role_id=STUDENT",
                 data: {
                     search : request.term
                 },
@@ -197,7 +150,7 @@
                     var resp = $.map(data,function(user){
                         
                         return {
-                            value:user.last_name+' '+user.first_name+' ('+user.role.name.en+')',
+                            value:user.last_name+' '+user.first_name,
                             id:user.id
                         }
                     })

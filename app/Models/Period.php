@@ -9,6 +9,8 @@ class Period extends Model
 {
     use HasFactory, HasCreatedUpdatedBy;
 
+    const DMY = 'd/m/Y';
+
     protected $fillable = [
         'name',
         'start_date',
@@ -19,7 +21,7 @@ class Period extends Model
 
     protected function getStartDateAttribute($value)
     {
-        return isset($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y') : '';
+        return isset($value) ? Carbon::createFromFormat('Y-m-d', $value)->format(self::DMY) : '';
     }
 
     protected function getEndDateAttribute($value)
@@ -29,12 +31,12 @@ class Period extends Model
 
     protected function setStartDateAttribute($value)
     {
-        $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+        $this->attributes['start_date'] = Carbon::createFromFormat(self::DMY, $value)->format('Y-m-d');
     }
 
     protected function setEndDateAttribute($value)
     {
-        $this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+        $this->attributes['end_date'] = Carbon::createFromFormat(self::DMY, $value)->format('Y-m-d');
     }
 
     public static function getCurrentPeriod(): ?Period
