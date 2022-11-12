@@ -53,7 +53,8 @@ class AssignmentStudentController extends Controller
             $user = User::find($assignmentStudent->user_id);
             $this->assignmentStudentRepository->destroy($assignmentStudent);
 
-            return back()->with('success', trans('assignment-students.assignment_deleted', ['user' => $user->full_name]));
+            return back()
+            ->with('success', trans('assignment-students.assignment_deleted', ['user' => $user->full_name]));
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

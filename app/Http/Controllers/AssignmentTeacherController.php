@@ -14,6 +14,7 @@ class AssignmentTeacherController extends Controller
     public function __construct(AssignmentTeacherRepository $assignmentTeacherRepository)
     {
         $this->assignmentTeacherRepository = $assignmentTeacherRepository;
+        $this->authorizeResource(AssignmentTeacher::class);
     }
 
     public function index(Request $request)

@@ -42,8 +42,8 @@
                     </td>
 
                     <td>
-                        <a href="/classrooms/{{ $classroom->id }}/assignment-students">{{$classroom->assignment_students->count()
-                            }}</a>
+                        <a href="/classrooms/{{ $classroom->id }}/assignment-students">
+                            {{ $classroom->assignment_students->count() }}</a>
                     </td>
                     <td>
                     </td>

@@ -9,11 +9,9 @@ class AssignmentStudentRepository
 {
     public function index(Classroom $classroom)
     {
-        $assignmentStudents = AssignmentStudent::where('classroom_id', $classroom->id)
+        return $assignmentStudents = AssignmentStudent::where('classroom_id', $classroom->id)
         ->with('user')
         ->get();
-
-        return $assignmentStudents;
     }
 
     public function destroy(AssignmentStudent $assignmentStudent): void
