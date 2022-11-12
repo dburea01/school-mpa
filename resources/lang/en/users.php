@@ -10,5 +10,6 @@ return [
     'role' => 'Role',
     'in_group' => 'In family(ies)',
     'user_inactive' => 'inactive user',
+    'assignment-teacher' => 'Assignments'
 
 ];

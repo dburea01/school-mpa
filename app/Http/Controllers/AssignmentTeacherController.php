@@ -34,9 +34,15 @@ class AssignmentTeacherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $assignmentTeacher = new AssignmentTeacher();
+        $assignmentTeacher->user_id = $request->user_id;
+        $assignmentTeacher->subject_id = $request->subject_id;
+
+        return view('assignment_teachers.assignment_teacher_form', [
+            'assignmentTeacher' => $assignmentTeacher
+        ]);
     }
 
     /**
@@ -47,18 +53,19 @@ class AssignmentTeacherController extends Controller
      */
     public function store(StoreAssignmentTeacherRequest $request)
     {
-        //
-    }
+        try {
+            $assignmentTeacher = $this->assignmentTeacherRepository->insert(
+                $request->classroom_id,
+                $request->subject_id,
+                $request->user_id,
+                $request->comment
+            );
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\AssignmentTeacher  $assignmentTeacher
-     * @return \Illuminate\Http\Response
-     */
-    public function show(AssignmentTeacher $assignmentTeacher)
-    {
-        //
+            return redirect("/assignment-teachers?user_id=$request->user_id&subject_id=$request->subject_id")
+            ->with('success', trans('assignment-teachers.teacher_assigned'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -69,19 +76,21 @@ class AssignmentTeacherController extends Controller
      */
     public function edit(AssignmentTeacher $assignmentTeacher)
     {
-        //
+        return view('assignment_teachers.assignment_teacher_form', [
+            'assignmentTeacher' => $assignmentTeacher
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAssignmentTeacherRequest  $request
-     * @param  \App\Models\AssignmentTeacher  $assignmentTeacher
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAssignmentTeacherRequest $request, AssignmentTeacher $assignmentTeacher)
+    public function update(StoreAssignmentTeacherRequest $request, AssignmentTeacher $assignmentTeacher)
     {
-        //
+        try {
+            $assignmentTeacher = $this->assignmentTeacherRepository->update($assignmentTeacher, $request->all());
+
+            return redirect("/assignment-teachers?user_id=$request->user_id&subject_id=$request->subject_id")
+            ->with('success', trans('assignment-teachers.assignment_modified'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -92,6 +101,13 @@ class AssignmentTeacherController extends Controller
      */
     public function destroy(AssignmentTeacher $assignmentTeacher)
     {
-        //
+        try {
+            $this->assignmentTeacherRepository->destroy($assignmentTeacher);
+
+            return redirect("/assignment-teachers?user_id=$assignmentTeacher->user_id")
+            ->with('success', trans('assignment-teachers.assignment_deleted'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 }

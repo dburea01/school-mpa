@@ -9,7 +9,7 @@ class AssignmentStudentRepository
 {
     public function index(Classroom $classroom)
     {
-        return $assignmentStudents = AssignmentStudent::where('classroom_id', $classroom->id)
+        return AssignmentStudent::where('classroom_id', $classroom->id)
         ->with('user')
         ->get();
     }

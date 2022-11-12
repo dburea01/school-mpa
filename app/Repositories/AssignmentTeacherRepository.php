@@ -32,12 +32,24 @@ class AssignmentTeacherRepository
         $assignmentTeacher->delete();
     }
 
-    public function insert(Classroom $classroom, Subject $subject, User $userToAssign): AssignmentTeacher
+    public function insert(int $classroomId, int $subjectId, string $userId, string $comment = null): AssignmentTeacher
     {
         return AssignmentTeacher::create([
-            'classroom_id' => $classroom->id,
-            'subject_id' => $subject->id,
-            'user_id' => $userToAssign->id,
+            'classroom_id' => $classroomId,
+            'subject_id' => $subjectId,
+            'user_id' => $userId,
+            'comment' => $comment
         ]);
+    }
+
+    public function update(AssignmentTeacher $assignmentTeacher, array $data) :AssignmentTeacher
+    {
+        $assignmentTeacher->user_id = $data['user_id'];
+        $assignmentTeacher->classroom_id = $data['classroom_id'];
+        $assignmentTeacher->subject_id = $data['subject_id'];
+        $assignmentTeacher->comment = $data['comment'];
+        $assignmentTeacher->save();
+
+        return $assignmentTeacher;
     }
 }

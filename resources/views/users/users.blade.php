@@ -79,13 +79,13 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role->name }}
 
-                        @foreach($user->user_subjects as $user_subject)
-                        @php $subject = \App\Models\Subject::find($user_subject->subject_id) @endphp
-                        <span class="badge bg-warning" title="{{ $subject->name }}"><a
-                                href="/users/{{ $user->id }}/user-subjects">{{
-                                $subject->short_name }}</a></span>
-
-                        @endforeach
+                        @if ($user->role_id === 'TEACHER')
+                        <span class="badge bg-warning">
+                            <a href="/assignment-teachers?user_id={{ $user->id }}">
+                                {{ $user->assignment_teachers_count }} @lang('users.assignment-teacher')
+                            </a>
+                        </span>
+                        @endif
 
                         @foreach($user->user_groups as $user_group)
                         @php $group = \App\Models\Group::find($user_group->group_id) @endphp

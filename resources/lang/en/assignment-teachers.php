@@ -11,8 +11,11 @@ return [
     'placeholder_classroom' => 'select classroom',
 
     'filter' => 'Filter',
+    'add' => 'create an assignment',
+    'modify_assignment' => 'Modify this assignment',
     'delete_assignment' => 'Delete this assignment',
 
-    'teacher_assigned' => ':user has been assigned',
-    'assignment_deleted' => 'Assignment deleted for :user',
+    'teacher_assigned' => 'Teacher has been assigned.',
+    'assignment_deleted' => 'Assignment deleted.',
+    'assignment_modified' => 'Assignment modified.'
 ];
