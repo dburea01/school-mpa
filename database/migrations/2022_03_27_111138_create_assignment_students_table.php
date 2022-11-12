@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssignmentsTable extends Migration
+class CreateAssignmentStudentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAssignmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assignments', function (Blueprint $table): void {
+        Schema::create('assignment_students', function (Blueprint $table): void {
             $table->id();
             $table->integer('classroom_id');
             $table->uuid('user_id');
@@ -26,6 +26,7 @@ class CreateAssignmentsTable extends Migration
             $table->unique(['classroom_id', 'user_id']);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // TODO une constraint avec users pour le role STUDENT
             $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
         });
     }
@@ -37,6 +38,6 @@ class CreateAssignmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assignments');
+        Schema::dropIfExists('assignment_students');
     }
 }

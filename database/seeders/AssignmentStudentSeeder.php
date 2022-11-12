@@ -2,12 +2,13 @@
 namespace Database\Seeders;
 
 use App\Models\Assignment;
+use App\Models\AssignmentStudent;
 use App\Models\Classroom;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 
-class AssignmentSeeder extends Seeder
+class AssignmentStudentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,25 +20,19 @@ class AssignmentSeeder extends Seeder
         $classrooms = Classroom::all();
 
         foreach ($classrooms as $classroom) {
-            // get some students + teachers  of the school of this classrooms
+            // get some students of this classrooms
             $students = User::where('role_id', 'STUDENT')
             ->limit(random_int(1, 10))
             ->get();
 
-            $this->insertAssignments($classroom, $students);
-
-            $teachers = User::where('role_id', 'TEACHER')
-            ->limit(random_int(1, 2))
-            ->get();
-
-            $this->insertAssignments($classroom, $teachers);
+            $this->insertAssignmentStudents($classroom, $students);
         }
     }
 
-    public function insertAssignments(Classroom $classroom, Collection $users)
+    public function insertAssignmentStudents(Classroom $classroom, Collection $users)
     {
         foreach ($users as $user) {
-            Assignment::factory()->create([
+            AssignmentStudent::factory()->create([
                 'classroom_id' => $classroom->id,
                 'user_id' => $user->id,
                 'comment' => $user->full_name . " ($user->role_id)",

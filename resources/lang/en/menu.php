@@ -14,6 +14,6 @@ return [
     'appreciations' => 'Appreciations',
     'periods' => 'Periods',
     'classrooms' => 'Classrooms',
-    'assignments' => 'Assignments',
+    'assignment-teachers' => 'Teachers assignments',
     'exams' => 'Exams',
 ];

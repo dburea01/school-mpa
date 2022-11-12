@@ -10,12 +10,11 @@ return [
     'search_student' => 'Search student',
     'assign' => 'Assign',
 
-    'assigned_students' => 'Assigned students',
-    'assigned_teachers' => 'Assigned teachers',
+    'assigned_students' => 'Students',
     'birthdates' => 'Birthdates',
     'ages' => 'Ages',
-    'user_already_assigned' => ':user is already assigned to this classroom.',
-    'user_assigned' => ':user has been assigned to this classroom.',
+    'student_already_assigned' => ':user is already assigned to this classroom.',
+    'student_assigned' => ':user has been assigned to this classroom.',
     'delete_assignment' => 'Delete this assignment',
     'assignment_deleted' => 'Assignment deleted for :user',
 ];

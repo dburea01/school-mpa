@@ -26,7 +26,8 @@
             <thead>
                 <tr>
                     <th>@lang('classrooms.name')</th>
-                    <th>@lang('classrooms.users')</th>
+                    <th>@lang('classrooms.assigned_students')</th>
+                    <th>@lang('classrooms.assigned_teachers')</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +42,10 @@
                     </td>
 
                     <td>
-                        <a href="/classrooms/{{ $classroom->id }}/assignments">{{$classroom->assignments->count() }}</a>
+                        <a href="/classrooms/{{ $classroom->id }}/assignment-students">{{$classroom->assignment_students->count()
+                            }}</a>
+                    </td>
+                    <td>
                     </td>
                 </tr>
                 @endforeach

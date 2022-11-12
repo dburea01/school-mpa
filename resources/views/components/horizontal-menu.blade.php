@@ -8,7 +8,6 @@
 
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
-
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item dropdown">
@@ -41,6 +40,8 @@
                         <li><a class="dropdown-item" href="/subjects">@lang('menu.subjects')</a></li>
                         <li><a class="dropdown-item" href="/periods">@lang('menu.periods')</a></li>
                         <li><a class="dropdown-item" href="/classrooms">@lang('menu.classrooms')</a></li>
+                        <li><a class="dropdown-item" href="/assignment-teachers">@lang('menu.assignment-teachers')</a>
+                        </li>
                         <li><a class="dropdown-item" href="/appreciations">@lang('menu.appreciations')</a></li>
                         <li><a class="dropdown-item" href="/exams">@lang('menu.exams')</a></li>
 

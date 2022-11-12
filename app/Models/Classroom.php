@@ -20,8 +20,8 @@ class Classroom extends Model
         return $this->belongsTo(Period::class);
     }
 
-    public function assignments()
+    public function assignmentStudents()
     {
-        return $this->hasMany(Assignment::class);
+        return $this->hasMany(AssignmentStudent::class);
     }
 }

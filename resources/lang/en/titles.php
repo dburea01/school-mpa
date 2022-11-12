@@ -8,6 +8,7 @@ return [
     'periods' => 'Periods list',
     'classrooms' => 'Classrooms list',
     'assignments' => 'Assignments',
+    'teacher-assignments' => 'Teacher assignments',
     'appreciations' => 'Appreciations',
     'exams' => 'Exams list',
     'exam_edit' => 'Edit exam',

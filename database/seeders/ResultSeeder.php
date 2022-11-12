@@ -22,9 +22,9 @@ class ResultSeeder extends Seeder
         foreach ($exams as $exam) {
             // find the students of this exam
             $students = DB::table('users')
-            ->join('assignments', 'users.id', 'assignments.user_id')
+            ->join('assignment_students', 'users.id', 'assignment_students.user_id')
             ->where('users.role_id', 'STUDENT')
-            ->where('assignments.classroom_id', $exam->classroom->id)
+            ->where('assignment_students.classroom_id', $exam->classroom->id)
             ->select('users.id')
             ->get();
 

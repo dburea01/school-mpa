@@ -2,11 +2,12 @@
 namespace App\Http\Requests;
 
 use App\Models\Assignment;
+use App\Models\AssignmentStudent;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreAssignmentRequest extends FormRequest
+class StoreAssignmentStudentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,14 +38,14 @@ class StoreAssignmentRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $assignment = Assignment::where('user_id', $this->userIdToAssign)
+            $assignmentStudent = AssignmentStudent::where('user_id', $this->userIdToAssign)
             ->where('classroom_id', $this->route('classroom')->id)
             ->first();
 
-            if ($assignment) {
-                $user = User::find($assignment->user_id)->full_name;
+            if ($assignmentStudent) {
+                $user = User::find($assignmentStudent->user_id)->full_name;
                 $validator->errors()
-                ->add('userIdToAssign', trans('assignments.user_already_assigned', ['user' => $user]));
+                ->add('userIdToAssign', trans('assignment-students.student_already_assigned', ['user' => $user]));
             }
         });
     }

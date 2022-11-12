@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AppreciationController;
-use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AssignmentStudentController;
+use App\Http\Controllers\AssignmentTeacherController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ExamController;
@@ -80,7 +81,8 @@ Route::middleware(['auth'])->group(function () {
     // routes for the classrooms of a school
     Route::middleware(['ensureAnActivePeriodExists'])->group(function () {
         Route::resource('classrooms', ClassroomController::class)->names('classrooms');
-        Route::resource('classrooms.assignments', AssignmentController::class)->scoped();
+        Route::resource('classrooms.assignment-students', AssignmentStudentController::class)->scoped();
+        Route::resource('assignment-teachers', AssignmentTeacherController::class)->names('assignment-teachers');
         // routes for the exams of a school
         Route::resource('exams', ExamController::class)->names('exams');
     });

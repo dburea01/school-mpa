@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Group;
-use App\Models\School;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -254,6 +253,7 @@ class UserController extends Controller
 
     public function autocomplete(Request $request)
     {
+        // TODO : permissions
         return User::where(function ($query) use ($request) {
             $query->where('last_name', 'ilike', '%' . $request->search . '%')
             ->orWhere('first_name', 'ilike', '%' . $request->search . '%');

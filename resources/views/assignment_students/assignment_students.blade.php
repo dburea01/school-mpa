@@ -7,18 +7,18 @@
     </div>
 </div>
 
-<h1 class="text-center">@lang('assignments.title') <span class="text-primary">{{ $classroom->name }}</span></h1>
+<h1 class="text-center">@lang('assignment-students.title') <span class="text-primary">{{ $classroom->name }}</span></h1>
 
 
 <div class="row mt-5">
     <div class="col">
         <form class="row row-cols-lg-auto g-3 align-items-center mb-3"
-            action="/classrooms/{{$classroom->id}}/assignments" method="POST">
+            action="/classrooms/{{$classroom->id}}/assignment-students" method="POST">
             @csrf
             <div class="col-md-8">
-                <label class="visually-hidden" for="userName">@lang('assignments.search_user')</label>
+                <label class="visually-hidden" for="userName">@lang('assignment-students.search_user')</label>
                 <input class="form-control form-control-sm" id="userName" name="userName" value="" type="text"
-                    placeholder="@lang('assignments.search_student')">
+                    placeholder="@lang('assignment-students.search_student')">
                 <input type="hidden" id="userIdToAssign" name="userIdToAssign" value="">
                 @if ($errors->has('userIdToAssign'))
                 <span class="text-danger">{{ $errors->first('userIdToAssign') }}</span>
@@ -26,7 +26,7 @@
             </div>
 
             <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-plus-circle" aria-hidden="true"></i>
-                @lang('assignments.assign')</button>
+                @lang('assignment-students.assign')</button>
         </form>
     </div>
 </div>
@@ -37,9 +37,9 @@
 
             <thead>
                 <tr>
-                    <th colspan="2">@lang('assignments.assigned_students')</th>
-                    <th>@lang('assignments.birthdates')</th>
-                    <th>@lang('assignments.ages')</th>
+                    <th colspan="2">@lang('assignment-students.assigned_students')</th>
+                    <th>@lang('assignment-students.birthdates')</th>
+                    <th>@lang('assignment-students.ages')</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
@@ -75,12 +75,12 @@
                     </td>
 
                     <td>
-                        <form @php $action="/classrooms/$classroom->id/assignments/$assignment->id" @endphp action={{
-                            $action }} method="POST">
+                        <form @php $action="/classrooms/$classroom->id/assignment-students/$assignment->id" @endphp
+                            action={{ $action }} method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger" aria-label="add"
-                                title="@lang('assignments.delete_assignment')">
+                                title="@lang('assignment-students.delete_assignment')">
                                 <i class="bi bi-trash" aria-hidden="true"></i> </button>
                         </form>
                     </td>
@@ -96,22 +96,22 @@
     <div class="col-md-4">
         <table class="table table-sm table-bordered table-hover" aria-label="List of assignments">
             <tr class="text-center">
-                <th colspan="2">@lang('assignments.summary')</th>
+                <th colspan="2">@lang('assignment-students.summary')</th>
             </tr>
             <tr>
-                <th>@lang('assignments.students_male')</th>
+                <th>@lang('assignment-students.students_male')</th>
                 <td>{{ $assignmentStudents->filter(function ($assignment) {
                     return $assignment->user->gender_id === '1';
                     })->count() }}</td>
             </tr>
             <tr>
-                <th>@lang('assignments.students_female')</th>
+                <th>@lang('assignment-students.students_female')</th>
                 <td>{{ $assignmentStudents->filter(function ($assignment) {
                     return $assignment->user->gender_id === '2';
                     })->count() }}</td>
             </tr>
             <tr>
-                <th>@lang('assignments.students_total')</th>
+                <th>@lang('assignment-students.students_total')</th>
                 <td>{{$assignmentStudents->count() }}</td>
             </tr>
 

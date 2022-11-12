@@ -126,9 +126,9 @@ class User extends Authenticatable
         return $this->hasMany(UserGroup::class);
     }
 
-    public function assignments()
+    public function assignment_students()
     {
-        return $this->hasMany(Assignment::class);
+        return $this->hasMany(AssignmentStudent::class);
     }
 
     public function results(): HasMany

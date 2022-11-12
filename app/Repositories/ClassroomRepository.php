@@ -2,15 +2,14 @@
 namespace App\Repositories;
 
 use App\Models\Classroom;
-use App\Models\Period;
 
 class ClassroomRepository
 {
-    public $assignmentRepository;
+    public $assignmentStudentRepository;
 
-    public function __construct(AssignmentRepository $assignmentRepository)
+    public function __construct(AssignmentStudentRepository $assignmentStudentRepository)
     {
-        $this->assignmentRepository = $assignmentRepository;
+        $this->assignmentStudentRepository = $assignmentStudentRepository;
     }
 
     public function all(string $periodId)
@@ -20,7 +19,7 @@ class ClassroomRepository
         ->get();
 
         foreach ($classrooms as $classroom) {
-            $classroom->assignments = $this->assignmentRepository->index($classroom);
+            $classroom->assignment_students = $this->assignmentStudentRepository->index($classroom);
         }
 
         return $classrooms;

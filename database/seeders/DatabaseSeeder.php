@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders;
 
+use App\Models\AssignmentTeacher;
 use App\Models\School;
 use App\Models\UserSubject;
 use Illuminate\Database\Seeder;
@@ -21,7 +22,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PeriodSeeder::class,
             ClassroomSeeder::class,
-            AssignmentSeeder::class,
+            AssignmentStudentSeeder::class,
+            AssignmentTeacherSeeder::class,
             UserSubjectSeeder::class,
             ExamSeeder::class,
             ResultSeeder::class,
