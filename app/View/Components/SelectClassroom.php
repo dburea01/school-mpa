@@ -1,9 +1,9 @@
 <?php
 namespace App\View\Components;
 
-use App\Models\Classroom;
-use App\Models\School;
 use App\Repositories\PeriodRepository;
+use App\Repositories\ClassroomRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class SelectClassroom extends Component
@@ -27,10 +27,9 @@ class SelectClassroom extends Component
      */
     public function __construct($name, $id, $required, $value, $placeholder = '')
     {
-        $periodRepository = new PeriodRepository();
-        $currentPeriod = $periodRepository->getCurrentPeriod();
+        $classroomRepository = new ClassroomRepository();
 
-        $this->classrooms = Classroom::where('period_id', $currentPeriod->id)->orderBy('name')->get();
+        $this->classrooms = $classroomRepository->getAuthorizedClassrooms(Auth::user());
         $this->name = $name;
         $this->id = $id;
         $this->required = $required;

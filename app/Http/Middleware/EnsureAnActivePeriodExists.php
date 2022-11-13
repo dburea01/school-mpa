@@ -18,6 +18,7 @@ class EnsureAnActivePeriodExists
     {
         $period = Period::where('current', true)->first();
         if ($period) {
+            // session(['currentPeriod' => $period]);
             return $next($request);
         } else {
             return response()->view('errors.no_current_period');

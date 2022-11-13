@@ -15,8 +15,8 @@ class UserFactory extends Factory
     {
         $genderId = $this->faker->randomElement(['male', 'female']);
 
-        $firstName = $this->stripAccents($this->faker->firstName($genderId));
-        $lastName = $this->stripAccents($this->faker->lastName());
+        $firstName = str_replace(' ', '', $this->stripAccents($this->faker->firstName($genderId)));
+        $lastName = str_replace(' ', '', $this->stripAccents($this->faker->lastName()));
 
         return [
             'status' => fake()->randomElement(['ACTIVE', 'INACTIVE']),

@@ -80,19 +80,17 @@
                     <td>{{ $user->role->name }}
 
                         @if ($user->role_id === 'TEACHER')
-                        <span class="badge bg-warning">
-                            <a href="/assignment-teachers?user_id={{ $user->id }}">
-                                {{ $user->assignment_teachers_count }} @lang('users.assignment-teacher')
-                            </a>
-                        </span>
+                        <x-quantity-assignment :user="$user" />
                         @endif
 
+                        @if($user->role_id === 'STUDENT')
                         @foreach($user->user_groups as $user_group)
                         @php $group = \App\Models\Group::find($user_group->group_id) @endphp
                         <span class="badge bg-info"><a href="/groups/{{ $user_group->group_id }}/users">{{
                                 $group->name }}</a></span>
 
                         @endforeach
+                        @endif
 
                     </td>
 
@@ -126,13 +124,6 @@
                 @php $group = \App\Models\Group::find($user_group->group_id) @endphp
                 <span class="badge bg-info"><a href="/groups/{{ $user_group->group_id }}/users">{{
                         $group->name }}</a></span>
-
-                @endforeach
-
-                @foreach($user->user_subjects as $user_subject)
-                @php $subject = \App\Models\Subject::find($user_subject->subject_id) @endphp
-                <span class="badge bg-info"><a href="/todo/{{ $user->id }}/user_subjects">{{
-                        $subject->name }}</a></span>
 
                 @endforeach
             </div>

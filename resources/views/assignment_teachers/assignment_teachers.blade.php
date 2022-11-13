@@ -58,8 +58,8 @@
                 @foreach ($assignmentTeachers as $assignment)
                 <tr>
                     <td>
-                        {{ $assignment->user->fullName }}
-                        @if ($assignment->user->status === 'INACTIVE')
+                        {{ $assignment->last_name }} {{ $assignment->first_name }}
+                        @if ($assignment->status === 'INACTIVE')
                         <x-alert-user-inactive />
                         @endif
 
@@ -69,17 +69,17 @@
                         @endif
                     </td>
 
-                    <td>{{ $assignment->subject->name }}</td>
-                    <td>{{ $assignment->classroom->name }}</td>
+                    <td>{{ json_decode($assignment->subject_name)->{App::currentLocale()} }}</td>
+                    <td>{{ $assignment->classroom_name }}</td>
 
                     <td>
-                        <a href="/assignment-teachers/{{ $assignment->id }}/edit" class="btn btn-sm btn-primary"
-                            title="@lang('assignment-teachers.modify_assignment')">
+                        <a href="/assignment-teachers/{{ $assignment->assignment_teachers_id }}/edit"
+                            class="btn btn-sm btn-primary" title="@lang('assignment-teachers.modify_assignment')">
                             <i class="bi bi-pencil-square" aria-hidden="true"></i>
                         </a>
                     </td>
                     <td>
-                        <form action="/assignment-teachers/{{ $assignment->id }}" method="POST">
+                        <form action="/assignment-teachers/{{ $assignment->assignment_teachers_id }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger" aria-label="add"

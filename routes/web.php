@@ -14,7 +14,6 @@ use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserSubjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,10 +65,6 @@ Route::middleware(['auth'])->group(function () {
 
     // routes for the subjects of the school
     Route::resource('subjects', SubjectController::class)->names('subjects');
-
-    // routes for the subjects of a teacher
-    Route::resource('users/{user}/user-subjects', UserSubjectController::class)
-        ->whereUuid('user')->names('user-subjects')->only(['index', 'store']);
 
     // routes for the appreciations of the school
     Route::resource('appreciations', AppreciationController::class)->names('appreciations');

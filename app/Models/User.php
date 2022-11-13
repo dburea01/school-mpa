@@ -140,9 +140,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Result::class);
     }
-
-    public function user_subjects(): HasMany
-    {
-        return $this->hasMany(UserSubject::class);
-    }
 }

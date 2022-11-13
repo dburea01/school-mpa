@@ -4,23 +4,37 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Exam;
-use App\Models\School;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class ExamRepository
 {
     public function all($request)
     {
-        $periodRepository = new PeriodRepository();
-        $currentPeriod = $periodRepository->getCurrentPeriod();
-
         $query = Exam::orderBy('start_date')
-        ->join('classrooms', function ($join) use ($currentPeriod) {
-            $join->on('classrooms.id', 'exams.classroom_id')
-            ->where('classrooms.period_id', $currentPeriod->id);
+        ->join('classrooms', function ($join) {
+            $join->on('classrooms.id', 'exams.classroom_id');
+        })
+        ->join('subjects', function ($join) {
+            $join->on('subjects.id', 'exams.subject_id');
+        })
+        ->join('periods', function ($join) {
+            $join->on('periods.id', 'classrooms.period_id')
+            ->where('periods.current', 'true');
         })
         ->with(['subject', 'classroom', 'exam_type', 'exam_status'])
         ->select('exams.*');
+
+        if (Auth::user()->isTeacher()) {
+            $classroomRepository = new ClassroomRepository();
+            $authorizedClassrooms = $classroomRepository->getAuthorizedClassrooms(Auth::user());
+            $authorizedClassroomsId = $authorizedClassrooms->pluck('id');
+            $query->whereIn('classrooms.id', $authorizedClassroomsId);
+
+            $subjectRepository = new SubjectRepository();
+            $authorizedSubjects = $subjectRepository->getAuthorizedSubjects(Auth::user());
+            $authorizedSubjectsId = $authorizedSubjects->pluck('id');
+            $query->whereIn('subjects.id', $authorizedSubjectsId);
+        }
 
         if (\array_key_exists('filter_by_title', $request)) {
             $query->where(function ($query) use ($request) {

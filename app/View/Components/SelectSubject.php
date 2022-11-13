@@ -3,6 +3,8 @@ namespace App\View\Components;
 
 use App\Models\School;
 use App\Models\Subject;
+use App\Repositories\SubjectRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class SelectSubject extends Component
@@ -26,7 +28,9 @@ class SelectSubject extends Component
      */
     public function __construct($name, $id, $required, $value, $placeholder = '')
     {
-        $this->subjects = Subject::orderBy('short_name')->get();
+        // $this->subjects = Subject::orderBy('short_name')->get();
+        $subjectRepository = new SubjectRepository();
+        $this->subjects = $subjectRepository->getAuthorizedSubjects(Auth::user());
         $this->name = $name;
         $this->id = $id;
         $this->required = $required;

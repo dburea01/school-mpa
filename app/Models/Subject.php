@@ -25,9 +25,4 @@ class Subject extends Model
     {
         $this->attributes['short_name'] = strtoupper($value);
     }
-
-    public function user_subjects(): HasMany
-    {
-        $this->hasMany(UserSubject::class);
-    }
 }

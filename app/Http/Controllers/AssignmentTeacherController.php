@@ -54,7 +54,7 @@ class AssignmentTeacherController extends Controller
     public function store(StoreAssignmentTeacherRequest $request)
     {
         try {
-            $assignmentTeacher = $this->assignmentTeacherRepository->insert(
+            $this->assignmentTeacherRepository->insert(
                 $request->classroom_id,
                 $request->subject_id,
                 $request->user_id,

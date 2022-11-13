@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
             ClassroomSeeder::class,
             AssignmentStudentSeeder::class,
             AssignmentTeacherSeeder::class,
-            UserSubjectSeeder::class,
             ExamSeeder::class,
             ResultSeeder::class,
         ]);

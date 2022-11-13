@@ -11,8 +11,8 @@ class UserRepository
     public function all(array $request)
     {
         $usersQuery = User::with('role')
-        ->with(['user_groups', 'user_subjects'])
-        ->withCount('assignment_teachers')
+        ->with(['user_groups'])
+        // ->withCount('assignment_teachers')
         ->orderBy('last_name')->orderBy('first_name');
 
         if (array_key_exists('user_name', $request) && $request['user_name'] !== null) {
