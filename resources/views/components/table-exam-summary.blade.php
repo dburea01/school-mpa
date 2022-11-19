@@ -1,4 +1,4 @@
-<table class="table table-sm table-bordered">
+<table class="table table-sm table-bordered" aria-label="exam summary">
     <tr>
         <th>@lang('exam-summary.exam-title')</th>
         <td>{{ $exam->title }}</td>
@@ -20,7 +20,7 @@
         <td>{{ $classroom->name }}</td>
     </tr>
 </table>
-<table class="table table-sm table-bordered">
+<table class="table table-sm table-bordered" aria-label="exam reports">
     <tr>
         <th>@lang('exam-summary.exam-avg')</th>
         <td>{{ $reportExam['avg'] }}</td>

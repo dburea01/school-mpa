@@ -23,7 +23,7 @@ class ResultRepository
             ->with('appreciation')
             ->first();
         }
-        // dd($students);
+
         return $students;
     }
 
