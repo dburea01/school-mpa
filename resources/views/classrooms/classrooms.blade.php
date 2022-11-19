@@ -45,7 +45,18 @@
                         <a href="/classrooms/{{ $classroom->id }}/assignment-students">
                             {{ $classroom->assignment_students->count() }}</a>
                     </td>
-                    <td>
+                    <td>@php
+                        $quantityAssignmentTeachers = $assignmentTeachers
+                        ->filter( function ($assignmentTeacher) use($classroom){
+                        return $assignmentTeacher->classroom_id == $classroom->id;
+                        })->count();
+                        @endphp
+                        <a href="/assignment-teachers?classroom_id={{$classroom->id}}">
+                            {{ $quantityAssignmentTeachers }}
+                        </a>
+                        @if ($quantityAssignmentTeachers === 0)
+                        &nbsp;&nbsp;<i class="bi bi-exclamation-triangle text-danger"></i>
+                        @endif
                     </td>
                 </tr>
                 @endforeach

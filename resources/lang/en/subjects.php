@@ -5,6 +5,6 @@ return [
     'add' => 'Create a subject',
     'short_name' => 'Short name',
     'name' => 'Name',
-    'teachers' => 'Teachers',
+    'assigned_teachers' => 'Assigned teachers',
     'subject_inactive' => 'Inactive subject',
 ];

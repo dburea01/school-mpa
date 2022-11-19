@@ -3,10 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Models\UserSubject;
 use App\Http\Requests\StoreUserSubjectRequest;
-use App\Http\Requests\UpdateUserSubjectRequest;
 use App\Models\User;
 use App\Repositories\SubjectRepository;
-use App\Repositories\UserSubjectRepository;
 use Illuminate\Support\Facades\DB;
 
 class UserSubjectController extends Controller
@@ -15,10 +13,8 @@ class UserSubjectController extends Controller
     private $subjectRepository;
 
     public function __construct(
-        UserSubjectRepository $userSubjectRepository,
         SubjectRepository $subjectRepository
     ) {
-        $this->userSubjectRepository = $userSubjectRepository;
         $this->subjectRepository = $subjectRepository;
         $this->authorizeResource(UserSubject::class);
     }

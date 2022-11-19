@@ -4,12 +4,10 @@
 
 @include('errors.session-values')
 
-
 <h1 class="text-center">@lang('subjects.title') ({{$subjects->count()}})&nbsp;
     <a href="/subjects/create" class="btn btn-primary btn-sm"><i class="bi bi-plus-circle" aria-hidden="true"></i>
         @lang('subjects.add')</a>
 </h1>
-
 
 <div class="row">
     <div class="col">
@@ -18,7 +16,7 @@
                 <tr>
                     <th>@lang('subjects.short_name')</th>
                     <th>@lang('subjects.name')</th>
-                    <th>@lang('subjects.teachers')</th>
+                    <th>@lang('subjects.assigned_teachers')</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +25,7 @@
                     <td>
                         <a href="/subjects/{{ $subject->id }}/edit">{{
                             $subject->short_name }}</a>
+
                         @if ($subject->status === 'INACTIVE')
                         <i class="bi bi-exclamation-triangle-fill text-danger" aria-hidden="true"
                             title="@lang('subjects.subject_inactive')"></i>
@@ -38,22 +37,19 @@
                         @endif
                     </td>
                     <td>{{ $subject->name }}</td>
-
-                    @php
-                    $userSubjectsFiltered = $userSubjects->filter(function($userSubject) use($subject){
-
-                    return $userSubject->subject->id == $subject->id;
-                    })
-
-
-                    @endphp
-
                     <td>
-                        @foreach ($userSubjectsFiltered as $userSubjectFiltered)
-                        <span class="badge text-bg-info">{{ $userSubjectFiltered->user->full_name }} </span>
-                        @endforeach
-
-
+                        @php
+                        $quantityAssignmentTeachers = $assignmentTeachers
+                        ->filter( function ($assignmentTeacher) use($subject){
+                        return $assignmentTeacher->classroom_id == $subject->id;
+                        })->count();
+                        @endphp
+                        <a href="/assignment-teachers?classroom_id={{$subject->id}}">
+                            {{ $quantityAssignmentTeachers }}
+                        </a>
+                        @if ($quantityAssignmentTeachers === 0)
+                        &nbsp;&nbsp;<i class="bi bi-exclamation-triangle text-danger"></i>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -62,9 +58,5 @@
         </table>
 
     </div>
-
 </div>
-
-
-
 @endsection

@@ -2,8 +2,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClassroomRequest;
+use App\Models\AssignmentTeacher;
 use App\Models\Classroom;
 use App\Models\School;
+use App\Repositories\AssignmentTeacherRepository;
 use App\Repositories\ClassroomRepository;
 use App\Repositories\PeriodRepository;
 use Illuminate\Http\Request;
@@ -13,13 +15,16 @@ class ClassroomController extends Controller
     private $classroomRepository;
 
     private $periodRepository;
+    private $assignmentTeacherRepository;
 
     public function __construct(
         ClassroomRepository $classroomRepository,
-        PeriodRepository $periodRepository
+        PeriodRepository $periodRepository,
+        AssignmentTeacherRepository $assignmentTeacherRepository
     ) {
         $this->classroomRepository = $classroomRepository;
         $this->periodRepository = $periodRepository;
+        $this->assignmentTeacherRepository = $assignmentTeacherRepository;
         $this->authorizeResource(Classroom::class);
     }
 
@@ -39,6 +44,7 @@ class ClassroomController extends Controller
             'classrooms' => $classrooms,
             'currentPeriod' => $currentPeriod,
             'periodIdToDisplay' => $periodIdToDisplay,
+            'assignmentTeachers' => $this->assignmentTeacherRepository->index([])
         ]);
     }
 

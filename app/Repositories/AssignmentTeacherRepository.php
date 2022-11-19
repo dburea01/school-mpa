@@ -2,9 +2,6 @@
 namespace App\Repositories;
 
 use App\Models\AssignmentTeacher;
-use App\Models\Classroom;
-use App\Models\Subject;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class AssignmentTeacherRepository
@@ -24,7 +21,9 @@ class AssignmentTeacherRepository
             'users.first_name',
             'users.last_name',
             'classrooms.name as classroom_name',
+            'classrooms.id as classroom_id',
             'subjects.name as subject_name',
+            'subjects.id as subject_id',
             'assignment_teachers.comment',
             'assignment_teachers.id as assignment_teachers_id'
         );
