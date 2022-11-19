@@ -10,11 +10,10 @@ class Result extends Model
     use HasFactory, HasCreatedUpdatedBy;
 
     protected $fillable = [
-
         'exam_id',
         'user_id',
+        'appreciation_id',
         'note_num',
-        'note_alpha',
         'comment',
     ];
 
@@ -26,5 +25,10 @@ class Result extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function appreciation(): BelongsTo
+    {
+        return $this->belongsTo(Appreciation::class);
     }
 }
