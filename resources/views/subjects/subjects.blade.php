@@ -48,7 +48,7 @@
                             {{ $quantityAssignmentTeachers }}
                         </a>
                         @if ($quantityAssignmentTeachers === 0)
-                        &nbsp;&nbsp;<i class="bi bi-exclamation-triangle text-danger"></i>
+                        &nbsp;&nbsp;<i class="bi bi-exclamation-triangle text-danger" aria-hidden="true"></i>
                         @endif
                     </td>
                 </tr>

@@ -8,7 +8,6 @@ class AssignmentTeacherRepository
 {
     public function index(array $request)
     {
-        // $query = AssignmentTeacher::with(['user', 'classroom', 'subject']);
         $query = DB::table('periods')
         ->join('classrooms', 'periods.id', 'classrooms.period_id')
         ->join('assignment_teachers', 'assignment_teachers.classroom_id', 'classrooms.id')

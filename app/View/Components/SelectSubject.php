@@ -28,7 +28,6 @@ class SelectSubject extends Component
      */
     public function __construct($name, $id, $required, $value, $placeholder = '')
     {
-        // $this->subjects = Subject::orderBy('short_name')->get();
         $subjectRepository = new SubjectRepository();
         $this->subjects = $subjectRepository->getAuthorizedSubjects(Auth::user());
         $this->name = $name;
