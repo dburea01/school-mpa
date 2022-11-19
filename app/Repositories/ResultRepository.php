@@ -3,8 +3,6 @@ namespace App\Repositories;
 
 use App\Models\Exam;
 use App\Models\Result;
-use App\Models\School;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class ResultRepository
@@ -12,9 +10,9 @@ class ResultRepository
     public function index(Exam $exam)
     {
         $students = DB::table('users')
-        ->join('assignments', 'users.id', 'assignments.user_id')
+        ->join('assignment_students', 'users.id', 'assignment_students.user_id')
         ->where('users.role_id', 'STUDENT')
-        ->where('assignments.classroom_id', $exam->classroom->id)
+        ->where('assignment_students.classroom_id', $exam->classroom->id)
         ->orderBy('users.last_name')
         ->select('users.last_name', 'users.first_name', 'users.id')
         ->get();
@@ -22,8 +20,10 @@ class ResultRepository
         foreach ($students as $student) {
             $student->result = Result::where('exam_id', $exam->id)
             ->where('user_id', $student->id)
+            ->with('appreciation')
             ->first();
         }
+        // dd($students);
         return $students;
     }
 
@@ -42,5 +42,43 @@ class ResultRepository
         Result::where('exam_id', $exam->id)
         ->where('user_id', $userId)
         ->delete();
+    }
+
+    public function getAverageExam(Exam $exam): ?float
+    {
+        return Result::where('exam_id', $exam->id)
+        ->whereNotNull('note_num')
+        ->avg('note_num');
+    }
+
+    public function getMinExam(Exam $exam): ?float
+    {
+        return Result::where('exam_id', $exam->id)
+        ->whereNotNull('note_num')
+        ->min('note_num');
+    }
+
+    public function getMaxExam(Exam $exam): ?float
+    {
+        return Result::where('exam_id', $exam->id)
+        ->whereNotNull('note_num')
+        ->max('note_num');
+    }
+
+    public function getQtyNotesExam(Exam $exam): ?float
+    {
+        return Result::where('exam_id', $exam->id)
+        ->whereNotNull('note_num')
+        ->count('note_num');
+    }
+
+    public function getReportExam(Exam $exam): array
+    {
+        return [
+            'avg' => round($this->getAverageExam($exam), 2),
+            'min' => $this->getMinExam($exam),
+            'max' => $this->getMaxExam($exam),
+            'qtyNotes' => $this->getQtyNotesExam($exam),
+        ];
     }
 }

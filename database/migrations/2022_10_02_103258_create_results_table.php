@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->id();
             $table->integer('exam_id');
             $table->uuid('user_id');
+            $table->integer('appreciation_id')->nullable();
             $table->decimal('note_num', 8, 2)->nullable();
-            $table->string('note_alpha')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
             $table->string('created_by');
@@ -25,6 +25,7 @@ return new class extends Migration {
 
             $table->foreign('exam_id')->references('id')->on('exams')->cascadeOnDelete();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('appreciation_id')->references('id')->on('appreciations')->nullOnDelete();
 
             $table->unique(['exam_id', 'user_id']);
         });

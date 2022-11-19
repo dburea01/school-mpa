@@ -22,8 +22,11 @@ class StoreResultRequest extends FormRequest
      */
     public function rules()
     {
+        // TODO : to complete
         return [
-            //
+            'appreciation_id' => 'nullable|exists:appreciations,id',
+            'comment' => 'max:500',
+            'note_num' => 'required|numeric|gte:0'
         ];
     }
 }

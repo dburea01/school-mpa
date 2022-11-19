@@ -5,36 +5,47 @@
 @include('errors.session-values')
 
 
-<h1 class="text-center">@lang('results.title')</h1>
+
 
 <div class="row">
     <div class="col-md-8">
-
+        <h1 class="text-center text-primary">@lang('results.title')</h1>
         @foreach ($students as $student)
-        <div class="row border">
+        <div class="row border p-1">
             <div class="col-md-4">
                 {{ $student->last_name.' '.$student->first_name }}
             </div>
             <div class="col-md-8">
-                <form class="row" action="/exams/{{ $exam->id }}/results" method="POST">
+                <form action="/exams/{{ $exam->id }}/results" method="POST">
                     @csrf
-                    <input type="text" name="user_id" value="{{ $student->id }}">
-                    <div class="col-3">
-                        <input type="text" class="form-control form-control-sm @error('title') is-invalid @enderror"
-                            required name="note_num"
-                            value="@if($student->result) {{ $student->result->note_num }} @endif">
+                    <div class="row">
+                        <input type="hidden" name="user_id" value="{{ $student->id }}">
+                        <div class="col-3">
+                            <input type="text" class="form-control form-control-sm @error('title') is-invalid @enderror"
+                                required name="note_num"
+                                value="@if($student->result) {{ $student->result->note_num }} @endif">
+                        </div>
+
+                        <div class="col-3">
+                            <x-select-appreciation name="appreciation_id" required="false" placeholder="appreciation"
+                                :studentResult="$student->result" :appreciations="$appreciations" />
+                        </div>
+
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="col-md-3 col-sm-6">
-                        <input type="text" class="form-control form-control-sm @error('title') is-invalid @enderror"
-                            required name="note_alpha"
-                            value="@if($student->result) {{ $student->result->note_alpha }} @endif">
+                    <div class="row">
+                        <div class="col">
+                            <textarea class="form-control form-control-sm @error('comment') is-invalid @enderror"
+                                name="comment" rows="2"
+                                maxlength="500">@if($student->result) {{ $student->result->comment }} @endif</textarea>
+                        </div>
                     </div>
-                    <input type="text" class="form-control form-control-sm @error('title') is-invalid @enderror"
-                        required name="comment" value="@if($student->result) {{ $student->result->comment }} @endif">
 
-                    <button type="submit" class="btn btn-sm btn-success"><i class="bi bi-check2" aria-hidden="true"></i>
-                    </button>
                 </form>
             </div>
         </div>
@@ -42,7 +53,8 @@
 
     </div>
     <div class="col-md-4">
-        <h3 class="text-center">Summary to do</h3>
+        <h1 class="text-center text-primary">@lang('results.summary')</h1>
+        <x-table-exam-summary :exam="$exam" />
     </div>
 
 </div>

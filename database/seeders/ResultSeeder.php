@@ -1,10 +1,9 @@
 <?php
 namespace Database\Seeders;
 
-use App\Models\Assignment;
+use App\Models\Appreciation;
 use App\Models\Exam;
 use App\Models\Result;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -18,6 +17,7 @@ class ResultSeeder extends Seeder
     public function run()
     {
         $exams = Exam::whereIn('exam_status_id', [50, 60])->get();
+        $appreciations = Appreciation::all();
 
         foreach ($exams as $exam) {
             // find the students of this exam
@@ -33,7 +33,8 @@ class ResultSeeder extends Seeder
                 foreach ($students as $student) {
                     Result::Factory()->create([
                         'exam_id' => $exam->id,
-                        'user_id' => $student->id
+                        'user_id' => $student->id,
+                        'appreciation_id' => $appreciations->random()->id,
                     ]);
                 }
             }
@@ -44,7 +45,8 @@ class ResultSeeder extends Seeder
                 for ($i = 0; $i < $qtyStudents / 2 ; $i++) {
                     Result::Factory()->create([
                         'exam_id' => $exam->id,
-                        'user_id' => $students[$i]->id
+                        'user_id' => $students[$i]->id,
+                        'appreciation_id' => $appreciations->random()->id,
                     ]);
                 }
             }

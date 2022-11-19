@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         ]);
 
         // create some teachers
-        User::factory()->count(10)->create([
+        User::factory()->count(20)->create([
             'role_id' => 'TEACHER',
         ]);
 

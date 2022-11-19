@@ -42,7 +42,7 @@
                 <input type="radio" class="btn-check" name="view" id="media" value="media" @if ($view==='media' )
                     checked @endif onchange="this.form.submit()" aria-label="users with media">
                 <label class="btn btn-sm btn-outline-primary" for="media">
-                    <i class="bi bi-list-stars" aria-hidden="true"></i>
+                    <i class="bi bi-person-square" aria-hidden="true"></i>
                 </label>
             </div>
 
@@ -62,7 +62,6 @@
             <thead>
                 <tr>
                     <th>@lang('users.name')</th>
-                    <th>@lang('users.email')</th>
                     <th>@lang('users.role')</th>
                 </tr>
             </thead>
@@ -76,7 +75,6 @@
                         <x-alert-user-inactive />
                         @endif
                     </td>
-                    <td>{{ $user->email }}</td>
                     <td>{{ $user->role->name }}
 
                         @if ($user->role_id === 'TEACHER')

@@ -17,7 +17,6 @@ class ResultFactory extends Factory
     {
         return [
             'note_num' => random_int(0, 2000) / 100,
-            'note_alpha' => fake()->randomElement(['A', 'B', 'C', 'D', 'E', 'F']),
             'comment' => fake()->sentence(),
         ];
     }

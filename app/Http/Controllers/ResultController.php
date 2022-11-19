@@ -5,16 +5,18 @@ use App\Models\Result;
 use App\Http\Requests\StoreResultRequest;
 use App\Http\Requests\UpdateResultRequest;
 use App\Models\Exam;
-use App\Models\School;
+use App\Repositories\AppreciationRepository;
 use App\Repositories\ResultRepository;
 
 class ResultController extends Controller
 {
     public $resultRepository;
+    public $appreciationRepository;
 
-    public function __construct(ResultRepository $resultRepository)
+    public function __construct(ResultRepository $resultRepository, AppreciationRepository $appreciationRepository)
     {
         $this->resultRepository = $resultRepository;
+        $this->appreciationRepository = $appreciationRepository;
     }
 
     /**
@@ -24,11 +26,10 @@ class ResultController extends Controller
      */
     public function index(Exam $exam)
     {
-        $students = $this->resultRepository->index($exam);
-
         return view('results.results', [
             'exam' => $exam,
-            'students' => $students
+            'students' => $this->resultRepository->index($exam),
+            'appreciations' => $this->appreciationRepository->all()
         ]);
     }
 
